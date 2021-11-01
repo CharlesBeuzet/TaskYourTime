@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "414264403263",
+    "project_id": "taskyourtime",
+    "storage_bucket": "taskyourtime.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414264403263:android:91e8648622f92f33ce5f8a",
+        "android_client_info": {
+          "package_name": "com.example.taskyourtime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414264403263-9tkbcrqv5l0sibv04nr1jqv7jlctarl3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB7GBmUkd7j--78I21P5ngitdRjAQoeUVQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414264403263-9tkbcrqv5l0sibv04nr1jqv7jlctarl3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
