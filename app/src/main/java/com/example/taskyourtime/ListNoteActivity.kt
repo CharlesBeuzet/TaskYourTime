@@ -1,8 +1,10 @@
 package com.example.taskyourtime
 
 import android.os.Bundle
+import android.widget.LinearLayout
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskyourtime.databinding.ActivityListNoteBinding
 import com.example.taskyourtime.model.Note
 import com.example.taskyourtime.services.NoteService
@@ -21,14 +23,19 @@ class ListNoteActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         binding = ActivityListNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
 
         binding.fab.setOnClickListener { view ->
             Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                 .setAction("Action", null).show()
         }
+    }
+
+    private fun displayNotes(){
+       /* binding.recyclerView.layoutManager = LinearLayoutManager(this)
+        binding.recycleView.adapter = ListNoteAdapter()*/
     }
 }
