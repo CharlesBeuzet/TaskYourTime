@@ -4,16 +4,17 @@ import android.content.Context
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.taskyourtime.model.Note
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 interface NoteService{
-    fun postNewNote(name: String, content: String, user_id: String) : LiveData<Note?>
+    fun postNewNote(name: String, content: String, user_id: String) : LiveData<Boolean?>
     fun deleteNote(id: String) : LiveData<Boolean?>
     fun findNoteById(id: String) : LiveData<Note?>
-    fun updateNote(id: String) : LiveData<Boolean?>
+    fun updateNote(id: String, newName: String, newContent: String) : LiveData<Boolean?>
 }
 
 class NoteServiceImpl(
@@ -22,7 +23,7 @@ class NoteServiceImpl(
     private val database: DatabaseReference = Firebase.database.reference
     private val TAG : String = "NoteService"
 
-    override fun postNewNote(name: String, content: String, user_id: String): LiveData<Note?> {
+    override fun postNewNote(name: String, content: String, user_id: String): MutableLiveData<Boolean> {
         var success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         val owner = Firebase.auth.currentUser
         if(owner != null){
@@ -33,6 +34,7 @@ class NoteServiceImpl(
             success.postValue(false)
             Log.w(TAG, "Erreur lors de la création de la note")
         }
+        return success
     }
 
     override fun deleteNote(id: String): LiveData<Boolean?> {
@@ -45,6 +47,7 @@ class NoteServiceImpl(
             success.postValue(false)
             Log.w(TAG, "Erreur lors de la suppression")
         }
+        return success
     }
 
     override fun updateNote(id: String, newName: String, newContent: String): LiveData<Boolean?> {
@@ -63,6 +66,7 @@ class NoteServiceImpl(
             Log.w(TAG, "Erreur lors de la mise à jour de la note '$id'")
             success.postValue(false)
         }
+        return success
     }
 
     override fun findNoteById(id: String): LiveData<Note?> {
