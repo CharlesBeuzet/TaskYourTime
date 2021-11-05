@@ -1,4 +1,4 @@
-package com.example.taskyourtime
+package com.example.taskyourtime.note
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -17,7 +17,7 @@ class ListNoteAdapter(
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
-    ): ListNoteAdapter.ListNoteHolder {
+    ): ListNoteHolder {
         val inflater = LayoutInflater.from(parent.context)
         binding = NoteItemCellBinding.inflate(inflater, parent, false)
         return ListNoteHolder(binding)

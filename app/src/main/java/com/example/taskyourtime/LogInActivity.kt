@@ -10,6 +10,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.taskyourtime.note.ListNoteActivity
 import com.example.taskyourtime.services.appModule
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -17,9 +18,8 @@ import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.ext.koin.androidLogger
 import org.koin.core.context.startKoin
-import java.*
 
-class LogInActivity : AppCompatActivity() {
+    class LogInActivity : AppCompatActivity() {
 
     lateinit var login_button : Button
     lateinit var subscription_link : TextView
