@@ -10,9 +10,13 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.example.taskyourtime.services.appModule
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import org.koin.android.ext.koin.androidContext
+import org.koin.android.ext.koin.androidLogger
+import org.koin.core.context.startKoin
 import java.*
 
 class LogInActivity : AppCompatActivity() {
@@ -26,6 +30,13 @@ class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        //Starting Koin
+        startKoin {
+            androidLogger()
+            androidContext(applicationContext)
+            modules(appModule)
+        }
 
         auth = Firebase.auth
 
@@ -51,7 +62,8 @@ class LogInActivity : AppCompatActivity() {
                             // Sign in success, update UI with the signed-in user's information
                             Log.d(TAG, "signInWithEmail:success")
                             val user = auth.currentUser
-                            val intent = Intent(this, DefaultActivity::class.java)
+                            //val intent = Intent(this, DefaultActivity::class.java)
+                            val intent = Intent(this, ListNoteActivity::class.java)
                             startActivity(intent)
                         } else {
                             // If sign in fails, display a message to the user.
