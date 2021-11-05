@@ -92,7 +92,7 @@ class ListNoteActivity : AppCompatActivity() {
 
     private fun displayNotes(){
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = ListNoteAdapter(notes, userService)
+        binding.recyclerView.adapter = ListNoteAdapter(notes)
         binding.loaderFeed.isVisible = false
     }
 

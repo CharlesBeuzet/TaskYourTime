@@ -5,13 +5,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskyourtime.databinding.NoteItemCellBinding
 import com.example.taskyourtime.model.Note
-import com.example.taskyourtime.services.UserService
 
 private lateinit var binding: NoteItemCellBinding
 
 class ListNoteAdapter(
     private val data: MutableList<Note>,
-    private val userService: UserService,
 ) : RecyclerView.Adapter<ListNoteAdapter.ListNoteHolder>(){
 
     override fun onCreateViewHolder(
@@ -27,13 +25,6 @@ class ListNoteAdapter(
         val data: Note = data[position]
         holder.nameNote.text = data.name
         holder.contentNote.text = data.content
-        data.user_id?.let { it ->
-            userService.getUserById(it).observeForever{
-                if(it != null){
-                    holder.firstname.text = it.firstName
-                }
-            }
-        }
     }
 
     override fun getItemCount(): Int {
@@ -43,7 +34,6 @@ class ListNoteAdapter(
     class ListNoteHolder(binding: NoteItemCellBinding) : RecyclerView.ViewHolder(binding.root) {
         val nameNote = binding.nameNote
         val contentNote = binding.contentNote
-        val firstname = binding.firstname
         val layout = binding.root
     }
 }
