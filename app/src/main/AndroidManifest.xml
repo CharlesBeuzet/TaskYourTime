@@ -10,6 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskYourTime">
         <activity android:name=".note.ListNoteActivity" />
+        <activity android:name=".note.AddNoteActivity" />
         <activity android:name=".DefaultActivity" />
         <activity android:name=".SubscriptionActivity" />
         <activity android:name=".LogInActivity">

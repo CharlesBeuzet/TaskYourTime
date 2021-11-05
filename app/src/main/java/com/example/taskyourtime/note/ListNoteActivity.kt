@@ -38,7 +38,7 @@ class ListNoteActivity : AppCompatActivity() {
         
         //go to activity create a note
         binding.addNoteButton.setOnClickListener{
-            val intentAddNote = Intent(this, DefaultActivity::class.java)
+            val intentAddNote = Intent(this, AddNoteActivity::class.java)
             startActivity(intentAddNote)
         }
 

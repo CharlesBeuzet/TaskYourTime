@@ -3,6 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/projets/TaskYourTime/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.17222222222222222" />
+        <entry key="..\:/projets/TaskYourTime/app/src/main/res/drawable/ic_launcher_background.xml" value="0.17222222222222222" />
+        <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/activity_add_note.xml" value="0.25" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/activity_list_note.xml" value="0.29067930489731436" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/activity_login.xml" value="0.36666666666666664" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/activity_subscription.xml" value="0.36666666666666664" />
