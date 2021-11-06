@@ -79,19 +79,12 @@ class ListNoteActivity : AppCompatActivity() {
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + snapshot.key!!)
-                /*val index = notes.indexOfFirst { it.id == snapshot.key!! } //-1 if not found
+                val index = notes.indexOfFirst { it.id == snapshot.key!! } //-1 if not found
                 if(index >= 0 && Firebase.auth.uid == notes[index].user_id){
                     val map = snapshot.value as Map<String?, Any?>
-                    val maNote = Note(map)
-                    //val notId = notes[index].id
-                    notes.remove(maNote)
-                    Log.d(TAG, "la note dont le nom est $maNote " + binding.recyclerView.adapter?.getItemId(index))
-                    binding.recyclerView.adapter?.notifyDataSetChanged()
-                    Log.d(TAG, "la note dont le nom est $maNote " + binding.recyclerView.adapter?.getItemId(index) + " le nb d'item : " + binding.recyclerView.adapter?.itemCount)
+                    notes.removeAt(index)
                     binding.recyclerView.adapter?.notifyItemRemoved(index)
-                    displayNotes()
-                }*/
-                displayNotes()
+                }
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
