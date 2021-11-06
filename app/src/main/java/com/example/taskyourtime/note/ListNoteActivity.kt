@@ -4,14 +4,17 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.taskyourtime.DefaultActivity
+import com.example.taskyourtime.R
 import com.example.taskyourtime.databinding.ActivityListNoteBinding
 import com.example.taskyourtime.model.Note
 import com.example.taskyourtime.services.NoteService
 import com.example.taskyourtime.services.UserService
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -54,14 +57,16 @@ class ListNoteActivity : AppCompatActivity() {
                 maNote.id = snapshot.key!!
                 //faire ce qu'on veut faire : afficher la note dans le recyclerView
                 maNote.name?.let { Log.d(TAG, it) }
-                notes.add(maNote)
+                if(Firebase.auth.uid == maNote.user_id){
+                    notes.add(maNote)
+                }
                 binding.recyclerView.adapter?.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 Log.d(TAG, "onChildChanged:" + snapshot.key!!)
                 val index = notes.indexOfFirst {it.id == snapshot.key!! } // -1 if not found
-                if (index >= 0){
+                if (index >= 0 && notes[index].user_id == Firebase.auth.uid){
                     val map = snapshot.value as Map<String?, Any?>
                     val maNote = Note(map)
                     val notId = notes[index].id
@@ -74,7 +79,19 @@ class ListNoteActivity : AppCompatActivity() {
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + snapshot.key!!)
-
+                /*val index = notes.indexOfFirst { it.id == snapshot.key!! } //-1 if not found
+                if(index >= 0 && Firebase.auth.uid == notes[index].user_id){
+                    val map = snapshot.value as Map<String?, Any?>
+                    val maNote = Note(map)
+                    //val notId = notes[index].id
+                    notes.remove(maNote)
+                    Log.d(TAG, "la note dont le nom est $maNote " + binding.recyclerView.adapter?.getItemId(index))
+                    binding.recyclerView.adapter?.notifyDataSetChanged()
+                    Log.d(TAG, "la note dont le nom est $maNote " + binding.recyclerView.adapter?.getItemId(index) + " le nb d'item : " + binding.recyclerView.adapter?.itemCount)
+                    binding.recyclerView.adapter?.notifyItemRemoved(index)
+                    displayNotes()
+                }*/
+                displayNotes()
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
@@ -86,13 +103,11 @@ class ListNoteActivity : AppCompatActivity() {
             }
         }
         database.addChildEventListener(childEventListener)
-
-
     }
 
     private fun displayNotes(){
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.adapter = ListNoteAdapter(notes)
+        binding.recyclerView.adapter = ListNoteAdapter(notes, noteService)
         binding.loaderFeed.isVisible = false
     }
 
@@ -113,10 +128,7 @@ class ListNoteActivity : AppCompatActivity() {
     }
 
     /*override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_ -> {
-            true
-        }
-
+        super.onOptionsItemSelected(item)
         else -> {
             super.onOptionsItemSelected(item)
         }

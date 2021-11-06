@@ -1,15 +1,21 @@
 package com.example.taskyourtime.note
 
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskyourtime.databinding.NoteItemCellBinding
 import com.example.taskyourtime.model.Note
+import com.example.taskyourtime.services.NoteService
+import java.nio.file.Files.delete
+
 
 private lateinit var binding: NoteItemCellBinding
 
+
 class ListNoteAdapter(
     private val data: MutableList<Note>,
+    private val noteService: NoteService,
 ) : RecyclerView.Adapter<ListNoteAdapter.ListNoteHolder>(){
 
     override fun onCreateViewHolder(
@@ -25,6 +31,11 @@ class ListNoteAdapter(
         val data: Note = data[position]
         holder.nameNote.text = data.name
         holder.contentNote.text = data.content
+        val id_note = data.id.toString()
+        holder.deleteNoteButton.setOnClickListener{
+            Log.d("Asupprimer","Note dont l'id est $id_note a été supprimée")
+            noteService.deleteNote(id_note)
+        }
     }
 
     override fun getItemCount(): Int {
@@ -34,6 +45,7 @@ class ListNoteAdapter(
     class ListNoteHolder(binding: NoteItemCellBinding) : RecyclerView.ViewHolder(binding.root) {
         val nameNote = binding.nameNote
         val contentNote = binding.contentNote
+        val deleteNoteButton = binding.deleteNoteButton
         val layout = binding.root
     }
 }
