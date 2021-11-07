@@ -17,6 +17,7 @@ import com.example.taskyourtime.databinding.ActivityListNoteBinding
 import com.example.taskyourtime.model.Note
 import com.example.taskyourtime.services.NoteService
 import com.example.taskyourtime.services.UserService
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ChildEventListener
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
@@ -99,15 +100,16 @@ class ListNoteActivity : Fragment() {
                 maNote.id = snapshot.key!!
                 //faire ce qu'on veut faire : afficher la note dans le recyclerView
                 maNote.name?.let { Log.d(TAG, it) }
-                notes.add(maNote)
+                if(Firebase.auth.uid == maNote.user_id){
+                    notes.add(maNote)
+                }
                 binding?.recyclerView?.adapter?.notifyDataSetChanged()
-                Log.d(TAG,"View updated")
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 Log.d(TAG, "onChildChanged:" + snapshot.key!!)
                 val index = notes.indexOfFirst {it.id == snapshot.key!! } // -1 if not found
-                if (index >= 0){
+                if (index >= 0 && notes[index].user_id == Firebase.auth.uid){
                     val map = snapshot.value as Map<String?, Any?>
                     val maNote = Note(map)
                     val notId = notes[index].id
@@ -120,7 +122,12 @@ class ListNoteActivity : Fragment() {
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + snapshot.key!!)
-
+                val index = notes.indexOfFirst { it.id == snapshot.key!! } //-1 if not found
+                if(index >= 0 && Firebase.auth.uid == notes[index].user_id){
+                    val map = snapshot.value as Map<String?, Any?>
+                    notes.removeAt(index)
+                    binding.recyclerView.adapter?.notifyItemRemoved(index)
+                }
             }
 
             override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
@@ -141,10 +148,7 @@ class ListNoteActivity : Fragment() {
     }*/
 
     /*override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        R.id.action_ -> {
-            true
-        }
-
+        super.onOptionsItemSelected(item)
         else -> {
             super.onOptionsItemSelected(item)
         }
