@@ -9,9 +9,11 @@ import android.view.View
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.taskyourtime.services.NoteService
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import org.koin.android.ext.android.inject
 
 class SubscriptionActivity : AppCompatActivity() {
 
@@ -19,6 +21,8 @@ class SubscriptionActivity : AppCompatActivity() {
     lateinit var subscribe_button : Button
     lateinit var email_text : EditText
     lateinit var password_text : EditText
+    lateinit var firstname_text : EditText
+    lateinit var lastname_text : EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,6 +33,8 @@ class SubscriptionActivity : AppCompatActivity() {
         subscribe_button = findViewById(R.id.button_subscribe)
         email_text = findViewById(R.id.email)
         password_text = findViewById(R.id.password)
+        firstname_text = findViewById(R.id.firstname)
+        lastname_text = findViewById(R.id.lastname)
 
         subscribe_button.setOnClickListener(listener)
     }
