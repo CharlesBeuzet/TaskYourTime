@@ -53,7 +53,7 @@ class ListNoteActivity : Fragment() {
     private fun displayNotes(){
         Log.d(TAG,"displayNotes")
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
-        binding?.recyclerView?.adapter = ListNoteAdapter(notes)
+        binding?.recyclerView?.adapter = ListNoteAdapter(notes, noteService)
         binding?.loaderFeed?.isVisible = false
     }
 
@@ -126,7 +126,7 @@ class ListNoteActivity : Fragment() {
                 if(index >= 0 && Firebase.auth.uid == notes[index].user_id){
                     val map = snapshot.value as Map<String?, Any?>
                     notes.removeAt(index)
-                    binding.recyclerView.adapter?.notifyItemRemoved(index)
+                    binding?.recyclerView?.adapter?.notifyItemRemoved(index)
                 }
             }
 
