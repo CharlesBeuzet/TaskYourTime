@@ -2,7 +2,7 @@ package com.example.taskyourtime.model
 
 import java.util.*
 
-class CalendarItem(
+class CalendarEvent(
     var id: String?,
     var name: String?,
     var description: String?,
