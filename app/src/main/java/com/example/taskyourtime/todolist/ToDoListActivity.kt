@@ -81,6 +81,7 @@ class ToDoListActivity : Fragment() {
                     items.add(myItem)
                 }
                 Log.d(TAG,"Nulber of items : " + items.size)
+                Log.d(TAG,"Checkbox : " + myItem.done)
                 binding?.recyclerView?.adapter?.notifyDataSetChanged()
             }
 

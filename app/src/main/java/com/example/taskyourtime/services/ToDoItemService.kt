@@ -15,7 +15,7 @@ interface ToDoItemService{
     fun postNewNote(content: String, user_id: String) : LiveData<Boolean?>
     fun deleteNote(id: String) : LiveData<Boolean?>
     fun findItemById(id: String) : LiveData<ToDoItem?>
-    //fun updateNote(id: String, newContent: String) : LiveData<Boolean?>
+    fun updateItem(id: String, checkValue: Boolean) : LiveData<Boolean?>
     //TODO : définir le check des éléments
 }
 
@@ -46,7 +46,7 @@ class ToDoItemServiceImpl(
             return
         }
         Log.d(TAG, "Success in getting the key: $key")
-        val item : ToDoItem = ToDoItem(key, content, user_id)
+        val item : ToDoItem = ToDoItem(key, content, user_id,false)
         database.child("ItemToDoList").child(key).setValue(item.toMap())
     }
 
@@ -72,7 +72,7 @@ class ToDoItemServiceImpl(
         var itemResult: MutableLiveData<ToDoItem?> = MutableLiveData<ToDoItem?>()
         database.child("ItemToDoList").child(id).get().addOnSuccessListener {
             val map = it.value as Map<String?, Any?>
-            val item = ToDoItem("", "", "")
+            val item = ToDoItem("", "", "",false)
             item.loadFromMap(map)
             Log.d(TAG, "Item trouvé")
             itemResult.postValue(item)
@@ -81,6 +81,24 @@ class ToDoItemServiceImpl(
             itemResult.postValue(null)
         }
         return itemResult
+    }
+
+    private fun updateField(id: String, field: String, checkValue: Boolean){
+        database.child("ItemToDoList").child(id).child(field).setValue(checkValue)
+    }
+
+    override fun updateItem(id: String, checkValue: Boolean): LiveData<Boolean?> {
+        var success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        var noteToUpdate = findItemById(id)
+        if(noteToUpdate != null){
+            updateField(id, "done", checkValue)
+            Log.w(TAG, "Item '$id' mis à jour")
+            success.postValue(true)
+        }else{
+            Log.w(TAG, "Erreur lors de la mise à jour de l'item' '$id'")
+            success.postValue(false)
+        }
+        return success
     }
 
 }
