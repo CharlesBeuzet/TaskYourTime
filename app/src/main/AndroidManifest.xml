@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskYourTime">
-        <activity android:name=".note.ListNoteActivity" />
+        <activity android:name=".calendar.AddToCalendarActivity" />
         <activity android:name=".note.AddNoteActivity" />
         <activity android:name=".DefaultActivity" />
         <activity android:name=".SubscriptionActivity" />
