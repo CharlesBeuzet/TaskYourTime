@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.taskyourtime.note.ListNoteActivity
+import com.example.taskyourtime.todolist.ToDoListActivity
 import com.google.android.material.tabs.TabLayout
 
 class DefaultActivity : FragmentActivity() {
@@ -58,7 +59,7 @@ class DefaultActivity : FragmentActivity() {
             when(position) {
                 0 -> view = DefaultFragment()
                 1 -> view = ListNoteActivity()
-                2 ->  view = DefaultFragment()
+                2 ->  view = ToDoListActivity()
                 3 -> view = DefaultFragment()
                 4 -> view = DefaultFragment()
                 else -> view = DefaultFragment()

@@ -9,6 +9,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskYourTime">
+        <activity
+            android:name=".todolist.AddItemActivity"
+            android:label="@string/title_activity_add_item"
+            android:theme="@style/Theme.TaskYourTime.NoActionBar"></activity>
+        <activity
+            android:name=".todolist.ToDoListActivity"
+            android:label="@string/title_activity_to_do_list"
+            android:theme="@style/Theme.TaskYourTime.NoActionBar" />
         <activity android:name=".note.ListNoteActivity" />
         <activity android:name=".note.AddNoteActivity" />
         <activity android:name=".DefaultActivity" />
