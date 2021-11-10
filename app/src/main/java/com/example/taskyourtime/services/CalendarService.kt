@@ -13,10 +13,10 @@ import kotlinx.coroutines.processNextEventInCurrentThread
 import java.util.*
 
 interface CalendarService{
-    fun postNewCalendarEvent(name: String, description: String, beginDate: Date, endDate: Date, user_id: String): LiveData<Boolean?>
+    fun postNewCalendarEvent(name: String, description: String, beginDate: String, endDate: String, user_id: String): LiveData<Boolean?>
     fun deleteCalendarEvent(id: String): LiveData<Boolean?>
     fun findCalendarEventById(id: String) : LiveData<CalendarEvent?>
-    fun updateCalendarEvent(id: String, newName: String, newDescription: String, newBeginDate: Date, newEndDate: Date) : LiveData<Boolean?>
+    fun updateCalendarEvent(id: String, newName: String, newDescription: String, newBeginDate: String, newEndDate: String) : LiveData<Boolean?>
 }
 
 class CalendarServiceImpl(
@@ -25,7 +25,7 @@ class CalendarServiceImpl(
     private val database: DatabaseReference = Firebase.database.reference
     private val TAG: String = "CalendarService"
 
-    override fun postNewCalendarEvent(name: String, description: String, beginDate: Date, endDate: Date, user_id: String): MutableLiveData<Boolean>{
+    override fun postNewCalendarEvent(name: String, description: String, beginDate: String, endDate: String, user_id: String): MutableLiveData<Boolean>{
         var success: MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         val owner = Firebase.auth.currentUser
         if(owner != null){
@@ -57,8 +57,8 @@ class CalendarServiceImpl(
         id: String,
         newName: String,
         newDescription: String,
-        newBeginDate: Date,
-        newEndDate: Date
+        newBeginDate: String,
+        newEndDate: String
     ): LiveData<Boolean?> {
         var success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         var calendarEventToUpdate = findCalendarEventById(id)
@@ -88,7 +88,7 @@ class CalendarServiceImpl(
         var calendarEventResult: MutableLiveData<CalendarEvent?> = MutableLiveData<CalendarEvent?>()
         database.child("calendarEvents").child(id).get().addOnSuccessListener {
             val map = it.value as Map<String?, Any?>
-            val calendarEvent = CalendarEvent("", "", "", null, null, "")
+            val calendarEvent = CalendarEvent("", "", "", "", "", "")
             calendarEvent.loadFromMap(map)
             Log.d(TAG, "Evennement trouvée")
             calendarEventResult.postValue(calendarEvent)
@@ -99,7 +99,7 @@ class CalendarServiceImpl(
         return calendarEventResult
     }
 
-    private fun create(name: String, description: String, beginDate: Date, endDate: Date, user_id: String){
+    private fun create(name: String, description: String, beginDate: String, endDate: String, user_id: String){
         val key = database.child("calendarEvents").push().key
         if(key == null){
             Log.w(TAG, "Couldn't get push key for calendarEvents")

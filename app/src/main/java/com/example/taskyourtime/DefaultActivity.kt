@@ -9,6 +9,7 @@ import androidx.fragment.app.FragmentActivity
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.example.taskyourtime.calendar.CalendarViewActivity
 import com.example.taskyourtime.note.ListNoteActivity
 import com.example.taskyourtime.todolist.ToDoListActivity
 import com.google.android.material.tabs.TabLayout
@@ -57,7 +58,7 @@ class DefaultActivity : FragmentActivity() {
             Log.d("Note","GetItem called")
             val view : Fragment
             when(position) {
-                0 -> view = DefaultFragment()
+                0 -> view = CalendarViewActivity()
                 1 -> view = ListNoteActivity()
                 2 ->  view = ToDoListActivity()
                 3 -> view = DefaultFragment()

@@ -1,21 +1,22 @@
 package com.example.taskyourtime.model
 
-import java.util.*
+import com.google.firebase.database.IgnoreExtraProperties
 
+@IgnoreExtraProperties
 class CalendarEvent(
     var id: String?,
     var name: String?,
     var description: String?,
-    var begin_date: Date?,
-    var end_date: Date?,
+    var begin_date: String?,
+    var end_date: String?,
     var user_id: String?
 ) {
     constructor(map: Map<String?, Any?>) : this(
         null,
         map["name"] as String?,
         map["description"] as String?,
-        map["begin_date"] as Date?,
-        map["end_date"] as Date?,
+        map["begin_date"] as String?,
+        map["end_date"] as String?,
         map["user_id"] as String?
     )
 
@@ -23,8 +24,8 @@ class CalendarEvent(
         id = map["id"] as String?
         name = map["name"] as String?
         description = map["description"] as String?
-        begin_date = map["begin_date"] as Date?
-        end_date = map["end_date"] as Date?
+        begin_date = map["begin_date"] as String?
+        end_date = map["end_date"] as String?
         user_id = map["user_id"] as String?
     }
 

@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskYourTime">
+        <activity android:name=".calendar.AddToCalendarActivity" />
         <activity
             android:name=".todolist.AddItemActivity"
             android:label="@string/title_activity_add_item"
