@@ -25,14 +25,19 @@ class AddToCalendarActivity: AppCompatActivity() {
         }
 
         binding.buttonCreateEvent.setOnClickListener{
-            Log.d("Aevnoyer", "Le titre : " + binding.eventName.text.toString())
-            Log.d("Aevnoyer", "La description : " + binding.eventDescription.text.toString())
+            Log.d("Aenvoyer", "Le titre : " + binding.eventName.text.toString())
+            Log.d("Aenvoyer", "La description : " + binding.eventDescription.text.toString())
+            Log.d("Aenvoyer", "DateTime de debut : " + binding.eventBeginDate.text.toString() + " à " + binding.eventBeginTime.text.toString())
+            Log.d("Aenvoyer", "Date de fin : " + binding.eventEndDate.text.toString() + " à " + binding.eventEndTime.text.toString())
 
             val name = binding.eventName.text.toString()
-            val content = binding.eventDescription.text.toString()
+            val description = binding.eventDescription.text.toString()
+            val beginDateTime = binding.eventBeginDate.text.toString() + " " + binding.eventBeginTime.text.toString()
+            val endDateTime = binding.eventEndDate.text.toString() + " " + binding.eventEndTime.text.toString()
+
             val user_id = Firebase.auth.currentUser?.uid
             if (user_id != null) {
-                calendarService.postNewCalendarEvent(name, content, "", "", user_id).observeForever{
+                calendarService.postNewCalendarEvent(name, description, beginDateTime, endDateTime, user_id).observeForever{
                     success ->
                     if(success == true){
                         //fermer l'activity

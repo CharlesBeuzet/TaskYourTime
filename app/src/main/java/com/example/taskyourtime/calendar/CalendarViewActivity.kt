@@ -1,11 +1,15 @@
 package com.example.taskyourtime.calendar
 
 import android.content.Intent
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CalendarView
+import android.widget.Toast
+import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,6 +25,10 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
+import java.time.LocalDate
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
+import java.util.*
 
 class CalendarViewActivity : Fragment() {
 
@@ -35,6 +43,8 @@ class CalendarViewActivity : Fragment() {
     private val calendarEvents : MutableList<CalendarEvent> = mutableListOf<CalendarEvent>()
     private val userService by inject<UserService>()
 
+    public var selectedDate : LocalDate = LocalDate.now()
+
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
@@ -42,6 +52,13 @@ class CalendarViewActivity : Fragment() {
     ): View? {
         binding = ActivityCalendarViewBinding.inflate(inflater, container, false)
         val view = _binding.root
+        val calendarView = binding?.calendarView
+        calendarView?.setOnDateChangeListener{ _, year, month, dayOfMonth ->
+            // Note that months are indexed from 0. So, 0 means January, 1 means february, 2 means march etc.
+            val msg = "Selected date is " + dayOfMonth + "/" + (month + 1) + "/" + year
+            selectedDate = LocalDate.of(year, month, dayOfMonth)
+            Log.d(TAG, msg)
+        }
         return view
     }
 
@@ -52,10 +69,11 @@ class CalendarViewActivity : Fragment() {
         binding?.loaderFeed?.isVisible = false
     }
 
+
     override fun onStop(){
         super.onStop()
         //invalidateOptionsMenu()
-        Log.i(TAG, "ACTIVITY SOPPED")
+        Log.i(TAG, "ACTIVITY STOPPED")
     }
 
     override fun onDestroy() {
@@ -94,7 +112,8 @@ class CalendarViewActivity : Fragment() {
                 myEvent.id = snapshot.key!!
 
                 myEvent.name?.let { Log.d(TAG, it) }
-                if (Firebase.auth.uid == myEvent.user_id) {
+                if (Firebase.auth.uid == myEvent.user_id && myEvent.begin_date?.split(" ")?.get(0) == selectedDate.format(
+                        DateTimeFormatter.ofPattern("dd/MM/yy")).toString()) {
                     calendarEvents.add(myEvent)
                 }
                 binding?.recyclerView?.adapter?.notifyDataSetChanged()
