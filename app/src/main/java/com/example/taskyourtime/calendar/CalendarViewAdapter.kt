@@ -25,6 +25,8 @@ class CalendarViewAdapter(
         val data: CalendarEvent = data[position]
         holder.nameEvent.text = data.name
         holder.descriptionEvent.text = data.description
+        holder.beginDateTimeEvent.text = data.begin_date
+        holder.endDateTimeEvent.text = data.end_date
         val id_event = data.id.toString()
         holder.deleteEventButton.setOnClickListener{
             Log.d("Asupprimer", "Evennement dont l'id est $id_event supprimé")
@@ -39,6 +41,8 @@ class CalendarViewAdapter(
     class CalendarViewHolder(binding: CalendarEventCellBinding) : RecyclerView.ViewHolder(binding.root){
         val nameEvent = binding.nameEvent
         val descriptionEvent = binding.descriptionEvent
+        val beginDateTimeEvent = binding.beginDateTimeEvent
+        val endDateTimeEvent = binding.endDateTimeEvent
         val deleteEventButton = binding.deleteEventButton
         val layout = binding.root
     }

@@ -10,6 +10,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.TaskYourTime">
         <activity android:name=".calendar.AddToCalendarActivity" />
+        <activity
+            android:name=".todolist.AddItemActivity"
+            android:label="@string/title_activity_add_item"
+            android:theme="@style/Theme.TaskYourTime.NoActionBar"/>
         <activity android:name=".note.AddNoteActivity" />
         <activity android:name=".DefaultActivity" />
         <activity android:name=".SubscriptionActivity" />

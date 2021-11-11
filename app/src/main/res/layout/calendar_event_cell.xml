@@ -9,11 +9,9 @@
 
     <TextView
         android:id="@+id/nameEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="50dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
-        android:layout_marginTop="28dp"
+        android:layout_width="290dp"
+        android:layout_height="51dp"
+        android:layout_marginTop="16dp"
         android:gravity="start"
         android:padding="2dp"
         android:text="Titre de l'évennement"
@@ -21,15 +19,78 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.260"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Du"
+        android:gravity="start"
+        android:padding="2dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/beginDateTimeEvent"
+        app:layout_constraintStart_toStartOf="@+id/nameEvent" />
+
+    <TextView
+        android:id="@+id/beginDateTimeEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:gravity="start"
+        android:padding="2dp"
+        android:text="Date et heure de début"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/deleteEventButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/nameEvent"
+        app:layout_constraintTop_toBottomOf="@+id/nameEvent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="start"
+        android:padding="2dp"
+        android:text="Au"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/endDateTimeEvent"
+        app:layout_constraintStart_toStartOf="@+id/nameEvent" />
+
+    <TextView
+        android:id="@+id/endDateTimeEvent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="144dp"
+        android:gravity="start"
+        android:padding="2dp"
+        android:text="Date et heure de fin"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/deleteEventButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/nameEvent"
+        app:layout_constraintTop_toBottomOf="@+id/beginDateTimeEvent" />
+
+    <TextView
         android:id="@+id/descriptionEvent"
-        android:layout_width="307dp"
-        android:layout_height="114dp"
-        android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_marginBottom="30dp"
         android:gravity="start"
         android:padding="2dp"
         android:text="Description de l'évennement"
@@ -38,9 +99,10 @@
         android:textSize="18sp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/nameNote"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintEnd_toStartOf="@+id/deleteEventButton"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/nameEvent"
+        app:layout_constraintTop_toBottomOf="@+id/endDateTimeEvent" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/deleteEventButton"
@@ -48,12 +110,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_marginEnd="16dp"
-        android:layout_marginRight="16dp"
         android:contentDescription="Supprimer la note"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.117"
+        app:layout_constraintVertical_bias="0.494"
         app:srcCompat="@android:drawable/ic_delete"
         tools:ignore="SpeakableTextPresentCheck" />
 
