@@ -70,7 +70,7 @@
         android:id="@+id/eventDescription"
         android:layout_width="413dp"
         android:layout_height="131dp"
-        android:layout_marginBottom="60dp"
+        android:layout_marginBottom="52dp"
         android:background="@color/grayLight"
         android:ems="10"
         android:gravity="start"
@@ -81,8 +81,8 @@
         android:textColor="@color/black"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        tools:ignore="LabelFor,MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp" />
+        app:layout_constraintStart_toStartOf="@+id/eventEndTime"
+        tools:ignore="LabelFor,MissingConstraints" />
 
     <EditText
         android:id="@+id/eventBeginDate"
@@ -98,7 +98,7 @@
         app:layout_constraintBottom_toTopOf="@+id/eventDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/eventName" />
 
     <EditText
         android:id="@+id/eventBeginTime"
@@ -114,13 +114,13 @@
         app:layout_constraintBottom_toTopOf="@+id/eventDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/eventBeginDate" />
 
     <EditText
         android:id="@+id/eventEndDate"
-        android:layout_width="409dp"
-        android:layout_height="46dp"
-        android:layout_marginBottom="84dp"
+        android:layout_width="401dp"
+        android:layout_height="43dp"
+        android:layout_marginBottom="80dp"
         android:background="@color/grayLight"
         android:hint="Date de fin"
         android:inputType="date"
@@ -134,8 +134,8 @@
 
     <EditText
         android:id="@+id/eventEndTime"
-        android:layout_width="409dp"
-        android:layout_height="46dp"
+        android:layout_width="401dp"
+        android:layout_height="52dp"
         android:layout_marginBottom="20dp"
         android:background="@color/grayLight"
         android:hint="Heure de fin"
@@ -146,7 +146,7 @@
         app:layout_constraintBottom_toTopOf="@+id/eventDescription"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="@+id/eventEndDate" />
 
     <EditText
         android:id="@+id/eventName"

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="#00BCD4"
     android:gravity="center_vertical"
     android:orientation="vertical">
 
@@ -13,9 +12,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
         android:layout_marginTop="28dp"
-        android:background="#8B95CF"
         android:gravity="start"
         android:padding="2dp"
         android:text="Titre de la note"
@@ -31,8 +28,7 @@
         android:layout_width="307dp"
         android:layout_height="114dp"
         android:layout_marginStart="44dp"
-        android:layout_marginLeft="44dp"
-        android:background="#8FFFFFFF"
+        android:background="#6BAAA5A5"
         android:gravity="start"
         android:padding="2dp"
         android:text="contenu de la note"
