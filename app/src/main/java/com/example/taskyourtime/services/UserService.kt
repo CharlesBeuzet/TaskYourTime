@@ -1,10 +1,14 @@
 package com.example.taskyourtime.services
 
+import android.content.ContentValues
 import android.content.Context
+import android.content.Intent
 import android.util.Log
 import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import com.example.taskyourtime.DefaultActivity
+import com.example.taskyourtime.R
 import com.example.taskyourtime.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -16,7 +20,8 @@ import com.google.firebase.ktx.Firebase
 interface UserService {
     fun registerUser(firstname: String, lastname: String, email: String,
     password: String, profilePictureURI: String) : LiveData<Boolean>
-    fun getUserById(userId: String) : LiveData<User>
+    fun getUserById(userId: String) : LiveData<User?>
+    fun loginUser(email: String, password: String) : LiveData<Boolean>
 }
 
 class UserServiceImpl(
@@ -55,10 +60,6 @@ class UserServiceImpl(
             } else {
                 Log.w(TAG, "createUserWithEmail:failure", it.exception)
                 success.postValue(false);
-                Toast.makeText(
-                    context, "Authentication failed.",
-                    Toast.LENGTH_SHORT
-                ).show()
             }
         }
         return success
@@ -79,8 +80,29 @@ class UserServiceImpl(
         database.child("users").child(userId).child(field).setValue(newValue)
     }
 
-    override fun getUserById(id: String): LiveData<User> {
-        var userResult: MutableLiveData<User> = MutableLiveData<User>()
+
+    override fun loginUser(email: String, password: String) : LiveData<Boolean> {
+        val success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        if(email == "" ||password == ""){
+            success.postValue(false)
+        }
+        else{
+            auth.signInWithEmailAndPassword(email, password).addOnCompleteListener() {
+                if (it.isSuccessful) {
+                    Log.d(ContentValues.TAG, "signInWithEmail:success")
+                    val user = auth.currentUser
+                    success.postValue(true)
+                } else {
+                    Log.w(ContentValues.TAG, "signInWithEmail:failure", it.exception)
+                    success.postValue(false)
+                }
+            }
+        }
+        return success
+    }
+
+    override fun getUserById(id: String): LiveData<User?> {
+        var userResult: MutableLiveData<User?> = MutableLiveData<User?>()
         database.child("users").child(id).get().addOnSuccessListener {
             val map = it.value as Map<String?, Any?>
             val user = User("","","","")
