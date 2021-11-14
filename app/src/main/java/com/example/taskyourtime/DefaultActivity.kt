@@ -71,15 +71,14 @@ class DefaultActivity : FragmentActivity() {
 
         override fun getPageTitle(position: Int): CharSequence {
             Log.d("Note","GetPageTitle called")
-            val title : CharSequence
-            when(position) {
-                0 -> title = "Calendrier"
-                1 -> title = "Notes"
-                2 ->  title = "ToDoList"
-                3 -> title = "Mode productif"
-                4 -> title = "Groupes"
+            val title : CharSequence = when(position) {
+                0 -> "Calendrier"
+                1 -> "Notes"
+                2 -> "ToDoList"
+                3 -> "Mode productif"
+                4 -> "Groupes"
                 else -> {
-                    title = "Default"
+                    "Default"
                 }
             }
             return title
