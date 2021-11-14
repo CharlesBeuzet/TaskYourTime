@@ -15,4 +15,15 @@
     <color name="transparent_gray">#AA808080</color>
     <color name="gray">#cccccc</color>
     <color name="grayLight">#eeeeef</color>
+
+    <color name="colorPrimary">#8ECAE6</color>
+    <color name="colorPrimaryDark">#219EBC</color>
+    <color name="colorAccent">#023047</color>
+
+    <color name="subTextColor">#7e7e7e</color>
+    <color name="mainBgColor">#ffffff</color>
+    <color name="hairLineColor">#d6d6d6</color>
+    <color name="mainTextColor">#000000</color>
+
+    <color name="black_overlay">#66000000</color>
 </resources>
