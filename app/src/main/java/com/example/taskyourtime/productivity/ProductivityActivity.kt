@@ -49,7 +49,6 @@ class ProductivityActivity : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG, "ProductivityActivity")
         var  update_hour_value : Int = 0
         var update_minute_value : Int = 0
         var update_seconds_value : Int = 0
@@ -88,19 +87,19 @@ class ProductivityActivity : Fragment() {
             Log.d(TAG, time.size.toString())
             when(time.size) {
                 2 -> {//min et s
-                    Log.d(TAG,"TWO : "+ time[1])
+                    //Log.d(TAG,"TWO : "+ time[1])
                     update_hour_value = 0
                     update_minute_value = time[0].toInt()
                     update_seconds_value = time[1].toInt()
                 }
                 3 -> {//h, mni et s
-                    Log.d(TAG,"THREE"+ time[1]+ time[2] + time[0])
+                    //Log.d(TAG,"THREE"+ time[1]+ time[2] + time[0])
                     update_hour_value = time[0].toInt()
                     update_minute_value = time[1].toInt()
                     update_seconds_value = time[2].toInt()
                 }
                 else -> {
-                    Log.d(TAG,"else")
+                    //Log.d(TAG,"else")
                     update_minute_value = 0
                     update_hour_value = 0
                     update_seconds_value = 0
