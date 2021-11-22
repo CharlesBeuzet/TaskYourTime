@@ -151,7 +151,7 @@
             android:background="@drawable/sign_up_button_selector"
             android:text="@string/sign_up"
             android:textAllCaps="false"
-            android:textColor="@color/mainBgColor"
+            android:textColor="@color/mainTextColor"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

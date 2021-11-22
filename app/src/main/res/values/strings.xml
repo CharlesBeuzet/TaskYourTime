@@ -23,6 +23,8 @@
     <string name="facebook_app_id">686078505161575</string>
     <string name="fb_login_protocol_scheme">fb686078505161575</string>
 
+    <string name="taskYourTime">TaskYourTime</string>
+    <string name="taskYourTime_logo_desc">TaskYourTime logo</string>
     <string name="firstName">First Name</string>
     <string name="lastName">Last Name</string>
     <string name="email">E-mail</string>
@@ -43,4 +45,16 @@
     <string name="short_password_error">Password should be at least 6 characters.</string>
     <string name="select_image">Select Image</string>
     <string name="logout">Log Out</string>
+
+    <string name="add_calEvent">Add an event</string>
+    <string name="confirm">Confirm</string>
+    <string name="cancel">Cancel</string>
+    <string name="description">Description</string>
+    <string name="begin_time">Begin time</string>
+    <string name="end_time">End time</string>
+    <string name="begin_date">Begin date</string>
+    <string name="end_date">End date</string>
+    <string name="event_title">Title</string>
+
+    <string name="info_day">%1$s %2$sth %3$s %4$s</string>
 </resources>

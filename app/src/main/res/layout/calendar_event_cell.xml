@@ -5,119 +5,117 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:padding="0dp">
 
-    <TextView
-        android:id="@+id/nameEvent"
-        android:layout_width="290dp"
-        android:layout_height="51dp"
-        android:layout_marginTop="16dp"
-        android:gravity="start"
-        android:padding="2dp"
-        android:text="Titre de l'évennement"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.260"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Du"
-        android:gravity="start"
-        android:padding="2dp"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/beginDateTimeEvent"
-        app:layout_constraintStart_toStartOf="@+id/nameEvent" />
-
-    <TextView
-        android:id="@+id/beginDateTimeEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:gravity="start"
-        android:padding="2dp"
-        android:text="Date et heure de début"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/deleteEventButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/nameEvent"
-        app:layout_constraintTop_toBottomOf="@+id/nameEvent" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="start"
-        android:padding="2dp"
-        android:text="Au"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/endDateTimeEvent"
-        app:layout_constraintStart_toStartOf="@+id/nameEvent" />
-
-    <TextView
-        android:id="@+id/endDateTimeEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="35dp"
-        android:layout_marginEnd="144dp"
-        android:gravity="start"
-        android:padding="2dp"
-        android:text="Date et heure de fin"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toStartOf="@+id/deleteEventButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/nameEvent"
-        app:layout_constraintTop_toBottomOf="@+id/beginDateTimeEvent" />
-
-    <TextView
-        android:id="@+id/descriptionEvent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginBottom="30dp"
-        android:gravity="start"
-        android:padding="2dp"
-        android:text="Description de l'évennement"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/deleteEventButton"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="@+id/nameEvent"
-        app:layout_constraintTop_toBottomOf="@+id/endDateTimeEvent" />
-
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/deleteEventButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_marginEnd="16dp"
-        android:contentDescription="Supprimer la note"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.494"
-        app:srcCompat="@android:drawable/ic_delete"
-        tools:ignore="SpeakableTextPresentCheck" />
+        android:backgroundTint="@color/grayLight"
+        app:cardCornerRadius="5dp"
+        >
 
+        <View
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp">
+
+
+            <TextView
+                android:id="@+id/nameEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="@string/event_title"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/beginDateTimeEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="100dp"
+                android:layout_marginTop="48dp"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="From"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintStart_toEndOf="@+id/descriptionEvent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/endDateTimeEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="48dp"
+                android:gravity="bottom|end"
+                android:padding="2dp"
+                android:text="To"
+                android:textAlignment="textEnd"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.233"
+                app:layout_constraintStart_toEndOf="@+id/beginDateTimeEvent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/descriptionEvent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="Description de l'évennement"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="12sp"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@+id/nameEvent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.833" />
+
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/deleteEventButton"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="4dp"
+                android:backgroundTint="@color/grayLight"
+                android:contentDescription="Supprimer la note"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@android:drawable/ic_delete"
+                tools:ignore="SpeakableTextPresentCheck"
+                app:fabCustomSize="30dp"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
