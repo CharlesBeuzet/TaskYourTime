@@ -55,6 +55,11 @@
     <string name="begin_date">Begin date</string>
     <string name="end_date">End date</string>
     <string name="event_title">Title</string>
+    <string name="date_separator">-</string>
+    <string name="date_placeholder">dd/mm/yy (hh:mm)</string>
+    <string name="delete_event">Delete the calendar event</string>
+    <string name="tvInfo_placeholder">Friday 9th January 1970</string>
 
     <string name="info_day">%1$s %2$sth %3$s %4$s</string>
+    <string name="date_display_placeholder">%1$s(%2$s)</string>
 </resources>

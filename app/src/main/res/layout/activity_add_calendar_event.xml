@@ -53,16 +53,18 @@
         android:layout_height="wrap_content"
         android:padding="10dp"
         android:text="@string/add_calEvent"
+        android:textAlignment="center"
         android:textColor="@color/colorPrimaryDark"
         android:textSize="25sp"
         android:textStyle="italic|bold"
-        android:textAlignment="center"
         app:layout_constraintBottom_toTopOf="@+id/eventName"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.38" />
+
+
 
     <EditText
         android:id="@+id/eventDescription"
@@ -190,5 +192,17 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/textView3"
         android:autofillHints="@string/event_title" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="0dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        android:backgroundTint="@color/black"
+        app:layout_constraintTop_toBottomOf="@+id/textView3" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

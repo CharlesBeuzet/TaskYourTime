@@ -64,7 +64,7 @@ class CalendarViewActivity : Fragment() {
     private fun displayEvents(){
         Log.d(TAG,"displayEvents")
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
-        binding?.recyclerView?.adapter = CalendarViewAdapter(calendarEvents, calendarService)
+        binding?.recyclerView?.adapter = CalendarViewAdapter(calendarEvents, calendarService, context)
         binding?.loaderFeed?.isVisible = false
     }
 

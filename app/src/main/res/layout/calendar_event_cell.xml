@@ -49,56 +49,74 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+            <androidx.appcompat.widget.AppCompatImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:tint="@color/honey_yellow"
+                app:layout_constraintStart_toStartOf="@+id/nameEvent"
+                app:layout_constraintTop_toBottomOf="@+id/nameEvent"
+                app:srcCompat="@drawable/ic_menu" />
+
             <TextView
                 android:id="@+id/beginDateTimeEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="100dp"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="55dp"
+                android:layout_marginEnd="10dp"
                 android:gravity="start"
-                android:padding="2dp"
-                android:text="From"
+                android:padding="0dp"
+                android:text="@string/date_placeholder"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
-                app:layout_constraintStart_toEndOf="@+id/descriptionEvent"
+                app:layout_constraintEnd_toStartOf="@+id/endDateTimeEvent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="55dp"
+                android:layout_marginEnd="3dp"
+                android:textSize="12sp"
+                android:text="@string/date_separator"
+                android:textColor="@color/mainTextColor"
+                app:layout_constraintEnd_toStartOf="@+id/endDateTimeEvent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/endDateTimeEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
+                android:layout_marginTop="55dp"
+                android:layout_marginEnd="4dp"
                 android:gravity="bottom|end"
-                android:padding="2dp"
-                android:text="To"
+                android:padding="0dp"
+                android:text="@string/date_placeholder"
                 android:textAlignment="textEnd"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.233"
-                app:layout_constraintStart_toEndOf="@+id/beginDateTimeEvent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/descriptionEvent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginEnd="120dp"
+                android:enabled="false"
                 android:gravity="start"
                 android:padding="2dp"
-                android:text="Description de l'évennement"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="12sp"
                 android:textStyle="bold"
+                android:visibility="invisible"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
-                app:layout_constraintStart_toStartOf="@+id/nameEvent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.833" />
+                app:layout_constraintVertical_bias="0.118" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/deleteEventButton"
@@ -107,12 +125,12 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="4dp"
                 android:backgroundTint="@color/grayLight"
-                android:contentDescription="Supprimer la note"
+                android:contentDescription="@string/delete_event"
+                app:fabCustomSize="30dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@android:drawable/ic_delete"
-                tools:ignore="SpeakableTextPresentCheck"
-                app:fabCustomSize="30dp"/>
+                tools:ignore="SpeakableTextPresentCheck" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
