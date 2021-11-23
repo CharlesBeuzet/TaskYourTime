@@ -9,9 +9,14 @@ import android.view.ViewGroup
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.get
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.ItemTouchHelper
+import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
+import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.example.taskyourtime.R
 import com.example.taskyourtime.databinding.ActivityListNoteBinding
 import com.example.taskyourtime.databinding.ActivityToDoListBinding
@@ -40,6 +45,7 @@ class ToDoListActivity : Fragment() {
 
     private val TAG = "ToDoListActivity"
     private lateinit var database: DatabaseReference
+    private var itemsMoved : Boolean = false
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -55,6 +61,8 @@ class ToDoListActivity : Fragment() {
         Log.d(TAG,"displayItems")
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
         binding?.recyclerView?.adapter = ListItemAdapter(items, itemService)
+        val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+        itemTouchHelper.attachToRecyclerView(_binding?.recyclerView)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,6 +88,8 @@ class ToDoListActivity : Fragment() {
                 if (Firebase.auth.uid == myItem.user_id) {
                     items.add(myItem)
                 }
+                //Ordering items by their position
+                items.sortBy { it.position }
                 Log.d(TAG,"Nulber of items : " + items.size)
                 Log.d(TAG,"Checkbox : " + myItem.done)
                 binding?.recyclerView?.adapter?.notifyDataSetChanged()
@@ -122,5 +132,100 @@ class ToDoListActivity : Fragment() {
         displayItems()
     }
 
+    override fun onStop() {
+        super.onStop()
+        Log.d(TAG,"OnStop")
+        if(itemsMoved) {
+            //get the new position of the items and updating their position in bdd
+            for(item in items) {
+                Log.d(TAG,item.content.toString() + " "+ items.indexOf(item))
+                item.id?.let { itemService.updateItemPosition(it,items.indexOf(item)+1) }
+            }
+        }
+        //TODO : check a byte and if it is true, save the new order of the item
+    }
+
+    private val itemTouchHelperCallback = object: ItemTouchHelper.Callback() {
+
+        override fun getMovementFlags(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder
+        ): Int {
+            // Specify the directions of movement
+            val dragFlags = ItemTouchHelper.UP or ItemTouchHelper.DOWN
+            return makeMovementFlags(dragFlags, 0)
+        }
+
+        override fun onMove(
+                recyclerView: RecyclerView,
+                viewHolder: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
+        ): Boolean {
+            // Notify your adapter that an item is moved from x position to y position
+            binding?.recyclerView?.adapter?.notifyItemMoved(viewHolder.adapterPosition, target.adapterPosition)
+            //binding?.recyclerView?.getChildItemId()
+            Log.d(TAG,"Item is beeing moved + position : "+ viewHolder.adapterPosition)
+            moveItemInList(target.adapterPosition,viewHolder.adapterPosition)
+            itemsMoved = true
+            return true
+        }
+
+        private fun moveItemInList(from : Int, to : Int) {
+            Log.d(TAG,"Updating list "+ to + " "+from)
+            Log.d(TAG,"Updtating the following list : ")
+            val copyOfItems = items.toList()
+            val localItems = items.toList()
+
+            for(item in items) {
+                Log.d(TAG,item.content.toString() + " "+ items.indexOf(item))
+            }
+
+            val fromLocation = items[from]
+
+            Log.d(TAG, "to < from")
+            items.removeAt(from)
+            items.add(to,fromLocation)
+
+            Log.d(TAG,"List edited : ")
+
+            for(item in items) {
+                Log.d(TAG,item.content.toString() + " "+ items.indexOf(item))
+            }
+            //TODO : mettre index à jour BDD et check boolean si besoin réécriture ou non ?
+        }
+
+        override fun isLongPressDragEnabled(): Boolean {
+            // true: if you want to start dragging on long press
+            // false: if you want to handle it yourself
+            return true
+        }
+
+        override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+
+        }
+
+        override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
+            super.onSelectedChanged(viewHolder, actionState)
+            // Hanlde action state changes
+            if (actionState == ACTION_STATE_DRAG) {
+                viewHolder?.itemView?.alpha = 0.5f
+            }
+        }
+
+        override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
+            super.clearView(recyclerView, viewHolder)
+            // Called by the ItemTouchHelper when the user interaction with an element is over and it also completed its animation
+            // This is a good place to send update to your backend about changes
+            Log.d("ItemTouchHelperCallback","Drag&Drop finished at position : "+ viewHolder.adapterPosition + "old_position : " )
+            viewHolder.itemView.alpha = 1.0f
+            //TODO : update items list with new order
+
+            //viewHolder.oldPosition
+            //TODO : get old position, retrieve data with firebase request and write it if necessary
+            //TODO : get the item so we can update the data on FIrebase
+
+        }   
+
+    }
 
 }

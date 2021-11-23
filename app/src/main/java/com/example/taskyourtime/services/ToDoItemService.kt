@@ -10,12 +10,16 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 
 interface ToDoItemService{
     fun postNewNote(content: String, user_id: String) : LiveData<Boolean?>
     fun deleteNote(id: String) : LiveData<Boolean?>
     fun findItemById(id: String) : LiveData<ToDoItem?>
     fun updateItem(id: String, checkValue: Boolean) : LiveData<Boolean?>
+    fun updateItemPosition(id : String, newPosition : Int) : LiveData<Boolean?>
     //TODO : définir le check des éléments
 }
 
@@ -46,8 +50,7 @@ class ToDoItemServiceImpl(
             return
         }
         Log.d(TAG, "Success in getting the key: $key")
-        val item : ToDoItem = ToDoItem(key, content, user_id,false)
-        database.child("ItemToDoList").child(key).setValue(item.toMap())
+        getPositionAndSetData(content, user_id, key)
     }
 
     override fun deleteNote(id: String): LiveData<Boolean?> {
@@ -68,11 +71,24 @@ class ToDoItemServiceImpl(
         Log.d(TAG, "Item dont l'id est : $id a été supprimée")
     }
 
+    private fun getPositionAndSetData(content: String, user_id: String, key: String){
+        var number : Long =0
+        database.child("ItemToDoList").orderByChild("user_id").equalTo(user_id).get().addOnSuccessListener {
+            number = it.childrenCount
+            Log.d(TAG,"Number of items foe this user : "+number)
+            val item : ToDoItem = ToDoItem(key, content, user_id,false,number+1)
+            database.child("ItemToDoList").child(key).setValue(item.toMap())
+        }.addOnFailureListener{
+            Log.d(TAG,"Failed to get all the items for this user")
+            number = 0
+        }
+    }
+
     override fun findItemById(id: String): LiveData<ToDoItem?> {
         var itemResult: MutableLiveData<ToDoItem?> = MutableLiveData<ToDoItem?>()
         database.child("ItemToDoList").child(id).get().addOnSuccessListener {
             val map = it.value as Map<String?, Any?>
-            val item = ToDoItem("", "", "",false)
+            val item = ToDoItem("", "", "",false,0)
             item.loadFromMap(map)
             Log.d(TAG, "Item trouvé")
             itemResult.postValue(item)
@@ -85,6 +101,13 @@ class ToDoItemServiceImpl(
 
     private fun updateField(id: String, field: String, checkValue: Boolean){
         database.child("ItemToDoList").child(id).child(field).setValue(checkValue)
+    }
+
+    override fun updateItemPosition(id : String, newPosition : Int): LiveData<Boolean?>{
+        var success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        database.child("ItemToDoList").child(id).child("position").setValue(newPosition)
+        success.postValue(true)
+        return success
     }
 
     override fun updateItem(id: String, checkValue: Boolean): LiveData<Boolean?> {
