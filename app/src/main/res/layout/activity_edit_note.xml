@@ -3,47 +3,87 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:context=".note.EditNoteActivity">
 
-    <EditText
-        android:id="@+id/editTitle"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="104dp"
-        android:layout_marginEnd="32dp"
-        android:background="@drawable/rounded_border"
-        android:backgroundTint="@color/white"
-        android:hint="Modifiez le titre de votre note"
-        android:imeOptions="actionNext"
-        android:inputType="text"
-        android:textColor="@color/mainTextColor"
-        android:textColorHint="@color/gray"
-        android:textSize="20sp"
+        android:layout_marginTop="8dp"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <EditText
-        android:id="@+id/editContent"
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="404dp"
-        android:background="@drawable/rounded_border"
-        android:backgroundTint="@color/white"
-        android:hint="Modifiez le contenu de votre note"
-        android:imeOptions="actionNext"
-        android:inputType="text"
-        android:textColor="@color/mainTextColor"
-        android:textColorHint="@color/gray"
-        android:textSize="20sp"
+        android:layout_marginBottom="32dp"
+        android:orientation="horizontal"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent">
 
+        <Button
+            android:id="@+id/buttonEditCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@color/orange"
+            android:fontFamily="Time New Roman"
+            android:text="Annuler l'ajout" />
 
+        <Button
+            android:id="@+id/buttonEditNote"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@color/blue_green"
+            android:fontFamily="Time New Roman"
+            android:text="Confirmer l'édition" />
+
+    </LinearLayout>
+
+    <EditText
+        android:id="@+id/editNoteContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="184dp"
+        android:background="@color/grayLight"
+        android:ems="10"
+        android:gravity="start"
+        android:hint="Écrivez le contenu de votre note"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        tools:ignore="LabelFor,MissingConstraints"
+        tools:layout_editor_absoluteX="-16dp" />
+
+    <EditText
+        android:id="@+id/editNoteName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="448dp"
+        android:background="@color/grayLight"
+        android:fontFamily="sans-serif"
+        android:gravity="start"
+        android:hint="titre de la note"
+        android:inputType="text"
+        android:padding="10dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        tools:layout_editor_absoluteX="16dp" />
 </androidx.constraintlayout.widget.ConstraintLayout>
