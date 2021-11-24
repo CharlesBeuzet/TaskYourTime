@@ -2,6 +2,7 @@ package com.example.taskyourtime.model
 
 
 import com.google.firebase.database.IgnoreExtraProperties
+import java.io.Serializable
 
 @IgnoreExtraProperties
 data class Note(
@@ -9,7 +10,7 @@ data class Note(
     var name: String?,
     var content: String?,
     var user_id: String?,
-) {
+) : Serializable {
     constructor(map: Map<String?, Any?>) : this(
         null,
         map["name"] as String?,

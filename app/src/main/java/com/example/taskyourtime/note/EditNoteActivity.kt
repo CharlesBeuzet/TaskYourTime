@@ -1,6 +1,8 @@
 package com.example.taskyourtime.note
 
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskyourtime.databinding.ActivityAddNoteBinding
 import com.example.taskyourtime.databinding.ActivityEditNoteBinding
@@ -19,5 +21,16 @@ class EditNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEditNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        note = intent.getSerializableExtra("noteToEdit") as Note;
+        //binding.editNoteName.setText(note.name.toString())
+        binding.editNoteContent.setText(note.content)
+
+        binding.buttonEditCancel.setOnClickListener{
+            finish()
+        }
+
+        binding.buttonEditNote.setOnClickListener{
+
+        }
     }
 }
