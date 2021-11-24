@@ -22,8 +22,9 @@ class EditNoteActivity : AppCompatActivity() {
         binding = ActivityEditNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
         note = intent.getSerializableExtra("noteToEdit") as Note;
-        //binding.editNoteName.setText(note.name.toString())
-        binding.editNoteContent.setText(note.content)
+        binding.editNoteName.setText(note.name.toString())
+        binding.editNoteContent.setText(note.content.toString())
+        Log.d(TAG, "${note.name}")
 
         binding.buttonEditCancel.setOnClickListener{
             finish()

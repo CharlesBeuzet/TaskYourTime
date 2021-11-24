@@ -146,7 +146,7 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
         val clikedItem = notes[position]
         /*clikedItem.content = "changed"
         binding?.recyclerView?.adapter?.notifyItemChanged(position)*/
-        val intentEditNote = Intent(context, AddNoteActivity::class.java)
+        val intentEditNote = Intent(context, EditNoteActivity::class.java)
         intentEditNote.putExtra("noteToEdit",clikedItem)
         startActivity(intentEditNote)
     }
