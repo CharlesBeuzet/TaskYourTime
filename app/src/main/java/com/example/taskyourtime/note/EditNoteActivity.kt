@@ -8,6 +8,8 @@ import com.example.taskyourtime.databinding.ActivityAddNoteBinding
 import com.example.taskyourtime.databinding.ActivityEditNoteBinding
 import com.example.taskyourtime.model.Note
 import com.example.taskyourtime.services.NoteService
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
 
 class EditNoteActivity : AppCompatActivity() {
@@ -31,7 +33,18 @@ class EditNoteActivity : AppCompatActivity() {
         }
 
         binding.buttonEditNote.setOnClickListener{
-
+            val name = binding.editNoteName.text.toString()
+            val content = binding.editNoteContent.text.toString()
+            val userId = Firebase.auth.currentUser?.uid
+            if(userId != null){
+                noteService.updateNote(note.id.toString(), name, content).observeForever{
+                    success ->
+                    if(success == true){
+                        //fermer l'activity
+                        finish()
+                    }
+                }
+            }
         }
     }
 }
