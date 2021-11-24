@@ -3,10 +3,8 @@ package com.example.taskyourtime.note
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.LayoutInflater
-import android.view.Menu
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
@@ -27,7 +25,7 @@ import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
 import org.koin.java.KoinJavaComponent.inject
 
-class ListNoteActivity : Fragment() {
+class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
 
     private var binding: ActivityListNoteBinding? = null
 
@@ -53,7 +51,7 @@ class ListNoteActivity : Fragment() {
     private fun displayNotes(){
         Log.d(TAG,"displayNotes")
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
-        binding?.recyclerView?.adapter = ListNoteAdapter(notes, noteService)
+        binding?.recyclerView?.adapter = ListNoteAdapter(notes, noteService, this)
         binding?.loaderFeed?.isVisible = false
     }
 
@@ -143,14 +141,10 @@ class ListNoteActivity : Fragment() {
         displayNotes()
     }
 
-    /*override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        return super.onCreateOptionsMenu(menu)
-    }*/
-
-    /*override fun onOptionsItemSelected(item: MenuItem) = when (item.itemId) {
-        super.onOptionsItemSelected(item)
-        else -> {
-            super.onOptionsItemSelected(item)
-        }
-    }*/
+    override fun onItemClick(position: Int) {
+        Toast.makeText(context, "item $position clicked", Toast.LENGTH_SHORT).show()
+        val clikedItem = notes[position]
+        clikedItem.content = "changed"
+        binding?.recyclerView?.adapter?.notifyItemChanged(position)
+    }
 }

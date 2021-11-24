@@ -24,8 +24,8 @@ class AddNoteActivity : AppCompatActivity() {
         }
 
         binding.buttonCreateNote.setOnClickListener{
-            Log.d("Aevnoyer", "Le titre : " + binding.noteName.text.toString())
-            Log.d("Aevnoyer", "Le titre : " + binding.noteContent.text.toString())
+            Log.d("Aenvoyer", "Le titre : " + binding.noteName.text.toString())
+            Log.d("Aenvoyer", "Le titre : " + binding.noteContent.text.toString())
 
             val name = binding.noteName.text.toString()
             val content = binding.noteContent.text.toString()

@@ -2,6 +2,7 @@ package com.example.taskyourtime.note
 
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskyourtime.databinding.NoteItemCellBinding
@@ -16,6 +17,7 @@ private lateinit var binding: NoteItemCellBinding
 class ListNoteAdapter(
     private val data: MutableList<Note>,
     private val noteService: NoteService,
+    private val listener: OnItemClickListener,
 ) : RecyclerView.Adapter<ListNoteAdapter.ListNoteHolder>(){
 
     override fun onCreateViewHolder(
@@ -42,10 +44,24 @@ class ListNoteAdapter(
         return data.size
     }
 
-    class ListNoteHolder(binding: NoteItemCellBinding) : RecyclerView.ViewHolder(binding.root) {
+    inner class ListNoteHolder(binding: NoteItemCellBinding) : RecyclerView.ViewHolder(binding.root), View.OnClickListener{
         val nameNote = binding.nameNote
         val contentNote = binding.contentNote
         val deleteNoteButton = binding.deleteNoteButton
         val layout = binding.root
+
+        init{
+            binding.root.setOnClickListener(this)
+        }
+        override fun onClick(v: View?) {
+            val position = adapterPosition
+            if(position != RecyclerView.NO_POSITION)
+            {
+                listener.onItemClick(position)
+            }
+        }
+    }
+    interface OnItemClickListener{
+        fun onItemClick(position: Int)
     }
 }
