@@ -29,9 +29,9 @@ class AddNoteActivity : AppCompatActivity() {
 
             val name = binding.noteName.text.toString()
             val content = binding.noteContent.text.toString()
-            val user_id = Firebase.auth.currentUser?.uid
-            if (user_id != null) {
-                noteService.postNewNote(name, content, user_id).observeForever{
+            val userId = Firebase.auth.currentUser?.uid
+            if (userId != null) {
+                noteService.postNewNote(name, content, userId).observeForever{
                     success ->
                     if(success == true){
                         //fermer l'activity

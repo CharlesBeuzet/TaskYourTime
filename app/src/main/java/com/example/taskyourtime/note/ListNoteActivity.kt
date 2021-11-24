@@ -142,10 +142,7 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        Toast.makeText(context, "item $position clicked", Toast.LENGTH_SHORT).show()
         val clikedItem = notes[position]
-        /*clikedItem.content = "changed"
-        binding?.recyclerView?.adapter?.notifyItemChanged(position)*/
         val intentEditNote = Intent(context, EditNoteActivity::class.java)
         intentEditNote.putExtra("noteToEdit",clikedItem)
         startActivity(intentEditNote)
