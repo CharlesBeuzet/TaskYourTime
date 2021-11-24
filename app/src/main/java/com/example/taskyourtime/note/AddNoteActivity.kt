@@ -3,6 +3,7 @@ package com.example.taskyourtime.note
 import android.os.Bundle
 import android.os.PersistableBundle
 import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskyourtime.databinding.ActivityAddNoteBinding
 import com.example.taskyourtime.services.NoteService
@@ -35,6 +36,7 @@ class AddNoteActivity : AppCompatActivity() {
                     success ->
                     if(success == true){
                         //fermer l'activity
+                        Toast.makeText(binding.root.context, "Nouvelle note ajoutée", Toast.LENGTH_SHORT).show()
                         finish()
                     }
                 }

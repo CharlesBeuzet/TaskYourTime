@@ -41,6 +41,7 @@ class EditNoteActivity : AppCompatActivity() {
                     success ->
                     if(success == true){
                         //fermer l'activity
+                        Toast.makeText(binding.root.context, "Note éditée", Toast.LENGTH_SHORT).show()
                         finish()
                     }
                 }
