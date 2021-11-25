@@ -1,6 +1,7 @@
 package com.example.taskyourtime.note
 
 import android.os.Bundle
+import android.text.SpannableStringBuilder
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -14,10 +15,42 @@ class AddNoteActivity : AppCompatActivity() {
     private lateinit var binding : ActivityAddNoteBinding
     private val noteService by inject<NoteService>()
 
+    private fun buttonBold() {
+        val spannable = SpannableStringBuilder(binding.noteContent.text)
+        spannable.insert(binding.noteContent.selectionStart, "<b>")
+        spannable.insert(binding.noteContent.selectionEnd + 3, "<b>")
+        binding.noteContent.text = spannable
+    }
+    private fun buttonUnderline() {
+        val spannable = SpannableStringBuilder(binding.noteContent.text)
+        spannable.insert(binding.noteContent.selectionStart, "<u>")
+        spannable.insert(binding.noteContent.selectionEnd + 3, "</u>")
+        binding.noteContent.text = spannable
+    }
+
+    private fun buttonItalics(){
+        val spannable = SpannableStringBuilder(binding.noteContent.text)
+        spannable.insert(binding.noteContent.selectionStart, "<i>")
+        spannable.insert(binding.noteContent.selectionEnd + 3, "</i>")
+        binding.noteContent.text = spannable
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAddNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        binding.boldButton.setOnClickListener{
+            buttonBold()
+        }
+
+        binding.underlinedButton.setOnClickListener{
+            buttonUnderline()
+        }
+
+        binding.italicButton.setOnClickListener{
+            buttonItalics()
+        }
 
         binding.buttonCancel.setOnClickListener{
             finish()
