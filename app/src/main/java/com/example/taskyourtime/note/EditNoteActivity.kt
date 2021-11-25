@@ -1,8 +1,7 @@
 package com.example.taskyourtime.note
 
+import android.content.Intent
 import android.os.Bundle
-import android.text.Html
-import android.text.Spannable
 import android.text.SpannableStringBuilder
 import android.util.Log
 import android.widget.Toast
@@ -29,7 +28,7 @@ class EditNoteActivity : AppCompatActivity() {
     private fun buttonUnderline() {
         val spannable = SpannableStringBuilder(binding.editNoteContent.text)
         spannable.insert(binding.editNoteContent.selectionStart, "<u>")
-        spannable.insert(binding.editNoteContent.selectionEnd + 3, "<u>")
+        spannable.insert(binding.editNoteContent.selectionEnd + 3, "</u>")
         binding.editNoteContent.setText(spannable)
     }
 
@@ -38,10 +37,9 @@ class EditNoteActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityEditNoteBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        note = intent.getSerializableExtra("noteToEdit") as Note;
+        note = intent.getSerializableExtra("noteClicked") as Note;
         binding.editNoteName.setText(note.name.toString())
         binding.editNoteContent.setText(note.content.toString())
-        //binding.editNoteContent.setText(Html.fromHtml(note.content,Html.FROM_HTML_MODE_LEGACY))
         Log.d(TAG, "${note.name}")
 
         binding.boldButton.setOnClickListener{
@@ -65,7 +63,7 @@ class EditNoteActivity : AppCompatActivity() {
                     success ->
                     if(success == true){
                         //fermer l'activity
-                        Toast.makeText(binding.root.context, "Note éditée", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this, "Note éditée", Toast.LENGTH_SHORT).show()
                         finish()
                     }
                 }

@@ -142,8 +142,8 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
 
     override fun onItemClick(position: Int) {
         val clikedItem = notes[position]
-        val intentEditNote = Intent(context, EditNoteActivity::class.java)
-        intentEditNote.putExtra("noteToEdit",clikedItem)
-        startActivity(intentEditNote)
+        val intentVisualizeNote = Intent(context, VisualizeNoteActivity::class.java)
+        intentVisualizeNote.putExtra("noteClicked",clikedItem)
+        startActivity(intentVisualizeNote)
     }
 }
