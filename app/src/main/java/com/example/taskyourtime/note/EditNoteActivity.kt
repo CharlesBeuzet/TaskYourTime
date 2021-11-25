@@ -1,6 +1,9 @@
 package com.example.taskyourtime.note
 
 import android.os.Bundle
+import android.text.Html
+import android.text.Spannable
+import android.text.SpannableStringBuilder
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -17,6 +20,18 @@ class EditNoteActivity : AppCompatActivity() {
     private lateinit var note: Note
     private val noteService by inject<NoteService>()
 
+    private fun buttonBold() {
+        val spannable = SpannableStringBuilder(binding.editNoteContent.text)
+        spannable.insert(binding.editNoteContent.selectionStart, "<b>")
+        spannable.insert(binding.editNoteContent.selectionEnd + 3, "<b>")
+        binding.editNoteContent.setText(spannable)
+    }
+    private fun buttonUnderline() {
+        val spannable = SpannableStringBuilder(binding.editNoteContent.text)
+        spannable.insert(binding.editNoteContent.selectionStart, "<u>")
+        spannable.insert(binding.editNoteContent.selectionEnd + 3, "<u>")
+        binding.editNoteContent.setText(spannable)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?)
     {
@@ -26,7 +41,16 @@ class EditNoteActivity : AppCompatActivity() {
         note = intent.getSerializableExtra("noteToEdit") as Note;
         binding.editNoteName.setText(note.name.toString())
         binding.editNoteContent.setText(note.content.toString())
+        //binding.editNoteContent.setText(Html.fromHtml(note.content,Html.FROM_HTML_MODE_LEGACY))
         Log.d(TAG, "${note.name}")
+
+        binding.boldButton.setOnClickListener{
+            buttonBold()
+        }
+
+        binding.underlinedButton.setOnClickListener{
+            buttonUnderline()
+        }
 
         binding.buttonEditCancel.setOnClickListener{
             finish()

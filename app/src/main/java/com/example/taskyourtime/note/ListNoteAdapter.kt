@@ -1,5 +1,6 @@
 package com.example.taskyourtime.note
 
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -30,12 +31,12 @@ class ListNoteAdapter(
 
     override fun onBindViewHolder(holder: ListNoteHolder, position: Int) {
         val data: Note = data[position]
-        holder.nameNote.text = data.name
-        holder.contentNote.text = data.content
-        val id_note = data.id.toString()
+        holder.nameNote.text = Html.fromHtml(data.name,Html.FROM_HTML_MODE_LEGACY)
+        holder.contentNote.text = Html.fromHtml(data.content,Html.FROM_HTML_MODE_LEGACY)
+        val idNote = data.id.toString()
         holder.deleteNoteButton.setOnClickListener{
-            Log.d("Asupprimer","Note dont l'id est $id_note a été supprimée")
-            noteService.deleteNote(id_note)
+            Log.d("Asupprimer","Note dont l'id est $idNote a été supprimée")
+            noteService.deleteNote(idNote)
         }
     }
 
