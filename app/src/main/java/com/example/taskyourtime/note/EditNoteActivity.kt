@@ -22,7 +22,7 @@ class EditNoteActivity : AppCompatActivity() {
     private fun buttonBold() {
         val spannable = SpannableStringBuilder(binding.editNoteContent.text)
         spannable.insert(binding.editNoteContent.selectionStart, "<b>")
-        spannable.insert(binding.editNoteContent.selectionEnd + 3, "<b>")
+        spannable.insert(binding.editNoteContent.selectionEnd + 3, "</b>")
         binding.editNoteContent.text = spannable
     }
     private fun buttonUnderline() {
@@ -42,6 +42,7 @@ class EditNoteActivity : AppCompatActivity() {
     private fun buttonNoFormat(){
         var temp = binding.editNoteContent.text.toString()
         var res = temp.replace("<b>", "", false)
+        res = res.replace("</b>","", false)
         res = res.replace("<i>","", false)
         res = res.replace("</i>","", false)
         res = res.replace("<u>","", false)

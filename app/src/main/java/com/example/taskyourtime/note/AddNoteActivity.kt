@@ -18,7 +18,7 @@ class AddNoteActivity : AppCompatActivity() {
     private fun buttonBold() {
         val spannable = SpannableStringBuilder(binding.noteContent.text)
         spannable.insert(binding.noteContent.selectionStart, "<b>")
-        spannable.insert(binding.noteContent.selectionEnd + 3, "<b>")
+        spannable.insert(binding.noteContent.selectionEnd + 3, "</b>")
         binding.noteContent.text = spannable
     }
     private fun buttonUnderline() {
@@ -33,6 +33,17 @@ class AddNoteActivity : AppCompatActivity() {
         spannable.insert(binding.noteContent.selectionStart, "<i>")
         spannable.insert(binding.noteContent.selectionEnd + 3, "</i>")
         binding.noteContent.text = spannable
+    }
+
+    private fun buttonNoFormat(){
+        var temp = binding.noteContent.text.toString()
+        var res = temp.replace("<b>", "", false)
+        res = res.replace("</b>","", false)
+        res = res.replace("<i>","", false)
+        res = res.replace("</i>","", false)
+        res = res.replace("<u>","", false)
+        res = res.replace("</u>","", false)
+        binding.noteContent.setText(res)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -54,6 +65,10 @@ class AddNoteActivity : AppCompatActivity() {
 
         binding.buttonCancel.setOnClickListener{
             finish()
+        }
+
+        binding.noFormatButton.setOnClickListener{
+            buttonNoFormat()
         }
 
         binding.buttonCreateNote.setOnClickListener{
