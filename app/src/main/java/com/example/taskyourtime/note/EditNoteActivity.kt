@@ -23,13 +23,20 @@ class EditNoteActivity : AppCompatActivity() {
         val spannable = SpannableStringBuilder(binding.editNoteContent.text)
         spannable.insert(binding.editNoteContent.selectionStart, "<b>")
         spannable.insert(binding.editNoteContent.selectionEnd + 3, "<b>")
-        binding.editNoteContent.setText(spannable)
+        binding.editNoteContent.text = spannable
     }
     private fun buttonUnderline() {
         val spannable = SpannableStringBuilder(binding.editNoteContent.text)
         spannable.insert(binding.editNoteContent.selectionStart, "<u>")
         spannable.insert(binding.editNoteContent.selectionEnd + 3, "</u>")
-        binding.editNoteContent.setText(spannable)
+        binding.editNoteContent.text = spannable
+    }
+
+    private fun buttonItalics(){
+        val spannable = SpannableStringBuilder(binding.editNoteContent.text)
+        spannable.insert(binding.editNoteContent.selectionStart, "<i>")
+        spannable.insert(binding.editNoteContent.selectionEnd + 3, "</i>")
+        binding.editNoteContent.text = spannable
     }
 
     override fun onCreate(savedInstanceState: Bundle?)
@@ -48,6 +55,10 @@ class EditNoteActivity : AppCompatActivity() {
 
         binding.underlinedButton.setOnClickListener{
             buttonUnderline()
+        }
+
+        binding.italicButton.setOnClickListener{
+            buttonItalics()
         }
 
         binding.buttonEditCancel.setOnClickListener{
