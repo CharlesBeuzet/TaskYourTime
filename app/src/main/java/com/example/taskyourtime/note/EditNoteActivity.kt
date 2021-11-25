@@ -4,7 +4,6 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.example.taskyourtime.databinding.ActivityAddNoteBinding
 import com.example.taskyourtime.databinding.ActivityEditNoteBinding
 import com.example.taskyourtime.model.Note
 import com.example.taskyourtime.services.NoteService
@@ -13,10 +12,11 @@ import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
 
 class EditNoteActivity : AppCompatActivity() {
-    private final var TAG = "EditNoteActivity"
+    private var TAG = "EditNoteActivity"
     private lateinit var binding : ActivityEditNoteBinding
     private lateinit var note: Note
     private val noteService by inject<NoteService>()
+
 
     override fun onCreate(savedInstanceState: Bundle?)
     {

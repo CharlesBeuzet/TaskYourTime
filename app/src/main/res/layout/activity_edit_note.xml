@@ -37,7 +37,7 @@
             android:layout_weight="1"
             android:background="@color/orange"
             android:fontFamily="Time New Roman"
-            android:text="Annuler l'ajout" />
+            android:text="Annuler l'édition" />
 
         <Button
             android:id="@+id/buttonEditNote"
@@ -86,4 +86,5 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         tools:layout_editor_absoluteX="16dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

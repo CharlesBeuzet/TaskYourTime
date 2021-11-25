@@ -8,7 +8,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.taskyourtime.databinding.NoteItemCellBinding
 import com.example.taskyourtime.model.Note
 import com.example.taskyourtime.services.NoteService
-import java.nio.file.Files.delete
 
 
 private lateinit var binding: NoteItemCellBinding

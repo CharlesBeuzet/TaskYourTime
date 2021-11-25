@@ -3,14 +3,13 @@ package com.example.taskyourtime.note
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.*
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.taskyourtime.DefaultActivity
-import com.example.taskyourtime.R
 import com.example.taskyourtime.databinding.ActivityListNoteBinding
 import com.example.taskyourtime.model.Note
 import com.example.taskyourtime.services.NoteService
@@ -23,7 +22,6 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
-import org.koin.java.KoinJavaComponent.inject
 
 class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
 
