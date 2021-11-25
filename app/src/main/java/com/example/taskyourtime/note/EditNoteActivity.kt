@@ -39,6 +39,16 @@ class EditNoteActivity : AppCompatActivity() {
         binding.editNoteContent.text = spannable
     }
 
+    private fun buttonNoFormat(){
+        var temp = binding.editNoteContent.text.toString()
+        var res = temp.replace("<b>", "", false)
+        res = res.replace("<i>","", false)
+        res = res.replace("</i>","", false)
+        res = res.replace("<u>","", false)
+        res = res.replace("</u>","", false)
+        binding.editNoteContent.setText(res)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?)
     {
         super.onCreate(savedInstanceState)
@@ -59,6 +69,10 @@ class EditNoteActivity : AppCompatActivity() {
 
         binding.italicButton.setOnClickListener{
             buttonItalics()
+        }
+
+        binding.noFormatButton.setOnClickListener{
+            buttonNoFormat()
         }
 
         binding.buttonEditCancel.setOnClickListener{
