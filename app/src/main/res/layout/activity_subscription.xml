@@ -47,7 +47,8 @@
             android:src="@drawable/ic_camera"
             app:fabSize="mini"
             app:layout_constraintBottom_toBottomOf="@id/ciAvatar"
-            app:layout_constraintEnd_toEndOf="@id/ciAvatar" />
+            app:layout_constraintEnd_toEndOf="@id/ciAvatar"
+            android:contentDescription="@string/avatar_add" />
 
         <EditText
             android:id="@+id/etFirstName"
@@ -66,7 +67,8 @@
             android:textColor="@color/mainTextColor"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/ciAvatar" />
+            app:layout_constraintTop_toBottomOf="@id/ciAvatar"
+            android:autofillHints="@string/firstName" />
 
         <EditText
             android:id="@+id/etLastName"
@@ -85,7 +87,8 @@
             android:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etFirstName" />
+            app:layout_constraintTop_toBottomOf="@id/etFirstName"
+            android:autofillHints="@string/lastName" />
 
         <EditText
             android:id="@+id/etEmail"
@@ -104,7 +107,8 @@
             android:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etLastName" />
+            app:layout_constraintTop_toBottomOf="@id/etLastName"
+            android:autofillHints="@string/email" />
 
         <EditText
             android:id="@+id/etPassword"
@@ -123,7 +127,8 @@
             android:backgroundTint="@color/white"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/etEmail" />
+            app:layout_constraintTop_toBottomOf="@id/etEmail"
+            android:autofillHints="@string/password" />
 
         <TextView
             android:id="@+id/errorTV"
@@ -135,6 +140,7 @@
             android:textAllCaps="true"
             android:textColor="@android:color/holo_red_dark"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/etPassword"
             app:layout_constraintStart_toStartOf="@+id/etPassword"
             app:layout_constraintTop_toBottomOf="@+id/etPassword"

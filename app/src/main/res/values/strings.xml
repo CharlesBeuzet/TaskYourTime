@@ -1,9 +1,10 @@
 <resources>
     <string name="app_name">TaskYourTime</string>
     <string name="title_activity_list_note">ListNoteActivity</string>
-    <!-- TODO: Remove or change this placeholder text -->
+
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="title_activity_to_do_list">ToDoListActivity</string>
+
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -14,15 +15,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="title_activity_add_item">AddItemActivity</string>
 
-    <string name="stay_in_touch">Use this starter kit to build your Android app faster.</string>
-    <string name="log_in">Log In</string>
-    <string name="sign_up">Sign Up</string>
-    <string name="welcome_to_messenger">Kotlin Starter Kit with Firebase</string>
-
-    <string name="facebookLogin">Facebook Login</string>
-    <string name="facebook_app_id">686078505161575</string>
-    <string name="fb_login_protocol_scheme">fb686078505161575</string>
-
+    <!-- Login and Sign up page strings -->
     <string name="taskYourTime">TaskYourTime</string>
     <string name="taskYourTime_logo_desc">TaskYourTime logo</string>
     <string name="firstName">First Name</string>
@@ -31,7 +24,8 @@
     <string name="password">Password</string>
     <string name="phone">Phone Number</string>
     <string name="or">or</string>
-    <string name="sign_in">Sign in</string>
+    <string name="log_in">Log In</string>
+    <string name="sign_up">Sign Up</string>
     <string name="create_new_account">Create new account</string>
     <string name="login_error">Authentication error. Please check your information</string>
     <string name="sign_up_error">Please fill all required fields</string>
@@ -40,26 +34,35 @@
     <string name="phone_required_error">Phone number is required to sign up.</string>
     <string name="email_required_error">Email address is required to sign up.</string>
     <string name="password_required_error">Password is required to sign up.</string>
+    <string name="password_validation_error">Password must not contains symbols (@#$%^&amp;+=])</string>
     <string name="malformed_phone_error">This phone number is badly formatted.</string>
     <string name="malformed_email_error">This email address is badly formatted.</string>
     <string name="short_password_error">Password should be at least 6 characters.</string>
     <string name="select_image">Select Image</string>
     <string name="logout">Log Out</string>
+    <string name="avatar_add">Adding avatar</string>
 
+    <!-- Calendar view related strings -->
     <string name="add_calEvent">Add an event</string>
+    <string name="date_separator">-</string>
+    <string name="date_placeholder">dd/mm/yyyy (hh:mm)</string>
+    <string name="delete_event">Delete the calendar event</string>
+    <string name="tvInfo_placeholder">Friday 9th January 1970</string>
+    <string name="info_day">%1$s %2$sth %3$s %4$s</string>
+    <string name="date_display_placeholder">%1$s(%2$s)</string>
+
+    <!-- Calendar add event related strings -->
     <string name="confirm">Confirm</string>
     <string name="cancel">Cancel</string>
     <string name="description">Description</string>
-    <string name="begin_time">Begin time</string>
-    <string name="end_time">End time</string>
-    <string name="begin_date">Begin date</string>
-    <string name="end_date">End date</string>
-    <string name="event_title">Title</string>
-    <string name="date_separator">-</string>
-    <string name="date_placeholder">dd/mm/yy (hh:mm)</string>
-    <string name="delete_event">Delete the calendar event</string>
-    <string name="tvInfo_placeholder">Friday 9th January 1970</string>
-
-    <string name="info_day">%1$s %2$sth %3$s %4$s</string>
-    <string name="date_display_placeholder">%1$s(%2$s)</string>
+    <string name="begin_time">Begin time*</string>
+    <string name="end_time">End time*</string>
+    <string name="begin_date">Begin date*</string>
+    <string name="end_date">End date*</string>
+    <string name="event_title">Title*</string>
+    <string name="date_picker_placeholder">%1$s/%2$s/%3$s</string>
+    <string name="time_picker_placeholder">%1$s:%2$s</string>
+    <string name="error_message_placeholder">Error placeholder</string>
+    <string name="validation_error_message">Please fill all required fields (*)</string>
+    <string name="add_error_message">An error occurred, please retry later</string>
 </resources>

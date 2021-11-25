@@ -89,7 +89,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="55dp"
-                android:layout_marginEnd="4dp"
+                android:layout_marginEnd="15dp"
                 android:gravity="bottom|end"
                 android:padding="0dp"
                 android:text="@string/date_placeholder"
@@ -99,24 +99,6 @@
                 android:textStyle="bold"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-
-            <TextView
-                android:id="@+id/descriptionEvent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="120dp"
-                android:enabled="false"
-                android:gravity="start"
-                android:padding="2dp"
-                android:textAlignment="textStart"
-                android:textColor="@color/black"
-                android:textSize="12sp"
-                android:textStyle="bold"
-                android:visibility="invisible"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.118" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/deleteEventButton"

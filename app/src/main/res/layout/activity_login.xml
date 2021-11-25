@@ -91,6 +91,7 @@
             android:textAllCaps="true"
             android:textColor="@android:color/holo_red_dark"
             android:textStyle="bold"
+            android:visibility="invisible"
             app:layout_constraintEnd_toEndOf="@+id/password"
             app:layout_constraintStart_toStartOf="@+id/password"
             app:layout_constraintTop_toBottomOf="@+id/password" />

@@ -1,18 +1,11 @@
 package com.example.taskyourtime.calendar
 
 import android.content.Intent
-import android.content.res.Resources
-import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.CalendarView
-import android.widget.Toast
-import androidx.annotation.RequiresApi
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -28,13 +21,9 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.delay
 import org.koin.android.ext.android.inject
-import java.text.SimpleDateFormat
 import java.time.LocalDate
-import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
-import java.util.*
 
 class CalendarViewActivity : Fragment() {
 
@@ -46,19 +35,18 @@ class CalendarViewActivity : Fragment() {
 
     private val TAG = "CalendarViewActivity"
     private lateinit var database: DatabaseReference
-    private val calendarEvents : MutableList<CalendarEvent> = mutableListOf<CalendarEvent>()
+    private val calendarEvents : MutableList<CalendarEvent> = mutableListOf()
     private val userService by inject<UserService>()
 
-    public var selectedDate : LocalDate = LocalDate.now()
+    var selectedDate : LocalDate = LocalDate.now()
 
     override fun onCreateView(
             inflater: LayoutInflater,
             container: ViewGroup?,
             savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ActivityCalendarViewBinding.inflate(inflater, container, false)
-        val view = _binding.root
-        return view
+        return _binding.root
     }
 
     private fun displayEvents(){
@@ -101,15 +89,17 @@ class CalendarViewActivity : Fragment() {
         binding?.addEventButton?.setOnClickListener{
             Log.d("CLICK", "Adding event")
             val intentAddCalendarEvent = Intent(context, AddToCalendarActivity::class.java)
+            intentAddCalendarEvent.putExtra("SELECTED_DATE", selectedDate)
             startActivity(intentAddCalendarEvent)
         }
 
-        var childEventListener = object : ChildEventListener {
+        val childEventListener = object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val map = snapshot.value as Map<String?, Any?>
                 val myEvent = CalendarEvent(map)
                 myEvent.id = snapshot.key!!
-                if(myEvent.begin_date?.split(" ")?.get(0) == selectedDate.format(DateTimeFormatter.ofPattern("dd/MM/yy")).toString()){
+                Log.d(TAG, myEvent.begin_date?.split(" ")?.get(0).toString() + " == " + selectedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString())
+                if(myEvent.begin_date?.split(" ")?.get(0) == selectedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString()){
                     Log.d(TAG, "onChildAdded::" + snapshot.key!!)
                     calendarEvents.add(myEvent)
                 }
