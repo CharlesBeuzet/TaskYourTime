@@ -1,9 +1,11 @@
 package com.example.taskyourtime.calendar
 
+import android.content.Context
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.taskyourtime.R
 import com.example.taskyourtime.databinding.CalendarEventCellBinding
 import com.example.taskyourtime.model.CalendarEvent
 import com.example.taskyourtime.services.CalendarService
@@ -11,8 +13,9 @@ import com.example.taskyourtime.services.CalendarService
 private lateinit var binding: CalendarEventCellBinding
 
 class CalendarViewAdapter(
-        private val data: MutableList<CalendarEvent>,
+        private var data: MutableList<CalendarEvent>,
         private val calendarService: CalendarService,
+        private val context: Context?,
 ) : RecyclerView.Adapter<CalendarViewAdapter.CalendarViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CalendarViewHolder {
@@ -23,13 +26,15 @@ class CalendarViewAdapter(
 
     override fun onBindViewHolder(holder: CalendarViewHolder, position: Int) {
         val data: CalendarEvent = data[position]
+        Log.d("onBindViewHolder", "${data.name}" +" "+ "${data.begin_date}")
         holder.nameEvent.text = data.name
-        holder.descriptionEvent.text = data.description
-        holder.beginDateTimeEvent.text = data.begin_date
-        holder.endDateTimeEvent.text = data.end_date
-        val id_event = data.id.toString()
+        if(context != null) {
+            holder.beginDateTimeEvent.text = String.format(context.getString(R.string.date_display_placeholder), data.begin_date?.substring(0,11), data.begin_date?.substring(11))
+            holder.endDateTimeEvent.text = String.format(context.getString(R.string.date_display_placeholder), data.end_date?.substring(0,11), data.end_date?.substring(11))
+        }
+            val id_event = data.id.toString()
         holder.deleteEventButton.setOnClickListener{
-            Log.d("Asupprimer", "Evennement dont l'id est $id_event supprimé")
+            Log.d("DELETE", "Evennement dont l'id est $id_event supprimé")
             calendarService.deleteCalendarEvent(id_event)
         }
     }
@@ -40,7 +45,6 @@ class CalendarViewAdapter(
 
     class CalendarViewHolder(binding: CalendarEventCellBinding) : RecyclerView.ViewHolder(binding.root){
         val nameEvent = binding.nameEvent
-        val descriptionEvent = binding.descriptionEvent
         val beginDateTimeEvent = binding.beginDateTimeEvent
         val endDateTimeEvent = binding.endDateTimeEvent
         val deleteEventButton = binding.deleteEventButton

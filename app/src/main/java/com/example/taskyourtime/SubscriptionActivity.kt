@@ -13,16 +13,29 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
+import java.util.regex.Pattern
 
 class SubscriptionActivity : AppCompatActivity() {
 
     private lateinit var auth: FirebaseAuth
-    lateinit var subscribe_button : Button
-    lateinit var email_text : EditText
-    lateinit var password_text : EditText
-    lateinit var firstname_text : EditText
-    lateinit var lastname_text : EditText
-    lateinit var error_text: TextView
+    private lateinit var subscribeButton : Button
+    private lateinit var emailText : EditText
+    private lateinit var passwordText : EditText
+    private lateinit var firstnameText : EditText
+    private lateinit var lastnameText : EditText
+    private lateinit var errorText: TextView
+
+    private var emailAddressPattern: Pattern = Pattern.compile(
+            "[a-zA-Z0-9\\+\\.\\_\\%\\-\\+]{1,256}" +
+                    "\\@" +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,64}" +
+                    "(" +
+                    "\\." +
+                    "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
+                    ")+"
+    )
+
+    private var passwordPattern: Pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$")
 
     private val userService by inject<UserService>()
 
@@ -32,39 +45,50 @@ class SubscriptionActivity : AppCompatActivity() {
 
         auth = Firebase.auth
 
-        subscribe_button = findViewById(R.id.btnSignUp)
-        email_text = findViewById(R.id.etEmail)
-        password_text = findViewById(R.id.etPassword)
-        firstname_text = findViewById(R.id.etFirstName)
-        lastname_text = findViewById(R.id.etLastName)
-        error_text = findViewById(R.id.errorTV)
+        subscribeButton = findViewById(R.id.btnSignUp)
+        emailText = findViewById(R.id.etEmail)
+        passwordText = findViewById(R.id.etPassword)
+        firstnameText = findViewById(R.id.etFirstName)
+        lastnameText = findViewById(R.id.etLastName)
+        errorText = findViewById(R.id.errorTV)
 
-        subscribe_button.setOnClickListener(listener)
+        subscribeButton.setOnClickListener(listener)
     }
 
-    val listener = View.OnClickListener { view ->
-        when(view.getId()) {
+    private val listener = View.OnClickListener { view ->
+        when(view.id) {
             R.id.btnSignUp -> {
                 //Get the data and store it in Firebase
-                val email = email_text.text.toString()
-                val password = password_text.text.toString()
-                val firstName = firstname_text.text.toString()
-                val lastName = lastname_text.text.toString()
+                val email = emailText.text.toString()
+                val password = passwordText.text.toString()
+                val firstName = firstnameText.text.toString()
+                val lastName = lastnameText.text.toString()
 
-                if(email == "" || password == "" || firstName == "" || lastName == ""){
-                    error_text.text = getString(R.string.sign_up_error)
+                if (email == "" || password == "" || firstName == "" || lastName == "") {
+                    errorText.visibility = View.VISIBLE
+                    errorText.text = getString(R.string.sign_up_error)
+                } else if (!emailAddressPattern.matcher(email).matches()){
+                    errorText.visibility = View.VISIBLE
+                    errorText.text = getString(R.string.malformed_email_error)
+                }
+                else if(password.length < 6){
+                    errorText.visibility = View.VISIBLE
+                    errorText.text = getString(R.string.short_password_error)
+                }
+                else if(!passwordPattern.matcher(password).matches()){
+                    errorText.visibility = View.VISIBLE
+                    errorText.text = getString(R.string.password_validation_error)
                 }
                 else {
                     Log.d("AUTH", "Email : " + email + "password : " + password)
 
-                    (userService.registerUser(firstName, lastName, email, password, "resources/picture" )).observeForever{
-                        success ->
-                        if(success == true){
+                    (userService.registerUser(firstName, lastName, email, password, "resources/picture")).observeForever { success ->
+                        if (success == true) {
                             val intent = Intent(this, DefaultActivity::class.java)
                             startActivity(intent)
-                        }
-                        else{
-                            error_text.setText(R.string.sign_up_content_error)
+                        } else {
+                            errorText.visibility = View.VISIBLE
+                            errorText.setText(R.string.sign_up_content_error)
                         }
                     }
                 }
@@ -77,7 +101,7 @@ class SubscriptionActivity : AppCompatActivity() {
         // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if(currentUser != null){
-            Log.d("AUTH","User is ever signed-in ")
+            Log.d("AUTH", "User is ever signed-in ")
         }
     }
 
