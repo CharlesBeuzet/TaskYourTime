@@ -4,54 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".note.AddNoteActivity">
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="256dp"
-        android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
-
-        <Button
-            android:id="@+id/boldButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:text="B" />
-
-        <Button
-            android:id="@+id/italicButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:text="I" />
-
-        <Button
-            android:id="@+id/underlinedButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:text="U" />
-
-        <Button
-            android:id="@+id/noFormatButton"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_weight="1"
-            android:text="NF" />
-    </LinearLayout>
+    tools:context=".note.VisualizeNoteActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -76,7 +29,7 @@
         app:layout_constraintStart_toStartOf="parent">
 
         <Button
-            android:id="@+id/buttonCancel"
+            android:id="@+id/buttonReturn"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
@@ -84,10 +37,10 @@
             android:layout_weight="1"
             android:background="@color/orange"
             android:fontFamily="Time New Roman"
-            android:text="Annuler l'ajout" />
+            android:text="Retour" />
 
         <Button
-            android:id="@+id/buttonCreateNote"
+            android:id="@+id/buttonEditNote"
             android:layout_width="wrap_content"
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
@@ -95,19 +48,19 @@
             android:layout_weight="1"
             android:background="@color/blue_green"
             android:fontFamily="Time New Roman"
-            android:text="Confirmer l'ajout" />
+            android:text="Éditer la note" />
 
     </LinearLayout>
 
-    <EditText
-        android:id="@+id/noteContent"
+    <TextView
+        android:id="@+id/visualNoteContent"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginBottom="72dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="184dp"
         android:background="@color/grayLight"
         android:ems="10"
         android:gravity="start"
-        android:hint="Écrivez le contenu de votre note"
+        android:hint="Contenu de votre note"
         android:inputType="textMultiLine"
         android:padding="10dp"
         android:textAlignment="textStart"
@@ -115,10 +68,10 @@
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/linearLayout"
         tools:ignore="LabelFor,MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        tools:layout_editor_absoluteX="-16dp" />
 
-    <EditText
-        android:id="@+id/noteName"
+    <TextView
+        android:id="@+id/visualNoteName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="448dp"
