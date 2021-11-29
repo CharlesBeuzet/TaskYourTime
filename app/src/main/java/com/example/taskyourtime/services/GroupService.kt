@@ -84,13 +84,9 @@ class GroupServiceImpl(
     }
 
     private fun add(idGroup:String, userId: String){
-        //A FINIR
-        //ce qu'il faut faire selon moi, get la liste des id, convertir en liste string
-        //ajouter le nouvel id utilisateur et mettre à jour le noeud
-        //créer le GroupValidation associé et mettre validated à "no"
-        var list: String = database.child("groups").child(idGroup).child("userIdList").get().toString()
-        Log.d(TAG, "$list")
-
+        if(userId != null){
+            database.child("groups").child(idGroup).child("userIdList").child(userId).setValue("no")
+        }
     }
 
     private fun create(name: String, ownerId: String){
