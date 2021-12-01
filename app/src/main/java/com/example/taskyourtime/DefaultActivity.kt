@@ -10,6 +10,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.taskyourtime.calendar.CalendarViewActivity
+import com.example.taskyourtime.group.ListGroupActivity
 import com.example.taskyourtime.note.ListNoteActivity
 import com.example.taskyourtime.productivity.ProductivityActivity
 import com.example.taskyourtime.todolist.ToDoListActivity
@@ -63,7 +64,7 @@ class DefaultActivity : FragmentActivity() {
                 1 -> view = ListNoteActivity()
                 2 ->  view = ToDoListActivity()
                 3 -> view = ProductivityActivity()
-                4 -> view = DefaultFragment()
+                4 -> view = ListGroupActivity()
                 else -> view = DefaultFragment()
             }
             return view
