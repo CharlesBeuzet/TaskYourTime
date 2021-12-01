@@ -18,6 +18,7 @@
             android:label="@string/title_activity_list_group"
             android:theme="@style/NoActionBar"
             tools:ignore="Instantiatable" />
+        <activity android:name=".group.AddGroupActivity"/>
         <activity
             android:name=".productivity.ProductivityActivity"
             tools:ignore="Instantiatable" />

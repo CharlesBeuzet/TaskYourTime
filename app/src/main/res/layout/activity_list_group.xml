@@ -29,7 +29,7 @@
         tools:listitem="@layout/group_item_cell" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/adGroupButton"
+        android:id="@+id/addGroupButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"

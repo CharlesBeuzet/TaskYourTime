@@ -1,5 +1,6 @@
 package com.example.taskyourtime.group
 
+import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -75,11 +76,11 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
         Log.d(TAG, "ListGroupView created")
         super.onViewCreated(view, savedInstanceState)
         Log.d("Group creation", "Inside the createview of groups")
-        binding?.adGroupButton?.setOnClickListener{
+        binding?.addGroupButton?.setOnClickListener{
             Log.d("Click", "Adding group")
-            /*val intentAddGroup = Intent(context, AddGroupActivity::class.java)
+            val intentAddGroup = Intent(context, AddGroupActivity::class.java)
             startActivity(intentAddGroup)
-             */
+
         }
 
         database = Firebase.database.reference.child("groups")

@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskyourtime.databinding.GroupItemCellBinding
 import com.example.taskyourtime.model.Group
-import com.example.taskyourtime.note.ListNoteAdapter
 import com.example.taskyourtime.services.GroupService
 
 private lateinit var binding: GroupItemCellBinding
@@ -16,8 +15,9 @@ private lateinit var binding: GroupItemCellBinding
 class ListGroupAdapter(
     private val data: MutableList<Group>,
     private val noteService: GroupService,
-    private val listener: ListGroupActivity,
+    private val listener: OnItemClickListener,
 ): RecyclerView.Adapter<ListGroupAdapter.ListGroupHolder>() {
+
     override fun onCreateViewHolder(
         parent: ViewGroup,
         viewType: Int
@@ -58,6 +58,7 @@ class ListGroupAdapter(
             }
         }
     }
+
     interface OnItemClickListener{
         fun onItemClick(position: Int)
     }
