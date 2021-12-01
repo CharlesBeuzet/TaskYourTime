@@ -51,19 +51,30 @@ class GroupServiceImpl(
     }
 
     override fun addUser(groupId:String, userId: String): LiveData<Boolean> {
-        //à faire
         var success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        success.postValue(true)
-
+        var groupToUpdate = findGroupById(groupId)
+        if(groupToUpdate != null){
+            add(groupId, userId)
+            success.postValue(true)
+            Log.w(TAG, "Succès lors de l'ajout de l'id utilisateur dans  le groupe")
+        }else{
+            success.postValue(false)
+            Log.w(TAG, "Erreur lors de l'ajout de l'utilisateur dans le groupe")
+        }
         return success
     }
 
     override fun removeUser(groupId:String, userId: String): LiveData<Boolean> {
-        //à faire
-
         var success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        success.postValue(true)
-
+        var groupToUpdate = findGroupById(groupId)
+        if(groupToUpdate != null){
+            remove(groupId, userId)
+            success.postValue(true)
+            Log.w(TAG, "Succès lors du retrait de l'id utilisateur du groupe")
+        }else{
+            success.postValue(false)
+            Log.w(TAG, "Erreur lors du retrait de l'utilisateur du groupe")
+        }
         return success
     }
 
@@ -83,9 +94,15 @@ class GroupServiceImpl(
         return groupResult
     }
 
-    private fun add(idGroup:String, userId: String){
+    private fun add(idGroup: String, userId: String){
         if(userId != null){
             database.child("groups").child(idGroup).child("userIdList").child(userId).setValue("no")
+        }
+    }
+
+    private fun remove(idGroup: String, userId: String){
+        if(userId != null){
+            database.child("groups").child(idGroup).child("userIdList").child(userId).removeValue()
         }
     }
 
