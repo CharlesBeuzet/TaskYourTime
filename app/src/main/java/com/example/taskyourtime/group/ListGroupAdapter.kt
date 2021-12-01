@@ -34,7 +34,7 @@ class ListGroupAdapter(
         val idGroup = data.id.toString()
         /*holder.deleteGroupButton.setOnClickListener{
             Log.d("Asupprimer","Groupe dont l'id est id a été supprimée")
-            noteService.deleteNote(idNote)
+            groupService.deleteGroup(idGroup)
         }*/
     }
 
