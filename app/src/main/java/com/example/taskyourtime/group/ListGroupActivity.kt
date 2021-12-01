@@ -132,10 +132,11 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
     }
 
     override fun onItemClick(position: Int){
-        val clikedItem = groups[position]
+        val clickedItem = groups[position]
         /*val intentVisualizeGroup = Intent(context, VisualizeGroupActivity::class.java)
         intentVisualizeGroup.putExtra("groupClicked",clikedItem)
         startActivity(intentVisualizeGroup)*/
+        Log.d("ICIIIIIIIII", clickedItem.userIdList.toString())
         Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
     }
 
