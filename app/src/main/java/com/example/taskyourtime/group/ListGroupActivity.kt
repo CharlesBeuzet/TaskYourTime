@@ -54,7 +54,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
 
     override fun onStop(){
         super.onStop()
-        Log.i(TAG, "ACTIVITY SOPPED")
+        Log.i(TAG, "ACTIVITY STOPPED")
     }
 
     override fun onDestroy() {
