@@ -13,12 +13,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".group.AddGroupActivity"
+            android:exported="false"
+            android:label="@string/title_activity_add_group"
+            android:theme="@style/NoActionBar" />
+        <activity
             android:name=".group.ListGroupActivity"
             android:exported="false"
             android:label="@string/title_activity_list_group"
             android:theme="@style/NoActionBar"
             tools:ignore="Instantiatable" />
-        <activity android:name=".group.AddGroupActivity"/>
         <activity
             android:name=".productivity.ProductivityActivity"
             tools:ignore="Instantiatable" />

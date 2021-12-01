@@ -66,4 +66,5 @@
     <string name="validation_error_message">Please fill all required fields (*)</string>
     <string name="add_error_message">An error occurred, please retry later</string>
     <string name="title_activity_list_group">ListGroupActivity</string>
+    <string name="title_activity_add_group">AddGroupActivity</string>
 </resources>
