@@ -20,6 +20,10 @@ class AddGroupActivity : AppCompatActivity() {
             finish()
         }
 
+        binding.buttonInviteUser.setOnClickListener {
+
+        }
+
 
 
     }
