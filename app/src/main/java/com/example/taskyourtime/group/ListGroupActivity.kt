@@ -102,13 +102,18 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val index = groups.indexOfFirst {it.id == snapshot.key!!}
+                val checkMap = snapshot.value as Map<String?, Any?>
+                val users = checkMap["userIdList"]
+                val checkGroup = Group(checkMap)
+                checkGroup.userIdList = users as HashMap<String?, Any?>
+                Log.d("HEEEEEEE", checkGroup.userIdList[Firebase.auth.uid].toString())
                 if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || (groups[index].userIdList.contains(Firebase.auth.uid) && groups[index].userIdList[Firebase.auth.uid] == "yes"))){
                     val map = snapshot.value as Map<String?, Any?>
                     val myGroup = Group(map)
                     val groupId = groups[index].id
                     binding?.recyclerView?.adapter?.notifyDataSetChanged()
                 }
-                if(groups[index].userIdList.contains(Firebase.auth.uid) && groups[index].userIdList[Firebase.auth.uid] == "no"){
+                if(checkGroup.userIdList.contains(Firebase.auth.uid) && checkGroup.userIdList[Firebase.auth.uid] == "no"){
                     groups.removeAt(index)
                     binding?.recyclerView?.adapter?.notifyItemRemoved(index)
                 }
@@ -117,7 +122,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + snapshot.key!!)
                 val index = groups.indexOfFirst { it.id == snapshot.key!! }
-                if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || (groups[index].userIdList.contains(Firebase.auth.uid) && groups[index].userIdList[Firebase.auth.uid] == "yes"))){
+                if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || groups[index].userIdList.contains(Firebase.auth.uid))){
                     val map = snapshot.value as Map<String?, Any?>
                     groups.removeAt(index)
                     binding?.recyclerView?.adapter?.notifyItemRemoved(index)
