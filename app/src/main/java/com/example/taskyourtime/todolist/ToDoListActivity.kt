@@ -6,25 +6,13 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
-import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.get
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.ItemTouchHelper.ACTION_STATE_DRAG
-import androidx.recyclerview.widget.ItemTouchHelper.Callback.makeMovementFlags
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.taskyourtime.R
-import com.example.taskyourtime.databinding.ActivityListNoteBinding
 import com.example.taskyourtime.databinding.ActivityToDoListBinding
-import com.example.taskyourtime.model.Note
 import com.example.taskyourtime.model.ToDoItem
-import com.example.taskyourtime.note.AddNoteActivity
-import com.example.taskyourtime.note.ListNoteAdapter
-import com.example.taskyourtime.services.NoteService
 import com.example.taskyourtime.services.ToDoItemService
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.ChildEventListener
@@ -68,11 +56,11 @@ class ToDoListActivity : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "ToDoListView created")
         super.onViewCreated(view, savedInstanceState)
-        //go to activity create a note
+        //go to activity create an item
         binding?.addItemButton?.setOnClickListener {
-            val intentAddNote =
+            val intentAddItem =
                 Intent(context,AddItemActivity::class.java) //TODO : change activity
-            startActivity(intentAddNote)
+            startActivity(intentAddItem)
         }
 
         database = Firebase.database.reference.child("ItemToDoList")
@@ -90,7 +78,7 @@ class ToDoListActivity : Fragment() {
                 }
                 //Ordering items by their position
                 items.sortBy { it.position }
-                Log.d(TAG,"Nulber of items : " + items.size)
+                Log.d(TAG,"Number of items : " + items.size)
                 Log.d(TAG,"Checkbox : " + myItem.done)
                 binding?.recyclerView?.adapter?.notifyDataSetChanged()
             }

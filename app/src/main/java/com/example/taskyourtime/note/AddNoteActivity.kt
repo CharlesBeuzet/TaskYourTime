@@ -80,7 +80,7 @@ class AddNoteActivity : AppCompatActivity() {
             val userId = Firebase.auth.currentUser?.uid
             if (userId != null) {
                 noteService.postNewNote(name, content, userId).observeForever{
-                    success ->
+                        success ->
                     if(success == true){
                         //fermer l'activity
                         Toast.makeText(binding.root.context, "Nouvelle note ajoutée", Toast.LENGTH_SHORT).show()
