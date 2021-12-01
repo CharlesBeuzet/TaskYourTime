@@ -8,20 +8,20 @@ data class Group(
     var id : String?,
     var ownerId: String?,
     var name : String?,
-    var userIdList: List<String?>
+    var userIdList: HashMap<String?, Any?>
 ) {
     constructor(map: Map<String?, Any?>): this(
         null,
         map["ownerId"] as String?,
         map["name"] as String?,
-        listOf()
+        hashMapOf()
     )
 
     fun loadFromMap(map: Map<String?, Any?>){
         id = map["id"] as String?
         ownerId = map["ownerId"] as String?
         name = map["name"] as String?
-        userIdList = map["userIdList"] as List<String?>
+        userIdList = map["userIdList"] as HashMap<String?, Any?>
     }
 
     fun toMAp(): Map<String, Any?>?{

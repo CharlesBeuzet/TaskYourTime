@@ -89,10 +89,12 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                 Log.d(TAG, "onChildAdded::" + snapshot.key!!)
                 val map = snapshot.value as Map<String?, Any?>
                 val myGroup = Group(map)
+                val userIdList = map["userIdList"]
+                myGroup.userIdList = userIdList as HashMap<String?, Any?>
                 myGroup.id = snapshot.key!!
                 //faire ce qu'on veut faire : afficher le groupe dans le recyclerView
                 myGroup.name?.let { Log.d(TAG, it) }
-                if(Firebase.auth.uid == myGroup.ownerId || myGroup.userIdList.contains(Firebase.auth.uid)){
+                if(Firebase.auth.uid == myGroup.ownerId || (myGroup.userIdList.contains(Firebase.auth.uid) && myGroup.userIdList[Firebase.auth.uid] == "yes")){
                     groups.add(myGroup)
                 }
                 binding?.recyclerView?.adapter?.notifyDataSetChanged()
@@ -100,18 +102,22 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 val index = groups.indexOfFirst {it.id == snapshot.key!!}
-                if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || groups[index].userIdList.contains(Firebase.auth.uid))){
+                if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || (groups[index].userIdList.contains(Firebase.auth.uid) && groups[index].userIdList[Firebase.auth.uid] == "yes"))){
                     val map = snapshot.value as Map<String?, Any?>
                     val myGroup = Group(map)
                     val groupId = groups[index].id
                     binding?.recyclerView?.adapter?.notifyDataSetChanged()
+                }
+                if(groups[index].userIdList.contains(Firebase.auth.uid) && groups[index].userIdList[Firebase.auth.uid] == "no"){
+                    groups.removeAt(index)
+                    binding?.recyclerView?.adapter?.notifyItemRemoved(index)
                 }
             }
 
             override fun onChildRemoved(snapshot: DataSnapshot) {
                 Log.d(TAG, "onChildRemoved:" + snapshot.key!!)
                 val index = groups.indexOfFirst { it.id == snapshot.key!! }
-                if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || groups[index].userIdList.contains(Firebase.auth.uid))){
+                if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || (groups[index].userIdList.contains(Firebase.auth.uid) && groups[index].userIdList[Firebase.auth.uid] == "yes"))){
                     val map = snapshot.value as Map<String?, Any?>
                     groups.removeAt(index)
                     binding?.recyclerView?.adapter?.notifyItemRemoved(index)
@@ -137,6 +143,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
         intentVisualizeGroup.putExtra("groupClicked",clikedItem)
         startActivity(intentVisualizeGroup)*/
         Log.d("ICIIIIIIIII", clickedItem.userIdList.toString())
+        Log.d("check", clickedItem.userIdList[Firebase.auth.uid].toString())
         Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
     }
 

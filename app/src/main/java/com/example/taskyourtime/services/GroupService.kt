@@ -83,7 +83,7 @@ class GroupServiceImpl(
         database.child("groups").child(idGroup).get().addOnSuccessListener {
             val map = it.value as Map<String?, Any?>
             val userIdList: List<String?> = listOf()
-            val group = Group("", "", "", userIdList as List<String>)
+            val group = Group("", "", "", userIdList as HashMap<String?, Any?>)
             group.loadFromMap(map)
             Log.d(TAG, "Groupe trouvé")
             groupResult.postValue(group)
@@ -116,7 +116,7 @@ class GroupServiceImpl(
         //on crée une liste vide d'id utilisateurs qui représenteront
         //tous les utilisateurs du groupe, à la création cette liste est vide.
         val userIdList: List<String?> = listOf()
-        val group: Group = Group(key, ownerId, name, userIdList as List<String>)
+        val group: Group = Group(key, ownerId, name, userIdList as HashMap<String?, Any?>)
         database.child("groups").child(key).setValue(group.toMAp())
     }
 
