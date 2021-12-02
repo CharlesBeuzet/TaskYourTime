@@ -41,8 +41,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
         savedInstanceState: Bundle?
     ): View? {
         binding = ActivityListGroupBinding.inflate(inflater, container, false)
-        val view = _binding.root
-        return view
+        return _binding.root
     }
 
     private fun displayGroups(){

@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,6 +9,7 @@
     tools:context=".group.AddGroupActivity">
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="414dp"
         android:layout_height="127dp"
         android:layout_marginBottom="160dp"
@@ -75,21 +78,21 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/userMail"
+        android:id="@+id/userId"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="340dp"
-        android:background="@color/grayLight"
-        android:ems="10"
-        android:gravity="start"
-        android:hint="email de l'utilisateur à ajouter"
-        android:inputType="textMultiLine"
-        android:padding="10dp"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        tools:ignore="LabelFor,MissingConstraints"
-        tools:layout_editor_absoluteX="0dp" />
+        android:layout_marginBottom="40dp"
+        android:background="@drawable/rounded_border"
+        android:backgroundTint="@color/white"
+        android:hint="entrez l'id de l'utilisateur à enregistrer"
+        android:inputType="text"
+        android:minHeight="48dp"
+        android:textColor="@color/mainTextColor"
+        android:textColorHint="@color/gray"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout2"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:importantForAutofill="no"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
