@@ -105,9 +105,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                 val users = checkMap["userIdList"]
                 val checkGroup = Group(checkMap)
                 checkGroup.userIdList = users as HashMap<String?, Any?>
-                Log.d("HEEEEEEE", checkGroup.userIdList[Firebase.auth.uid].toString())
                 if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || groups[index].userIdList.contains(Firebase.auth.uid))){
-                    Log.d("HEEEEEEE", checkGroup.userIdList[Firebase.auth.uid].toString())
                     val map = snapshot.value as Map<String?, Any?>
                     val myGroup = Group(map)
                     val groupId = groups[index].id

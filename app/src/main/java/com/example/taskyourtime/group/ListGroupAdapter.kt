@@ -41,34 +41,36 @@ class ListGroupAdapter(
     }
 
     override fun onBindViewHolder(holder: ListGroupHolder, position: Int) {
-        val data: Group = data[position]
-        holder.groupName.text = Html.fromHtml(data.name, Html.FROM_HTML_MODE_LEGACY)
-        var ownerUser: Unit = userService.getUserById(data.ownerId.toString()).observeForever{
+        val grp: Group = data[position]
+        holder.groupName.text = Html.fromHtml(grp.name, Html.FROM_HTML_MODE_LEGACY)
+        var ownerUser: Unit = userService.getUserById(grp.ownerId.toString()).observeForever{
                 success ->
             if(success != null){
                 holder.groupOwner.text = Html.fromHtml(success.firstName + " " + success.lastName,Html.FROM_HTML_MODE_LEGACY)
             }
         }
-        val idGroup = data.id.toString()
+        val idGroup = grp.id.toString()
         /*holder.deleteGroupButton.setOnClickListener{
             Log.d("Asupprimer","Groupe dont l'id est id a été supprimée")
             groupService.deleteGroup(idGroup)
         }*/
 
-        if(data.userIdList[Firebase.auth.uid] == "no"){
+        if(grp.userIdList[Firebase.auth.uid] == "no"){
             holder.buttonAccept.visibility = View.VISIBLE
             holder.buttonRefuse.visibility = View.VISIBLE
 
             holder.buttonAccept.setOnClickListener{
-                database.child("groups").child(data.id.toString()).child("userIdList").child(Firebase.auth.uid.toString()).setValue("yes")
+                database.child("groups").child(grp.id.toString()).child("userIdList").child(Firebase.auth.uid.toString()).setValue("yes")
                 holder.buttonAccept.visibility = View.GONE
                 holder.buttonRefuse.visibility = View.GONE
             }
 
             holder.buttonRefuse.setOnClickListener{
-                database.child("groups").child(data.id.toString()).child("userIdList").child(Firebase.auth.uid.toString()).removeValue()
+                database.child("groups").child(grp.id.toString()).child("userIdList").child(Firebase.auth.uid.toString()).removeValue()
                 holder.buttonAccept.visibility = View.GONE
                 holder.buttonRefuse.visibility = View.GONE
+                data.removeAt(position)
+                notifyItemRemoved(position)
             }
 
         }
