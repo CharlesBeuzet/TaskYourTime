@@ -48,7 +48,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
     private fun displayGroups(){
         Log.d(TAG, "displayGroups")
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
-        binding?.recyclerView?.adapter = ListGroupAdapter(groups, groupService, this)
+        binding?.recyclerView?.adapter = ListGroupAdapter(groups, groupService,userService, this)
         binding?.loaderFeed?.isVisible = false
     }
 
@@ -80,7 +80,6 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
             Log.d("Click", "Adding group")
             val intentAddGroup = Intent(context, AddGroupActivity::class.java)
             startActivity(intentAddGroup)
-
         }
 
         database = Firebase.database.reference.child("groups")
@@ -94,7 +93,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                 myGroup.id = snapshot.key!!
                 //faire ce qu'on veut faire : afficher le groupe dans le recyclerView
                 myGroup.name?.let { Log.d(TAG, it) }
-                if(Firebase.auth.uid == myGroup.ownerId || (myGroup.userIdList.contains(Firebase.auth.uid) && myGroup.userIdList[Firebase.auth.uid] == "yes")){
+                if(Firebase.auth.uid == myGroup.ownerId || myGroup.userIdList.contains(Firebase.auth.uid)){
                     groups.add(myGroup)
                 }
                 binding?.recyclerView?.adapter?.notifyDataSetChanged()
@@ -107,15 +106,14 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                 val checkGroup = Group(checkMap)
                 checkGroup.userIdList = users as HashMap<String?, Any?>
                 Log.d("HEEEEEEE", checkGroup.userIdList[Firebase.auth.uid].toString())
-                if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || (groups[index].userIdList.contains(Firebase.auth.uid) && groups[index].userIdList[Firebase.auth.uid] == "yes"))){
+                if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || groups[index].userIdList.contains(Firebase.auth.uid))){
+                    Log.d("HEEEEEEE", checkGroup.userIdList[Firebase.auth.uid].toString())
                     val map = snapshot.value as Map<String?, Any?>
                     val myGroup = Group(map)
                     val groupId = groups[index].id
+                    groups[index] = myGroup
+                    groups[index].id = groupId
                     binding?.recyclerView?.adapter?.notifyDataSetChanged()
-                }
-                if(checkGroup.userIdList.contains(Firebase.auth.uid) && checkGroup.userIdList[Firebase.auth.uid] == "no"){
-                    groups.removeAt(index)
-                    binding?.recyclerView?.adapter?.notifyItemRemoved(index)
                 }
             }
 
