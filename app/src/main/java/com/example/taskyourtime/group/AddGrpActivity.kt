@@ -2,13 +2,9 @@ package com.example.taskyourtime.group
 
 import android.os.Bundle
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.recyclerview.widget.ListAdapter
 import com.example.taskyourtime.databinding.AddGrpBinding
-import com.example.taskyourtime.model.Group
 import com.example.taskyourtime.model.User
 import com.example.taskyourtime.services.GroupService
 import com.example.taskyourtime.services.UserService
