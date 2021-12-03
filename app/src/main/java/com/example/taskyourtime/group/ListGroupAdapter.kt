@@ -1,19 +1,15 @@
 package com.example.taskyourtime.group
 
 import android.text.Html
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import androidx.lifecycle.LiveData
 import androidx.recyclerview.widget.RecyclerView
 import com.example.taskyourtime.databinding.GroupItemCellBinding
 import com.example.taskyourtime.model.Group
 import com.example.taskyourtime.services.GroupService
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import com.example.taskyourtime.model.User
 import com.example.taskyourtime.services.UserService
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database

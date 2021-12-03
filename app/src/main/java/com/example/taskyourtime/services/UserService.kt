@@ -2,13 +2,9 @@ package com.example.taskyourtime.services
 
 import android.content.ContentValues
 import android.content.Context
-import android.content.Intent
 import android.util.Log
-import android.widget.Toast
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.example.taskyourtime.DefaultActivity
-import com.example.taskyourtime.R
 import com.example.taskyourtime.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
