@@ -40,11 +40,10 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-            binding = ActivityListNoteBinding.inflate(inflater, container, false)
-            val view = _binding.root
-            return view
-            }
+    ): View {
+        binding = ActivityListNoteBinding.inflate(inflater, container, false)
+        return _binding.root
+    }
 
     private fun displayNotes(){
         Log.d(TAG,"displayNotes")
