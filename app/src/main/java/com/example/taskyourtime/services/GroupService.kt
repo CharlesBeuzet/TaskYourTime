@@ -13,7 +13,7 @@ import com.google.firebase.ktx.Firebase
 import kotlin.reflect.jvm.internal.impl.descriptors.Visibilities
 
 interface GroupService {
-    fun createGroup(name: String, ownerId: String) : LiveData<Boolean>
+    fun createGroup(name: String, ownerId: String, userList: HashMap<String?, Any?>) : LiveData<Boolean>
     fun deleteGroup(groupId: String) : LiveData<Boolean>
     fun addUser(groupId: String, userId: String) : LiveData<Boolean>
     fun removeUser(groupId: String, userId: String) : LiveData<Boolean>
@@ -34,11 +34,11 @@ class GroupServiceImpl(
     private val database : DatabaseReference = Firebase.database.reference
     private val TAG : String = "GroupService"
 
-    override fun createGroup(name: String, ownerId: String): LiveData<Boolean> {
+    override fun createGroup(name: String, ownerId: String, userList: HashMap<String?, Any?>): LiveData<Boolean> {
         var success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         val owner = Firebase.auth.currentUser
         if(owner != null && ownerId == owner.uid){
-            create(name, owner.uid)
+            create(name, owner.uid, userList)
         }else{
             success.postValue(false)
             Log.w(TAG, "Erreur lors de la création du groupe.")
@@ -115,7 +115,7 @@ class GroupServiceImpl(
         }
     }
 
-    private fun create(name: String, ownerId: String){
+    private fun create(name: String, ownerId: String, userList: HashMap<String?, Any?>){
         val key = database.child("groups").push().key
         if(key == null){
             Log.w(TAG, "Couldn't get push key for groups")
@@ -125,7 +125,7 @@ class GroupServiceImpl(
         //on crée une liste vide d'id utilisateurs qui représenteront
         //tous les utilisateurs du groupe, à la création cette liste est vide.
         val userIdList: List<String?> = listOf()
-        val group: Group = Group(key, ownerId, name, userIdList as HashMap<String?, Any?>)
+        val group: Group = Group(key, ownerId, name, userList)
         database.child("groups").child(key).setValue(group.toMAp())
     }
 

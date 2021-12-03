@@ -5,9 +5,11 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskyourtime.databinding.AddGrpBinding
+import com.example.taskyourtime.model.Group
 import com.example.taskyourtime.model.User
 import com.example.taskyourtime.services.GroupService
 import com.example.taskyourtime.services.UserService
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
@@ -61,7 +63,13 @@ class AddGrpActivity : AppCompatActivity() {
         }
 
         binding.buttonAddGroup.setOnClickListener{
-            Log.d("trois", "${hashMap.toString()}")
+            if(binding.groupName.text.isNotEmpty()){
+                groupService.createGroup(binding.groupName.text.toString(),Firebase.auth.uid.toString(),hashMap)
+                finish()
+            }else{
+                Toast.makeText(binding.root.context, "champs nom du groupe vide.", Toast.LENGTH_SHORT).show()
+            }
+            Toast.makeText(binding.root.context, "Groupe créé", Toast.LENGTH_SHORT).show()
         }
     }
 
