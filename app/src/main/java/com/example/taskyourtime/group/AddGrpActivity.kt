@@ -2,8 +2,11 @@ package com.example.taskyourtime.group
 
 import android.os.Bundle
 import android.util.Log
+import android.widget.ArrayAdapter
+import android.widget.ListView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.ListAdapter
 import com.example.taskyourtime.databinding.AddGrpBinding
 import com.example.taskyourtime.model.Group
 import com.example.taskyourtime.model.User
@@ -28,15 +31,23 @@ class AddGrpActivity : AppCompatActivity() {
 
         binding = AddGrpBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        var bool = false
+
         binding.buttonAddUser.setOnClickListener{
             if(binding.userId.text.isNotEmpty()){//le champs d'edit text n'est pas vide
                 Firebase.database.reference.child("users").child(binding.userId.text.toString()).get().addOnSuccessListener {
                     Log.d("firebase", "Got value ${it.value} from id ${binding.userId.text}")
+                    val u = it.value as Map<String?, Any?>
+                    val us = User(u)
                     if(!hashMap.containsKey(binding.userId.text.toString()) && it.value != null){
                         Log.d("deux", "${hashMap.toString()}")
                         hashMap[binding.userId.text.toString()] = "no"
                         Toast.makeText(this.applicationContext, "utilisateur ajouté", Toast.LENGTH_SHORT).show()
+                        if(binding.added.text.isEmpty()){
+                            binding.added.text = us.firstName
+                        }else{
+                            var newAdding = binding.added.text.toString() + "\n" + us.firstName
+                            binding.added.text = newAdding
+                        }
                         binding.userId.text.clear()
                     }
                     if(hashMap.containsKey(binding.userId.text.toString())){
@@ -65,11 +76,11 @@ class AddGrpActivity : AppCompatActivity() {
         binding.buttonAddGroup.setOnClickListener{
             if(binding.groupName.text.isNotEmpty()){
                 groupService.createGroup(binding.groupName.text.toString(),Firebase.auth.uid.toString(),hashMap)
+                Toast.makeText(binding.root.context, "Groupe créé", Toast.LENGTH_SHORT).show()
                 finish()
             }else{
                 Toast.makeText(binding.root.context, "champs nom du groupe vide.", Toast.LENGTH_SHORT).show()
             }
-            Toast.makeText(binding.root.context, "Groupe créé", Toast.LENGTH_SHORT).show()
         }
     }
 

@@ -10,6 +10,12 @@ data class User(
     var email : String?,
     var profilePicture : String?,
 ) : Serializable{
+    constructor(map: Map<String?, Any?>) : this(
+        map["firstName"] as String?,
+        map["lastName"] as String?,
+        map["email"] as String?,
+        map["profilePicture"] as String?
+    )
 
     fun loadFromMap(map: Map<String?, Any?>) {
         firstName = map["firstName"] as String?
