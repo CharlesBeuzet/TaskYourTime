@@ -110,7 +110,6 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
                     val maNote = Note(map)
                     val notId = notes[index].id
                     notes[index] = maNote
-                    notes[index] = maNote
                     notes[index].id = notId
                     binding?.recyclerView?.adapter?.notifyDataSetChanged()
                 }
