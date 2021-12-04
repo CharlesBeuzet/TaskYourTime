@@ -24,6 +24,7 @@
             android:name=".productivity.ProductivityActivity"
             tools:ignore="Instantiatable" />
         <activity android:name=".calendar.AddToCalendarActivity" />
+        <activity android:name=".calendar.VisualizeEventActivity"/>
         <activity
             android:name=".todolist.AddItemActivity"
             android:label="@string/title_activity_add_item"

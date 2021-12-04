@@ -44,6 +44,7 @@
 
     <!-- Calendar view related strings -->
     <string name="add_calEvent">Add an event</string>
+    <string name="your_event">Your event</string>
     <string name="date_separator">-</string>
     <string name="date_placeholder">dd/mm/yyyy (hh:mm)</string>
     <string name="delete_event">Delete the calendar event</string>
@@ -53,6 +54,7 @@
 
     <!-- Calendar add event related strings -->
     <string name="confirm">Confirm</string>
+    <string name="edit">Edit</string>
     <string name="cancel">Cancel</string>
     <string name="description">Description</string>
     <string name="begin_time">Begin time*</string>
@@ -60,10 +62,11 @@
     <string name="begin_date">Begin date*</string>
     <string name="end_date">End date*</string>
     <string name="event_title">Title*</string>
-    <string name="date_picker_placeholder">%1$s/%2$s/%3$s</string>
-    <string name="time_picker_placeholder">%1$s:%2$s</string>
+    <string name="date_picker_placeholder">%02d/%02d/%02d</string>
+    <string name="time_picker_placeholder">%02d:%02d</string>
     <string name="error_message_placeholder">Error placeholder</string>
     <string name="validation_error_message">Please fill all required fields (*)</string>
+    <string name="date_order_error_message">End date must be after begin date</string>
     <string name="add_error_message">An error occurred, please retry later</string>
     <string name="title_activity_list_group">ListGroupActivity</string>
     <string name="title_activity_add_group">AddGroupActivity</string>

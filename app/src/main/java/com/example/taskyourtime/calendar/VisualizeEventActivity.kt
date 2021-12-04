@@ -5,21 +5,32 @@ import android.app.TimePickerDialog
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskyourtime.R
-import com.example.taskyourtime.databinding.ActivityAddCalendarEventBinding
+import com.example.taskyourtime.databinding.ActivityVisualizeEventBinding
+import com.example.taskyourtime.model.CalendarEvent
 import com.example.taskyourtime.services.CalendarService
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
-import java.time.LocalDate
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 import java.util.*
 
-class AddToCalendarActivity: AppCompatActivity() {
-    private lateinit var binding: ActivityAddCalendarEventBinding
-    private val calendarService by inject<CalendarService>()
+class VisualizeEventActivity: AppCompatActivity() {
+
+    private var TAG = "VisualizeEventActivity"
+    private lateinit var binding : ActivityVisualizeEventBinding
+    private lateinit var event: CalendarEvent
+    private lateinit var database: DatabaseReference
+
+    private val eventService by inject<CalendarService>()
 
     private var cal: Calendar = Calendar.getInstance()
     private lateinit var beginDateSetListener: DatePickerDialog.OnDateSetListener
@@ -27,25 +38,46 @@ class AddToCalendarActivity: AppCompatActivity() {
     private lateinit var beginTimeSetListener: TimePickerDialog.OnTimeSetListener
     private lateinit var endTimeSetListener: TimePickerDialog.OnTimeSetListener
 
-    private var preFilledBeginDate: LocalDate? = null
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityAddCalendarEventBinding.inflate(layoutInflater)
+        binding = ActivityVisualizeEventBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        event = intent.getSerializableExtra("eventClicked") as CalendarEvent
 
-        intent?.apply {
-            if (hasExtra("SELECTED_DATE")) {
-                preFilledBeginDate = getSerializableExtra("SELECTED_DATE") as? LocalDate
+        database = Firebase.database.reference.child("calendarEvents").child(event.id.toString())
+        val valueEventListener = object : ValueEventListener {
+            override fun onDataChange(snapshot: DataSnapshot) {
+                Log.d(TAG, "onChildChanged:" + snapshot.key!!)
+                if(event.id == snapshot.key!!){
+                    val map = snapshot.value as Map<*, *>
+                    event = CalendarEvent(map as Map<String?, Any?>)
+                    event.id = snapshot.key!!
+                    binding.eventName.setText(event.name)
+                    binding.eventDescription.setText(event.description)
+                    binding.eventBeginDate.text = event.begin_date?.split(" ")?.get(0)
+                    binding.eventBeginTime.text = event.begin_date?.split(" ")?.get(1)
+                    binding.eventEndDate.text = event.end_date?.split(" ")?.get(0)
+                    binding.eventEndTime.text = event.end_date?.split(" ")?.get(1)
+                }
             }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.d(TAG, "Unknown error")
+            }
+
         }
+        database.addValueEventListener(valueEventListener)
+
+        binding.eventName.setText(event.name)
+        binding.eventDescription.setText(event.description)
+        binding.eventBeginDate.text = event.begin_date?.split(" ")?.get(0)
+        binding.eventBeginTime.text = event.begin_date?.split(" ")?.get(1)
+        binding.eventEndDate.text = event.end_date?.split(" ")?.get(0)
+        binding.eventEndTime.text = event.end_date?.split(" ")?.get(1)
 
         binding.buttonCancel.setOnClickListener{
             finish()
         }
-
-        binding.eventBeginDate.text = preFilledBeginDate?.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString()
-
 
         beginDateSetListener = DatePickerDialog.OnDateSetListener { _, year, monthOfYear, dayOfMonth ->
             binding.eventBeginDate.text = String.format(getString(R.string.date_picker_placeholder),dayOfMonth, (monthOfYear + 1), year)
@@ -63,12 +95,7 @@ class AddToCalendarActivity: AppCompatActivity() {
             binding.eventEndTime.text = String.format(getString(R.string.time_picker_placeholder),hourOfDay, minute)
         }
 
-        binding.buttonCreateEvent.setOnClickListener{
-            Log.d("SEND", "Title : " + binding.eventName.text.toString())
-            Log.d("SEND", "Description : " + binding.eventDescription.text.toString())
-            Log.d("SEND", "Begin DateTime : " + binding.eventBeginDate.text.toString() + " à " + binding.eventBeginTime.text.toString())
-            Log.d("SEND", "End DateTime : " + binding.eventEndDate.text.toString() + " à " + binding.eventEndTime.text.toString())
-
+        binding.buttonEditEvent.setOnClickListener{
             val name = binding.eventName.text.toString()
             val description = binding.eventDescription.text.toString()
             val beginDate = binding.eventBeginDate.text.toString()
@@ -90,7 +117,13 @@ class AddToCalendarActivity: AppCompatActivity() {
                 val userId = Firebase.auth.currentUser?.uid
 
                 if (userId != null) {
-                    calendarService.postNewCalendarEvent(name, description, beginDateTime, endDateTime, userId).observeForever { success ->
+                    eventService.updateCalendarEvent(
+                        event.id.toString(),
+                        name,
+                        description,
+                        beginDateTime,
+                        endDateTime
+                    ).observeForever { success ->
                         if (success == true) {
                             finish()
                         }
@@ -122,22 +155,22 @@ class AddToCalendarActivity: AppCompatActivity() {
 
     private fun showDatePickerDialog(selectedDateSetListener: DatePickerDialog.OnDateSetListener){
         val datePickerDialog = DatePickerDialog(
-                this,
-                selectedDateSetListener,
-                cal.get(Calendar.YEAR),
-                cal.get(Calendar.MONTH),
-                cal.get(Calendar.DAY_OF_MONTH),
+            this,
+            selectedDateSetListener,
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH),
         )
         datePickerDialog.show()
     }
 
     private fun showTimePickerDialog(selectedTimeSetListener: TimePickerDialog.OnTimeSetListener){
         val timePickerDialog = TimePickerDialog(
-                this,
-                selectedTimeSetListener,
-                cal.get(Calendar.HOUR_OF_DAY),
-                cal.get(Calendar.MINUTE),
-                true
+            this,
+            selectedTimeSetListener,
+            cal.get(Calendar.HOUR_OF_DAY),
+            cal.get(Calendar.MINUTE),
+            true
         )
         timePickerDialog.show()
     }

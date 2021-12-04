@@ -1,6 +1,7 @@
 package com.example.taskyourtime.model
 
 import com.google.firebase.database.IgnoreExtraProperties
+import java.io.Serializable
 
 @IgnoreExtraProperties
 class CalendarEvent(
@@ -10,7 +11,7 @@ class CalendarEvent(
     var begin_date: String?,
     var end_date: String?,
     var user_id: String?
-) {
+): Serializable {
     constructor(map: Map<String?, Any?>) : this(
         null,
         map["name"] as String?,

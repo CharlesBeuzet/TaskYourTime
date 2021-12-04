@@ -70,10 +70,10 @@ class CalendarServiceImpl(
                 updateField(id, "description", newDescription)
             }
             if(newBeginDate != null){
-                updateField(id, "beginDate", newBeginDate)
+                updateField(id, "begin_date", newBeginDate)
             }
             if(newEndDate != null){
-                updateField(id, "endDate", newEndDate)
+                updateField(id, "end_date", newEndDate)
             }
             Log.w(TAG, "Evennement mis à jour")
             success.postValue(true)

@@ -25,7 +25,7 @@ import org.koin.android.ext.android.inject
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
 
-class CalendarViewActivity : Fragment() {
+class CalendarViewActivity : Fragment(), CalendarViewAdapter.OnItemClickListener {
 
     private var binding: ActivityCalendarViewBinding? = null
 
@@ -52,7 +52,7 @@ class CalendarViewActivity : Fragment() {
     private fun displayEvents(){
         Log.d(TAG,"displayEvents")
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
-        binding?.recyclerView?.adapter = CalendarViewAdapter(calendarEvents, calendarService, context)
+        binding?.recyclerView?.adapter = CalendarViewAdapter(calendarEvents, calendarService, this, context)
         binding?.loaderFeed?.isVisible = false
     }
 
@@ -95,23 +95,27 @@ class CalendarViewActivity : Fragment() {
 
         val childEventListener = object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val map = snapshot.value as Map<String?, Any?>
-                val myEvent = CalendarEvent(map)
+                val map = snapshot.value as Map<*, *>
+                val myEvent = CalendarEvent(map as Map<String?, Any?>)
                 myEvent.id = snapshot.key!!
-                Log.d(TAG, myEvent.begin_date?.split(" ")?.get(0).toString() + " == " + selectedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString())
-                if(myEvent.begin_date?.split(" ")?.get(0) == selectedDate.format(DateTimeFormatter.ofPattern("dd/MM/yyyy")).toString()){
-                    Log.d(TAG, "onChildAdded::" + snapshot.key!!)
-                    calendarEvents.add(myEvent)
+                if(myEvent.user_id == Firebase.auth.uid) {
+                    if (myEvent.begin_date?.split(" ")?.get(0) == selectedDate.format(
+                            DateTimeFormatter.ofPattern("dd/MM/yyyy")
+                        ).toString()
+                    ) {
+                        Log.d(TAG, "onChildAdded::" + snapshot.key!!)
+                        calendarEvents.add(myEvent)
+                    }
+                    binding?.recyclerView?.adapter?.notifyDataSetChanged()
                 }
-                binding?.recyclerView?.adapter?.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
                 Log.d(TAG, "onChildChanged:" + snapshot.key!!)
                 val index = calendarEvents.indexOfFirst {it.id == snapshot.key!! } // -1 if not found
                 if (index >= 0 && calendarEvents[index].user_id == Firebase.auth.uid){
-                    val map = snapshot.value as Map<String?, Any?>
-                    val myEvent = CalendarEvent(map)
+                    val map = snapshot.value as Map<*, *>
+                    val myEvent = CalendarEvent(map as Map<String?, Any?>)
                     val eventId = calendarEvents[index].id
                     calendarEvents[index] = myEvent
                     calendarEvents[index] = myEvent
@@ -124,7 +128,7 @@ class CalendarViewActivity : Fragment() {
                 Log.d(TAG, "onChildRemoved:" + snapshot.key!!)
                 val index = calendarEvents.indexOfFirst { it.id == snapshot.key!! } //-1 if not found
                 if(index >= 0 && Firebase.auth.uid == calendarEvents[index].user_id){
-                    val map = snapshot.value as Map<String?, Any?>
+                    val map = snapshot.value as Map<*, *>
                     calendarEvents.removeAt(index)
                     binding?.recyclerView?.adapter?.notifyItemRemoved(index)
                 }
@@ -160,5 +164,13 @@ class CalendarViewActivity : Fragment() {
 
         displayEvents()
 
+    }
+
+    override fun onItemClick(position: Int) {
+        val clickedItem = calendarEvents[position]
+        Log.d(TAG, clickedItem.toString())
+        val intentVisualizeEvent = Intent(context, VisualizeEventActivity::class.java)
+        intentVisualizeEvent.putExtra("eventClicked", clickedItem)
+        startActivity(intentVisualizeEvent)
     }
 }

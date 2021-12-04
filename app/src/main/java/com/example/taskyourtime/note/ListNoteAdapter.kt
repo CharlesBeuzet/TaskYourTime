@@ -61,6 +61,7 @@ class ListNoteAdapter(
             }
         }
     }
+
     interface OnItemClickListener{
         fun onItemClick(position: Int)
     }
