@@ -13,10 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
-            android:name=".group.AddGroupActivity"
+            android:name=".group.AddGrpActivity"
             android:exported="false"
-            android:label="@string/title_activity_add_group"
-            android:theme="@style/NoActionBar" />
+            android:label="@string/title_activity_add_grp" />
         <activity
             android:name=".group.ListGroupActivity"
             tools:ignore="Instantiatable" />

@@ -40,11 +40,10 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-            binding = ActivityListNoteBinding.inflate(inflater, container, false)
-            val view = _binding.root
-            return view
-            }
+    ): View {
+        binding = ActivityListNoteBinding.inflate(inflater, container, false)
+        return _binding.root
+    }
 
     private fun displayNotes(){
         Log.d(TAG,"displayNotes")
@@ -109,7 +108,6 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
                     val map = snapshot.value as Map<String?, Any?>
                     val maNote = Note(map)
                     val notId = notes[index].id
-                    notes[index] = maNote
                     notes[index] = maNote
                     notes[index].id = notId
                     binding?.recyclerView?.adapter?.notifyDataSetChanged()
