@@ -48,7 +48,7 @@ class ToDoListActivity : Fragment() {
     private fun displayItems(){
         Log.d(TAG,"displayItems")
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
-        binding?.recyclerView?.adapter = ListItemAdapter(items, itemService)
+        binding?.recyclerView?.adapter = ListItemAdapter(items, itemService, context)
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
         itemTouchHelper.attachToRecyclerView(_binding?.recyclerView)
     }

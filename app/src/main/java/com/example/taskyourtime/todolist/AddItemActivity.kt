@@ -3,6 +3,8 @@ package com.example.taskyourtime.todolist
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.View
+import com.example.taskyourtime.R
 import com.example.taskyourtime.databinding.ActivityAddItemBinding
 import com.example.taskyourtime.databinding.ActivityAddNoteBinding
 import com.example.taskyourtime.services.NoteService
@@ -30,12 +32,20 @@ class AddItemActivity : AppCompatActivity() {
 
             val content = binding.itemContent.text.toString()
             val user_id = Firebase.auth.currentUser?.uid
-            if (user_id != null) {
-                itemService.postNewNote(content, user_id).observeForever{
-                        success ->
-                    if(success == true){
-                        //fermer l'activity
-                        finish()
+            if(binding.itemContent.text.isBlank()) {
+                binding.tvError.text = getString(R.string.error_description)
+                binding.tvError.visibility = View.VISIBLE
+            }
+            else{
+                if (user_id != null) {
+                    itemService.postNewNote(content, user_id).observeForever { success ->
+                        if (success == true) {
+                            finish()
+                        }
+                        else{
+                            binding.tvError.text = getString(R.string.add_error_message)
+                            binding.tvError.visibility = View.VISIBLE
+                        }
                     }
                 }
             }

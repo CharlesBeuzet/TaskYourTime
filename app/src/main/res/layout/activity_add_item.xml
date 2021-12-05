@@ -1,77 +1,126 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    android:background="@color/grayLight"
+    tools:context=".todolist.AddItemActivity">
 
-    <LinearLayout
+    <TextView
+        android:id="@+id/task"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:text="@string/add_item"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/task"
+    <View
+        android:id="@+id/divider"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="0dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task" />
+
+    <EditText
+        android:id="@+id/itemContent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="80dp"
+        android:autofillHints="@string/item_name"
+        android:background="@drawable/rounded_border"
+        android:backgroundTint="@color/white"
+        android:ems="18"
+        android:gravity="start"
+        android:hint="@string/item_name"
+        android:inputType="textMultiLine"
+        android:padding="10dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textColorHint="@color/gray"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginBottom="100dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/task_list"
+        app:layout_constraintBottom_toTopOf="@+id/tvError"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/tvError"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
+        android:padding="2dp"
+        android:text="@string/error_message_placeholder"
+        android:textAlignment="center"
+        android:textColor="@color/red"
+        android:textSize="15sp"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="52dp"
+        android:orientation="horizontal"
+        android:padding="5dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent">
+
+        <Button
+            android:id="@+id/cancelButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:gravity="start"
-            android:text="Tâche à réaliser"
-            android:textColor="@color/black"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_red_button"
+            android:fontFamily="Time New Roman"
+            android:text="@string/cancel"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
-        <EditText
-            android:id="@+id/itemContent"
+        <Button
+            android:id="@+id/addButton"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@color/grayLight"
-            android:ems="18"
-            android:layout_marginTop="5dp"
-            android:gravity="start"
-            android:hint="Décrivez le contenu de la tâche que vous souhaitez réaliser"
-            android:inputType="textMultiLine"
-            android:padding="10dp"
-            android:textAlignment="textStart"
-            android:textColor="@color/black"
-            android:textSize="18sp" />
-
-        <LinearLayout
-            android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="32dp"
-            android:orientation="horizontal"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent">
-
-            <Button
-                android:id="@+id/cancelButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:text="Annuler"/>
-
-            <Button
-                android:id="@+id/addButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:layout_toRightOf="@id/cancelButton"
-                android:text="Ajouter"/>
-
-        </LinearLayout>
+            android:layout_height="35dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/ic_blue_button"
+            android:fontFamily="Time New Roman"
+            android:text="@string/confirm"
+            android:textColor="@color/mainTextColor"
+            android:textStyle="bold" />
 
     </LinearLayout>
-
 </androidx.constraintlayout.widget.ConstraintLayout>

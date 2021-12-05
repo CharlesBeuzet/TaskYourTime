@@ -71,4 +71,10 @@
     <string name="title_activity_list_group">ListGroupActivity</string>
     <string name="title_activity_add_group">AddGroupActivity</string>
     <string name="title_activity_add_grp">AddGrpActivity</string>
+
+    <!-- To Do List related strings -->
+    <string name="add_item">Add a ToDo</string>
+    <string name="item_description">New ToDo</string>
+    <string name="item_name">Name</string>
+    <string name="error_description">Please give a name to your ToDo</string>
 </resources>

@@ -23,6 +23,7 @@ import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
 import java.time.LocalDate
+import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
 class CalendarViewActivity : Fragment(), CalendarViewAdapter.OnItemClickListener {
@@ -99,9 +100,7 @@ class CalendarViewActivity : Fragment(), CalendarViewAdapter.OnItemClickListener
                 val myEvent = CalendarEvent(map as Map<String?, Any?>)
                 myEvent.id = snapshot.key!!
                 if(myEvent.user_id == Firebase.auth.uid) {
-                    if (myEvent.begin_date?.split(" ")?.get(0) == selectedDate.format(
-                            DateTimeFormatter.ofPattern("dd/MM/yyyy")
-                        ).toString()
+                    if (checkDateValidity(myEvent.begin_date?.split(" ")?.get(0).toString(), myEvent.end_date?.split(" ")?.get(0).toString(), selectedDate)
                     ) {
                         Log.d(TAG, "onChildAdded::" + snapshot.key!!)
                         calendarEvents.add(myEvent)
@@ -172,5 +171,12 @@ class CalendarViewActivity : Fragment(), CalendarViewAdapter.OnItemClickListener
         val intentVisualizeEvent = Intent(context, VisualizeEventActivity::class.java)
         intentVisualizeEvent.putExtra("eventClicked", clickedItem)
         startActivity(intentVisualizeEvent)
+    }
+
+    private fun checkDateValidity(beginDate: String, endDate: String, currentDate: LocalDate): Boolean{
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        val beginDateTimeFormatted = LocalDate.parse(beginDate, formatter)
+        val endDateTimeFormatted = LocalDate.parse(endDate, formatter)
+        return beginDateTimeFormatted <= currentDate && currentDate <= endDateTimeFormatted
     }
 }

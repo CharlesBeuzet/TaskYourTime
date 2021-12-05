@@ -26,8 +26,7 @@
         <activity android:name=".calendar.VisualizeEventActivity"/>
         <activity
             android:name=".todolist.AddItemActivity"
-            android:label="@string/title_activity_add_item"
-            android:theme="@style/Theme.TaskYourTime.NoActionBar" />
+            android:label="@string/title_activity_add_item" />
         <activity android:name=".note.AddNoteActivity" />
         <activity android:name=".note.EditNoteActivity" />
         <activity android:name=".note.VisualizeNoteActivity" />
