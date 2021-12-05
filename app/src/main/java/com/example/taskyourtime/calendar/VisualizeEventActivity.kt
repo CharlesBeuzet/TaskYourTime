@@ -50,7 +50,7 @@ class VisualizeEventActivity: AppCompatActivity() {
                 Log.d(TAG, "onChildChanged:" + snapshot.key!!)
                 if(event.id == snapshot.key!!){
                     val map = snapshot.value as Map<String?, Any?>
-                    event = CalendarEvent(map as Map<String?, Any?>)
+                    event = CalendarEvent(map)
                     event.id = snapshot.key!!
                     binding.eventName.setText(event.name)
                     binding.eventDescription.setText(event.description)
