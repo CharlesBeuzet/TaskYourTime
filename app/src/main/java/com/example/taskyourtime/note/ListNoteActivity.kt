@@ -121,7 +121,7 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
                     val map = snapshot.value as Map<String?, Any?>
                     notes.removeAt(index)
                     binding?.recyclerView?.adapter?.notifyItemRemoved(index)
-                    Toast.makeText(binding?.root?.context, "Note supprimée", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(binding!!.root.context, "Note supprimée", Toast.LENGTH_SHORT).show()
                 }
             }
 
