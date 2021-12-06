@@ -1,0 +1,154 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:orientation="vertical">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/grayLight"
+        app:cardCornerRadius="5dp"
+        >
+
+        <View
+            android:id="@+id/sidebarView"
+            android:layout_width="10dp"
+            android:layout_height="match_parent"
+            android:background="@color/honey_yellow"
+            />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            >
+
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="@string/publication_title"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.04"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <View
+                android:id="@+id/divider"
+                android:layout_width="150dp"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider"
+                android:backgroundTint="@color/black"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <TextView
+                android:id="@+id/name"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="300dp"
+                android:background="@color/grayLight"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="@string/titre_du_contenu_de_la_publication"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/title"
+                app:layout_constraintTop_toBottomOf="@+id/title" />
+
+            <TextView
+                android:id="@+id/content"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="300dp"
+                android:background="@color/grayLight"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="@string/contenu_publication"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/name"
+                app:layout_constraintTop_toBottomOf="@+id/name" />
+
+            <TextView
+                android:id="@+id/beginDate"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="300dp"
+                android:background="@color/grayLight"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="@string/d_but_de_l_v_nement"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/content"
+                app:layout_constraintTop_toBottomOf="@+id/content"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/endDate"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="300dp"
+                android:background="@color/grayLight"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="@string/fin_de_l_v_nement"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/beginDate"
+                app:layout_constraintTop_toBottomOf="@+id/beginDate"
+                android:visibility="gone"/>
+
+            <TextView
+                android:id="@+id/publisher"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:maxHeight="300dp"
+                android:background="@color/grayLight"
+                android:gravity="start"
+                android:padding="2dp"
+                android:text="@string/publisher"
+                android:textAlignment="textStart"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+                android:layout_marginTop="10dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="@id/endDate"
+                app:layout_constraintTop_toBottomOf="@+id/endDate" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</androidx.constraintlayout.widget.ConstraintLayout>

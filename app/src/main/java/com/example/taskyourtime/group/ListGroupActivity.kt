@@ -139,11 +139,9 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
 
     override fun onItemClick(position: Int){
         val clickedItem = groups[position]
-        /*val intentVisualizeGroup = Intent(context, VisualizeGroupActivity::class.java)
-        intentVisualizeGroup.putExtra("groupClicked",clikedItem)
-        startActivity(intentVisualizeGroup)*/
-        Log.d("ICIIIIIIIII", clickedItem.userIdList.toString())
-        Log.d("check", clickedItem.userIdList[Firebase.auth.uid].toString())
+        val intentVisualizeGroup = Intent(context, VisualizeGroupActivity::class.java)
+        intentVisualizeGroup.putExtra("groupClicked",clickedItem)
+        startActivity(intentVisualizeGroup)
         Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
     }
 

@@ -35,7 +35,7 @@ class SubscriptionActivity : AppCompatActivity() {
                     ")+"
     )
 
-    private var passwordPattern: Pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$")
+    //private var passwordPattern: Pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$")
 
     private val userService by inject<UserService>()
 
@@ -75,10 +75,10 @@ class SubscriptionActivity : AppCompatActivity() {
                     errorText.visibility = View.VISIBLE
                     errorText.text = getString(R.string.short_password_error)
                 }
-                else if(!passwordPattern.matcher(password).matches()){
+                /*else if(!passwordPattern.matcher(password).matches()){
                     errorText.visibility = View.VISIBLE
                     errorText.text = getString(R.string.password_validation_error)
-                }
+                }*/
                 else {
                     Log.d("AUTH", "Email : " + email + "password : " + password)
 

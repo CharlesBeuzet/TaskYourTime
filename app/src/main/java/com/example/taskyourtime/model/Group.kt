@@ -9,7 +9,7 @@ data class Group(
     var ownerId: String?,
     var name : String?,
     var userIdList: HashMap<String?, Any?>
-) {
+) : Serializable{
     constructor(map: Map<String?, Any?>): this(
         null,
         map["ownerId"] as String?,

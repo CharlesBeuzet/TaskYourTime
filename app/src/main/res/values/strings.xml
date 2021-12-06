@@ -92,8 +92,17 @@
     <string name="underline_symbol">U</string>
     <string name="nf_symbol">NF</string>
 
+    <!--Groups related string -->
+    <string name="add_publication">Post publication</string>
+
 
     <string name="productive_mode">Productive Mode</string>
     <string name="time_remaining">Time Remaining</string>
     <string name="start">Start</string>
+    <string name="publication_title">publication title</string>
+    <string name="contenu_publication">contenu de la publication</string>
+    <string name="titre_du_contenu_de_la_publication">titre du contenu de la publication</string>
+    <string name="d_but_de_l_v_nement">début de l\'évènement</string>
+    <string name="fin_de_l_v_nement">Fin de l\'évènement</string>
+    <string name="publisher">Publisher</string>
 </resources>
