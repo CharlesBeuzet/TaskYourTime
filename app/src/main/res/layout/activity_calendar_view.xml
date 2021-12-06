@@ -29,61 +29,73 @@
 
     <TextView
         android:id="@+id/tv_day_info"
-        android:layout_width="415dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp"
         android:text="@string/tvInfo_placeholder"
-        android:textColor="@color/mainTextColor"
         android:textAlignment="center"
+        android:textColor="@color/mainTextColor"
         android:textSize="20sp"
         android:textStyle="italic"
         app:layout_anchor="@+id/calendarView"
         app:layout_anchorGravity="bottom|center"
-        app:layout_constraintBottom_toTopOf="@+id/recyclerView"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/calendarView" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerView"
-        android:layout_width="413dp"
-        android:layout_height="240dp"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="100dp"
-        android:scrollbars="vertical"
+    <View
+        android:id="@+id/divider2"
+        android:layout_width="200dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="8dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/prussian_blue"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/calendarView"
-        tools:listitem="@layout/calendar_event_cell" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_day_info" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="520dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/divider2">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="500dp"
+            android:layout_gravity="bottom"
+            android:scrollbars="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0"
+            tools:listitem="@layout/calendar_event_cell" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/addEventButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="16dp"
         android:backgroundTint="@color/colorPrimary"
         android:contentDescription="@string/add_calEvent"
         android:tint="@color/black"
         app:fabCustomSize="50dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/recyclerView"
-        app:layout_constraintVertical_bias="0.384"
+        app:layout_constraintHorizontal_bias="0.955"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.964"
         app:srcCompat="@android:drawable/ic_input_add"
         tools:ignore="SpeakableTextPresentCheck" />
-
-    <View
-        android:id="@+id/divider2"
-        android:layout_width="200dp"
-
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="@color/prussian_blue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tv_day_info" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

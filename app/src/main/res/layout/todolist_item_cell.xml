@@ -47,7 +47,7 @@
                 android:layout_marginTop="0dp"
                 android:gravity="start"
                 android:padding="2dp"
-                android:text="Task to do"
+                android:text="@string/todo_name_placeholder"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="18sp"

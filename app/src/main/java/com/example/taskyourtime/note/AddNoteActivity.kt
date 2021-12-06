@@ -1,5 +1,6 @@
 package com.example.taskyourtime.note
 
+import android.graphics.Paint
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log
@@ -58,6 +59,8 @@ class AddNoteActivity : AppCompatActivity() {
         binding.underlinedButton.setOnClickListener{
             buttonUnderline()
         }
+
+        binding.underlinedButton.paintFlags = Paint.UNDERLINE_TEXT_FLAG
 
         binding.italicButton.setOnClickListener{
             buttonItalics()

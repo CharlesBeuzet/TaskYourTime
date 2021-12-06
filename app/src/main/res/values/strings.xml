@@ -62,6 +62,7 @@
     <string name="begin_date">Begin date*</string>
     <string name="end_date">End date*</string>
     <string name="event_title">Title*</string>
+    <string name="event_title_placeholder">Title</string>
     <string name="date_picker_placeholder">%02d/%02d/%02d</string>
     <string name="time_picker_placeholder">%02d:%02d</string>
     <string name="error_message_placeholder">Error placeholder</string>
@@ -76,5 +77,23 @@
     <string name="add_item">Add a ToDo</string>
     <string name="item_description">New ToDo</string>
     <string name="item_name">Name</string>
+    <string name="todo_name_placeholder">ToDo</string>
     <string name="error_description">Please give a name to your ToDo</string>
+
+    <!-- Notes related strings -->
+    <string name="note_name_placeholder">Note name</string>
+    <string name="note_description_placeholder">Note description</string>
+    <string name="delete_note">Delete note</string>
+    <string name="add_note">New Note</string>
+    <string name="note_title">Title</string>
+    <string name="note_content">Content of your note</string>
+    <string name="bold_symbol">B</string>
+    <string name="italic_symbol">I</string>
+    <string name="underline_symbol">U</string>
+    <string name="nf_symbol">NF</string>
+
+
+    <string name="productive_mode">Productive Mode</string>
+    <string name="time_remaining">Time Remaining</string>
+    <string name="start">Start</string>
 </resources>
