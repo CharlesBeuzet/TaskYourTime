@@ -37,7 +37,7 @@ class VisualizeGroupActivity : AppCompatActivity() {
         group = intent.getSerializableExtra("groupClicked") as Group
 
         binding!!.writePublication.setOnClickListener{
-            /*val publicationIntent = Intent(this, CreatePublicationActivity::class.java)
+            /*val publicationIntent = Intent(this, AddPublicationActivity::class.java)
             startActivity(publicationIntent)*/
         }
 

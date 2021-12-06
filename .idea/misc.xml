@@ -5,10 +5,12 @@
       <map>
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/activity_add_calendar_event.xml" value="0.36666666666666664" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/activity_add_group.xml" value="0.17831813576494426" />
+        <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/activity_add_publication.xml" value="0.3596014492753623" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/activity_calendar_view.xml" value="0.36666666666666664" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/activity_visualize_group.xml" value="0.33" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/add_group.xml" value="0.36666666666666664" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/add_grp.xml" value="0.33" />
+        <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/choice_item_cell.xml" value="0.3596014492753623" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/content_main.xml" value="0.36666666666666664" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/fragment_second.xml" value="0.23020833333333332" />
         <entry key="..\:/projets/TaskYourTime/app/src/main/res/layout/publication_item_cell.xml" value="0.25" />

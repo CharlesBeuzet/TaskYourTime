@@ -13,6 +13,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.NoActionBar">
         <activity
+            android:name=".group.AddPublicationActivity"
+            android:exported="false" />
+        <activity
             android:name=".group.VisualizeGroupActivity"
             android:exported="false" />
         <activity
