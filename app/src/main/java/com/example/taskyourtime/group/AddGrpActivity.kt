@@ -1,6 +1,7 @@
 package com.example.taskyourtime.group
 
 import android.os.Bundle
+import android.util.JsonWriter
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -11,6 +12,7 @@ import com.example.taskyourtime.services.UserService
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
 
@@ -18,7 +20,7 @@ class AddGrpActivity : AppCompatActivity() {
 
     private lateinit var binding: AddGrpBinding
     private val groupService by inject<GroupService>()
-    private lateinit var database: DatabaseReference
+    private var database: DatabaseReference = Firebase.database.reference
     private val userService by inject<UserService>()
     private var hashMap: HashMap<String?, Any?> = HashMap<String?, Any?>()
 
@@ -30,23 +32,30 @@ class AddGrpActivity : AppCompatActivity() {
 
         binding.buttonAddUser.setOnClickListener{
             if(binding.userId.text.isNotEmpty()){//le champs d'edit text n'est pas vide
-                Firebase.database.reference.child("users").child(binding.userId.text.toString()).get().addOnSuccessListener {
-                    Log.d("firebase", "Got value ${it.value} from id ${binding.userId.text}")
+                database.child("users").orderByChild("email").equalTo(binding.userId.text.toString()).get().addOnSuccessListener {
+                    Log.d("firebase", "Got value ${it.value} from email ${binding.userId.text}")
                     val u = it.value as Map<String?, Any?>
-                    val us = User(u)
-                    if(!hashMap.containsKey(binding.userId.text.toString()) && it.value != null){
-                        Log.d("deux", "${hashMap.toString()}")
-                        hashMap[binding.userId.text.toString()] = "no"
+                    val firstName = it.child(u.keys.first().toString()).child("firstName").value
+                    val lastName = it.child(u.keys.first().toString()).child("lastName").value
+                    val email = it.child(u.keys.first().toString()).child("email").value
+                    val profilePicture = it.child(u.keys.first().toString()).child("profilePicture").value
+                    val us = User(firstName.toString(), lastName.toString(), email.toString(),profilePicture.toString())
+                    val id = u.keys.first()
+                    if(!hashMap.containsKey(id) && it.value != null){
+                        Log.d("un", "${hashMap.toString()}")
+                        hashMap[id.toString()] = "no"
                         Toast.makeText(this.applicationContext, "utilisateur ajouté", Toast.LENGTH_SHORT).show()
                         if(binding.added.text.isEmpty()){
+                            Log.d("le prénom", "${us.firstName}")
                             binding.added.text = us.firstName
                         }else{
+                            Log.d("le prénom", "${us.firstName}")
                             var newAdding = binding.added.text.toString() + "\n" + us.firstName
                             binding.added.text = newAdding
                         }
                         binding.userId.text.clear()
                     }
-                    if(hashMap.containsKey(binding.userId.text.toString())){
+                    if(hashMap.containsKey(id)){
                         Log.d("deux", "${hashMap.toString()}")
                         Toast.makeText(binding.root.context, "Vous avez déjà ajouté cet utilisateur", Toast.LENGTH_SHORT).show()
                         binding.userId.text.clear()
