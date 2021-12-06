@@ -34,6 +34,7 @@ class PublicationPostAdapter(
         val beginDate = binding.beginDate
         val endDate = binding.endDate
         val publisher = binding.publisher
+        val datePublication = binding.datePublication
         val layout = binding.root
     }
 
@@ -42,6 +43,7 @@ class PublicationPostAdapter(
         val database = Firebase.database.reference
 
         holder.title.text = data.title
+        holder.datePublication.text = "le " + data.datePublication
         if(data.type == "NOTE"){
             database.child("notes").child(data.noteId.toString()).get().addOnSuccessListener {
                 val map = it.value as Map<String?, Any?>

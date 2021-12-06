@@ -105,4 +105,6 @@
     <string name="d_but_de_l_v_nement">début de l\'évènement</string>
     <string name="fin_de_l_v_nement">Fin de l\'évènement</string>
     <string name="publisher">Publisher</string>
+    <string name="return_to_groups">return to groups</string>
+    <string name="date_of_publication">date of publication</string>
 </resources>

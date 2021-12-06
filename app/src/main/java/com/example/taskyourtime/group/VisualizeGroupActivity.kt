@@ -41,6 +41,10 @@ class VisualizeGroupActivity : AppCompatActivity() {
             startActivity(publicationIntent)*/
         }
 
+        binding!!.buttonReturn.setOnClickListener{
+            finish()
+        }
+
         database = Firebase.database.reference.child("publications")
         val childEventListener = object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {

@@ -20,7 +20,7 @@ interface GroupService {
 
     fun createPublication(title: String, groupId: String, userPublisherId: String,
                           type: String, noteId: String, calendarEventId: String,
-                          toDoListId: String) : LiveData<Boolean>
+                          toDoListId: String, datePublication: String) : LiveData<Boolean>
     fun deletePublication(publicationId: String) : LiveData<Boolean>
     fun findPublicationById(publicationId: String) : LiveData<Publication?>
     fun findPublicationsByGroup(groupId: String) : LiveData<MutableList<Publication?>?>
@@ -140,7 +140,8 @@ class GroupServiceImpl(
         type: String,
         noteId: String,
         calendarEventId: String,
-        toDoListId: String
+        toDoListId: String,
+        datePublication: String
     ): LiveData<Boolean> {
         var success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
         val publisher = Firebase.auth.currentUser
@@ -152,7 +153,8 @@ class GroupServiceImpl(
                 type,
                 noteId,
                 calendarEventId,
-                toDoListId)
+                toDoListId,
+                datePublication)
         }else{
             success.postValue(false)
             Log.w(TAG, "Erreur lors de la création du groupe.")
@@ -166,7 +168,8 @@ class GroupServiceImpl(
                                type: String,
                                noteId: String,
                                calendarEventId: String,
-                               toDoListId: String){
+                               toDoListId: String,
+                               datePublication: String){
         val key = database.child("publications").push().key
         if(key == null){
             Log.w(TAG, "Couldn't get push key for publications")
@@ -181,7 +184,8 @@ class GroupServiceImpl(
             type,
             noteId,
             calendarEventId,
-            toDoListId)
+            toDoListId,
+            datePublication,)
         database.child("publications").child(key).setValue(publication.toMap())
     }
 
@@ -207,7 +211,7 @@ class GroupServiceImpl(
         var publicationResult: MutableLiveData<Publication?> = MutableLiveData<Publication?>()
         database.child("publications").child(publicationId).get().addOnSuccessListener {
             val map = it.value as Map<String?, Any?>
-            val p = Publication("", "", "", "", "", "", "", "")
+            val p = Publication("", "", "", "", "", "", "", "", "")
             p.loadFromMap(map)
             Log.d(TAG, "Publication trouvée")
             publicationResult.postValue(p)
@@ -222,7 +226,7 @@ class GroupServiceImpl(
         var publications: MutableLiveData<MutableList<Publication?>?> = MutableLiveData<MutableList<Publication?>?>()
         database.child("publications").orderByChild("groupId").equalTo(groupId).get().addOnSuccessListener {
             val test = it.value as Map<String?, Any?>
-            val p = Publication("", "", "", "", "", "", "", "")
+            val p = Publication("", "", "", "", "", "", "", "", "")
             p.loadFromMap(test)
             publications.value?.add(p)
         }.addOnFailureListener{

@@ -12,6 +12,7 @@ data class Publication(
     var noteId: String?,
     var calendarEventId: String?,
     var toDoListId: String?,
+    var datePublication: String?,
 ) {
     constructor(map: Map<String?, Any?>): this(
         null,
@@ -21,7 +22,8 @@ data class Publication(
         map["type"] as String?,
         map["noteId"] as String?,
         map["calendarEventId"] as String?,
-        map["toDoListId"] as String?
+        map["toDoListId"] as String?,
+        map["datePublication"] as String?,
     )
 
     fun loadFromMap(map: Map<String?, Any?>){
@@ -33,6 +35,7 @@ data class Publication(
         map["noteId"] as String?
         map["calendarEventId"] as String?
         map["toDoListId"] as String?
+        map["datePublication"] as String?
     }
 
     fun toMap(): Map<String, Any?>?{
@@ -44,6 +47,7 @@ data class Publication(
         map["noteId"] = noteId
         map["calendarEventId"] = calendarEventId
         map["toDoListId"] = toDoListId
+        map["datePublication"] = datePublication
 
         return map
     }
