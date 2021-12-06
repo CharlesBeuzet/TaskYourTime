@@ -46,7 +46,6 @@ class VisualizeGroupActivity : AppCompatActivity() {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
                 val map = snapshot.value as Map<String?, Any?>
                 val maPublication = Publication(map)
-                Log.d(TAG, "ON PASSE ICI EN TOUT CAS : ${group.id}")
                 if(maPublication.groupId == group.id){
                     maPublication.id = snapshot.key!!
                     maPublication.title?.let { Log.d(TAG, it) }
