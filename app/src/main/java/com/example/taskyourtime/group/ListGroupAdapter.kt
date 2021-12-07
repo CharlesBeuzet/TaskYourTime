@@ -59,6 +59,12 @@ class ListGroupAdapter(
                 database.child("groups").child(grp.id.toString()).child("userIdList").child(Firebase.auth.uid.toString()).setValue("yes")
                 holder.buttonAccept.visibility = View.GONE
                 holder.buttonRefuse.visibility = View.GONE
+                val toUpdate = data[position]
+                toUpdate.userIdList[Firebase.auth.uid.toString()] = "yes"
+                data[position] = toUpdate
+                notifyDataSetChanged()
+                notifyItemChanged(position)
+                notifyItemRangeChanged(position,1)
             }
 
             holder.buttonRefuse.setOnClickListener{

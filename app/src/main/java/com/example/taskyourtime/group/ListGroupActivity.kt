@@ -39,7 +39,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         binding = ActivityListGroupBinding.inflate(inflater, container, false)
         return _binding.root
     }
@@ -111,6 +111,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                     groups[index] = myGroup
                     groups[index].id = groupId
                     binding?.recyclerView?.adapter?.notifyDataSetChanged()
+                    //binding?.recyclerView?.adapter?.notifyItemChanged(index)
                 }
             }
 
@@ -139,10 +140,17 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
 
     override fun onItemClick(position: Int){
         val clickedItem = groups[position]
-        val intentVisualizeGroup = Intent(context, VisualizeGroupActivity::class.java)
-        intentVisualizeGroup.putExtra("groupClicked",clickedItem)
-        startActivity(intentVisualizeGroup)
-        Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
+        Log.d(TAG, "${clickedItem.userIdList.toString()} à la position $position")
+        if(groups[position].userIdList[Firebase.auth.uid] == "yes" || groups[position].ownerId == Firebase.auth.uid){
+            Log.d(TAG, "${clickedItem.userIdList.toString()} à la position $position")
+            val intentVisualizeGroup = Intent(context, VisualizeGroupActivity::class.java)
+            intentVisualizeGroup.putExtra("groupClicked",clickedItem)
+            startActivity(intentVisualizeGroup)
+            Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
+        }else{
+            Toast.makeText(context, "Acceptez l'invitation du groupe avant d'y accéder", Toast.LENGTH_SHORT).show()
+        }
+
     }
 
 
