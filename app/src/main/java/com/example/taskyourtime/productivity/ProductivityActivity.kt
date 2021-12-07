@@ -68,6 +68,10 @@ class ProductivityActivity : Fragment() {
             val hours = binding?.hours?.value
             val minutes = binding?.minutes?.value
             val seconds = binding?.seconds?.value
+            if( hours == 0 && minutes == 0 && seconds == 0) {
+                Toast.makeText(activity, "Please set a duration before launching the timer.", Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
             if (hours != null) {
                 if (minutes != null) {
                     if (seconds != null) {
