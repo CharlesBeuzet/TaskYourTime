@@ -56,20 +56,23 @@ class AddPublicationActivity : AppCompatActivity() {
             }
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
-            groupService.createPublication(
-                binding.publicationTitle.text.toString(),
-                group.id.toString(),
-                Firebase.auth.uid.toString(),
-                theChoice?.type.toString(),
-                theChoice?.id.toString(),
-                theChoice?.id.toString(),
-                theChoice?.id.toString(),
-                currentDate.toString(),
-            )
-            Log.d(TAG, "le choix : ${theChoice.toString()}")
-            Toast.makeText(applicationContext, "${theChoice?.type.toString()} publié(e)", Toast.LENGTH_SHORT).show()
-            finish()
-
+            if(!binding.publicationTitle.text.isEmpty()){
+                groupService.createPublication(
+                    binding.publicationTitle.text.toString(),
+                    group.id.toString(),
+                    Firebase.auth.uid.toString(),
+                    theChoice?.type.toString(),
+                    theChoice?.id.toString(),
+                    theChoice?.id.toString(),
+                    theChoice?.id.toString(),
+                    currentDate.toString(),
+                )
+                Log.d(TAG, "le choix : ${theChoice.toString()}")
+                Toast.makeText(applicationContext, "${theChoice?.type.toString()} publié(e)", Toast.LENGTH_SHORT).show()
+                finish()
+            }else{
+                Toast.makeText(applicationContext, "Veuillez renseigner le titre de la publication", Toast.LENGTH_SHORT).show()
+            }
         }
 
         displayChoices()
@@ -116,7 +119,6 @@ class AddPublicationActivity : AppCompatActivity() {
                 val map = snapshot.value as Map<String?, Any?>
                 val myItem = ToDoItem(map)
                 myItem.id = snapshot.key!!
-                //faire ce qu'on veut faire : afficher la note dans le recyclerView
                 myItem.content?.let { Log.d(TAG, it) }
                 if (Firebase.auth.uid == myItem.user_id) {
                     val itemChoice = Choice(myItem.id.toString(), null, myItem.content, null, null, false, "TODO")
@@ -142,6 +144,38 @@ class AddPublicationActivity : AppCompatActivity() {
             }
         }
         database2.addChildEventListener(toDoListChildEventListener)
+
+        //chargement de la liste d'events calendar dans la liste de choix possibles
+        database3 = Firebase.database.reference.child("calendarEvents")
+        val calendarEventChildEventListener = object: ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                val map = snapshot.value as Map<*, *>
+                val myEvent = CalendarEvent(map as Map<String?, Any?>)
+                myEvent.id = snapshot.key!!
+                if(myEvent.user_id == Firebase.auth.uid) {
+                    val eventChoice = Choice(myEvent.id.toString(), myEvent.name, myEvent.description, myEvent.begin_date, myEvent.end_date, false, "CALENDAR")
+                    choices.add(eventChoice)
+                    binding?.recyclerView?.adapter?.notifyDataSetChanged()
+                }
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d(TAG, "onChildChanged:" + snapshot.key!!)
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                Log.d(TAG, "onChildRemoved:" + snapshot.key!!)
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d(TAG, "onChildMoved:" + snapshot.key!!)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w(TAG, "postComments:onCancelled", error.toException())
+            }
+        }
+        database3.addChildEventListener(calendarEventChildEventListener)
     }
 
     private fun displayChoices(){
