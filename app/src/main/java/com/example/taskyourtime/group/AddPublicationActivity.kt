@@ -67,12 +67,14 @@ class AddPublicationActivity : AppCompatActivity() {
                 currentDate.toString(),
             )
             Log.d(TAG, "le choix : ${theChoice.toString()}")
+            Toast.makeText(applicationContext, "${theChoice?.type.toString()} publié(e)", Toast.LENGTH_SHORT).show()
             finish()
 
         }
 
         displayChoices()
 
+        //chargement des notes dans la liste de choix possibles
         database = Firebase.database.reference.child("notes")
         val noteChildEventListener = object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -105,6 +107,41 @@ class AddPublicationActivity : AppCompatActivity() {
             }
         }
         database.addChildEventListener(noteChildEventListener)
+
+        //chargement des items de ToDoList dans la liste de choix possibles
+        database2 = Firebase.database.reference.child("ItemToDoList")
+        val toDoListChildEventListener = object : ChildEventListener{
+            override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d(TAG, "onChildAdded::" + snapshot.key!!)
+                val map = snapshot.value as Map<String?, Any?>
+                val myItem = ToDoItem(map)
+                myItem.id = snapshot.key!!
+                //faire ce qu'on veut faire : afficher la note dans le recyclerView
+                myItem.content?.let { Log.d(TAG, it) }
+                if (Firebase.auth.uid == myItem.user_id) {
+                    val itemChoice = Choice(myItem.id.toString(), null, myItem.content, null, null, false, "TODO")
+                    choices.add(itemChoice)
+                }
+                binding?.recyclerView?.adapter?.notifyDataSetChanged()
+            }
+
+            override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d(TAG, "onChildChanged:" + snapshot.key!!)
+            }
+
+            override fun onChildRemoved(snapshot: DataSnapshot) {
+                Log.d(TAG, "onChildRemoved:" + snapshot.key!!)
+            }
+
+            override fun onChildMoved(snapshot: DataSnapshot, previousChildName: String?) {
+                Log.d(TAG, "onChildMoved:" + snapshot.key!!)
+            }
+
+            override fun onCancelled(error: DatabaseError) {
+                Log.w(TAG, "postComments:onCancelled", error.toException())
+            }
+        }
+        database2.addChildEventListener(toDoListChildEventListener)
     }
 
     private fun displayChoices(){
