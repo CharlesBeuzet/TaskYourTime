@@ -147,7 +147,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
             val intentVisualizeGroup = Intent(context, VisualizeGroupActivity::class.java)
             intentVisualizeGroup.putExtra("groupClicked",groups[position])
             startActivity(intentVisualizeGroup)
-            Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
+            //Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
         }else{
             Toast.makeText(context, "Acceptez l'invitation du groupe avant d'y accéder", Toast.LENGTH_SHORT).show()
         }

@@ -1,5 +1,6 @@
 package com.example.taskyourtime.group
 
+import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
@@ -49,7 +50,7 @@ class PublicationPostAdapter(
                 val map = it.value as Map<String?, Any?>
                 val maNote = Note(map)
                 holder.name.text = maNote.name
-                holder.content.text = maNote.content
+                holder.content.text = Html.fromHtml(maNote.content,Html.FROM_HTML_MODE_LEGACY)
             }.addOnFailureListener{
                 Log.e("firebase", "Error getting data", it)
             }
@@ -75,7 +76,7 @@ class PublicationPostAdapter(
                 val map = it.value as Map<String?, Any?>
                 val monItem = ToDoItem(map)
                 holder.name.visibility = View.GONE
-                holder.content.text = monItem.content
+                holder.content.text = Html.fromHtml(monItem.content,Html.FROM_HTML_MODE_LEGACY)
             }.addOnFailureListener{
                 Log.e("firebase", "Error getting data", it)
             }

@@ -1,12 +1,12 @@
 package com.example.taskyourtime.group
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.taskyourtime.R
 import com.example.taskyourtime.databinding.ActivityVisualizeGroupBinding
 import com.example.taskyourtime.model.Group
 import com.example.taskyourtime.model.Publication
@@ -37,8 +37,9 @@ class VisualizeGroupActivity : AppCompatActivity() {
         group = intent.getSerializableExtra("groupClicked") as Group
 
         binding!!.writePublication.setOnClickListener{
-            /*val publicationIntent = Intent(this, AddPublicationActivity::class.java)
-            startActivity(publicationIntent)*/
+            val publicationIntent = Intent(this, AddPublicationActivity::class.java)
+            publicationIntent.putExtra("group", group)
+            startActivity(publicationIntent)
         }
 
         binding!!.buttonReturn.setOnClickListener{
