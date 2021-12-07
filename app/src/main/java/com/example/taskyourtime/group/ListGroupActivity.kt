@@ -110,8 +110,8 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                     val groupId = groups[index].id
                     groups[index] = myGroup
                     groups[index].id = groupId
-                    binding?.recyclerView?.adapter?.notifyDataSetChanged()
-                    //binding?.recyclerView?.adapter?.notifyItemChanged(index)
+                    //binding?.recyclerView?.adapter?.notifyDataSetChanged()
+                    binding!!.recyclerView.adapter!!.notifyItemChanged(index)
                 }
             }
 
@@ -139,13 +139,13 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
     }
 
     override fun onItemClick(position: Int){
-        binding?.recyclerView?.adapter?.notifyItemChanged(position)
-        val clickedItem = groups[position]
-        Log.d(TAG, "${clickedItem.userIdList.toString()} à la position $position")
+        //binding?.recyclerView?.adapter?.notifyItemChanged(position)
+        //val clickedItem = groups[position]
+        //Log.d(TAG, "${clickedItem.userIdList.toString()} à la position $position")
         if(groups[position].userIdList[Firebase.auth.uid] == "yes" || groups[position].ownerId == Firebase.auth.uid){
-            Log.d(TAG, "${clickedItem.userIdList.toString()} à la position $position")
+            //Log.d(TAG, "${clickedItem.userIdList.toString()} à la position $position")
             val intentVisualizeGroup = Intent(context, VisualizeGroupActivity::class.java)
-            intentVisualizeGroup.putExtra("groupClicked",clickedItem)
+            intentVisualizeGroup.putExtra("groupClicked",groups[position])
             startActivity(intentVisualizeGroup)
             Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
         }else{
