@@ -56,20 +56,30 @@ class AddPublicationActivity : AppCompatActivity() {
             }
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
-            if(!binding.publicationTitle.text.isEmpty()){
-                groupService.createPublication(
-                    binding.publicationTitle.text.toString(),
-                    group.id.toString(),
-                    Firebase.auth.uid.toString(),
-                    theChoice?.type.toString(),
-                    theChoice?.id.toString(),
-                    theChoice?.id.toString(),
-                    theChoice?.id.toString(),
-                    currentDate.toString(),
-                )
-                Log.d(TAG, "le choix : ${theChoice.toString()}")
-                Toast.makeText(applicationContext, "${theChoice?.type.toString()} publié(e)", Toast.LENGTH_SHORT).show()
-                finish()
+            var onlyOne: Boolean = true
+            choices.forEach {
+                if(it.checked == true && it.id != theChoice?.id){
+                    onlyOne = false
+                }
+            }
+            if(binding.publicationTitle.text.isNotEmpty()){
+                if(onlyOne){
+                    groupService.createPublication(
+                        binding.publicationTitle.text.toString(),
+                        group.id.toString(),
+                        Firebase.auth.uid.toString(),
+                        theChoice?.type.toString(),
+                        theChoice?.id.toString(),
+                        theChoice?.id.toString(),
+                        theChoice?.id.toString(),
+                        currentDate.toString(),
+                    )
+                    Log.d(TAG, "le choix : ${theChoice.toString()}")
+                    Toast.makeText(applicationContext, "${theChoice?.type.toString()} publié(e)", Toast.LENGTH_SHORT).show()
+                    finish()
+                }else{
+                    Toast.makeText(applicationContext, "Veuillez sélectionner un seul élement", Toast.LENGTH_SHORT).show()
+                }
             }else{
                 Toast.makeText(applicationContext, "Veuillez renseigner le titre de la publication", Toast.LENGTH_SHORT).show()
             }
