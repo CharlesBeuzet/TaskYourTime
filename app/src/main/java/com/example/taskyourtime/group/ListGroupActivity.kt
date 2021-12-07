@@ -139,6 +139,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
     }
 
     override fun onItemClick(position: Int){
+        binding?.recyclerView?.adapter?.notifyItemChanged(position)
         val clickedItem = groups[position]
         Log.d(TAG, "${clickedItem.userIdList.toString()} à la position $position")
         if(groups[position].userIdList[Firebase.auth.uid] == "yes" || groups[position].ownerId == Firebase.auth.uid){
