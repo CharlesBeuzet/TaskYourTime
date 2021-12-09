@@ -33,7 +33,6 @@ import org.koin.core.context.startKoin
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
 
-        //Starting Koin
         startKoin {
             androidLogger()
             androidContext(applicationContext)
@@ -42,7 +41,6 @@ import org.koin.core.context.startKoin
 
         auth = Firebase.auth
 
-        //get login button
         loginButton = findViewById(R.id.button_login)
         subscriptionLink = findViewById(R.id.subscription_link)
         emailText = findViewById(R.id.email)
@@ -78,11 +76,6 @@ import org.koin.core.context.startKoin
 
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        if(currentUser != null){
-            //reload();
-        }
     }
 
 

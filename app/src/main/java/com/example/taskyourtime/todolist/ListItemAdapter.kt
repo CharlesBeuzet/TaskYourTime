@@ -37,8 +37,8 @@ class ListItemAdapter(
             viewType: Int
     ): ListItemAdapter.ListItemHolder {
         val inflater = LayoutInflater.from(parent.context)
-        com.example.taskyourtime.todolist.binding = TodolistItemCellBinding.inflate(inflater, parent, false)
-        return ListItemAdapter.ListItemHolder(com.example.taskyourtime.todolist.binding)
+        binding = TodolistItemCellBinding.inflate(inflater, parent, false)
+        return ListItemAdapter.ListItemHolder(binding)
     }
 
     override fun onBindViewHolder(holder: ListItemAdapter.ListItemHolder, position: Int) {

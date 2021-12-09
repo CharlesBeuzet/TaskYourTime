@@ -33,7 +33,7 @@ class UserServiceImpl(
 
     private fun firebaseUserToUser(user : FirebaseUser) : User {
         return User(
-            "Prenom", "Nom", user.email, ""
+            "FirstName", "LastName", user.email, ""
         );
     }
 

@@ -4,7 +4,6 @@ import android.graphics.Paint
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskyourtime.databinding.ActivityAddNoteBinding
 import com.example.taskyourtime.services.NoteService
@@ -37,7 +36,7 @@ class AddNoteActivity : AppCompatActivity() {
     }
 
     private fun buttonNoFormat(){
-        var temp = binding.noteContent.text.toString()
+        val temp = binding.noteContent.text.toString()
         var res = temp.replace("<b>", "", false)
         res = res.replace("</b>","", false)
         res = res.replace("<i>","", false)
@@ -75,8 +74,8 @@ class AddNoteActivity : AppCompatActivity() {
         }
 
         binding.buttonCreateNote.setOnClickListener{
-            Log.d("Aenvoyer", "Le titre : " + binding.noteName.text.toString())
-            Log.d("Aenvoyer", "Le titre : " + binding.noteContent.text.toString())
+            Log.d("SEND", "Title : " + binding.noteName.text.toString())
+            Log.d("SEND", "Title : " + binding.noteContent.text.toString())
 
             val name = binding.noteName.text.toString()
             val content = binding.noteContent.text.toString()
@@ -85,8 +84,6 @@ class AddNoteActivity : AppCompatActivity() {
                 noteService.postNewNote(name, content, userId).observeForever{
                         success ->
                     if(success == true){
-                        //fermer l'activity
-                        Toast.makeText(binding.root.context, "Nouvelle note ajoutée", Toast.LENGTH_SHORT).show()
                         finish()
                     }
                 }

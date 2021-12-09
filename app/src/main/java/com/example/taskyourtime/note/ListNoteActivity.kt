@@ -6,7 +6,6 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -33,7 +32,7 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
 
     private val TAG = "ListNoteActivity"
     private lateinit var database: DatabaseReference
-    private val notes : MutableList<Note> = mutableListOf<Note>()
+    private val notes : MutableList<Note> = mutableListOf()
     private val userService by inject<UserService>()
 
     override fun onCreateView(
@@ -54,13 +53,11 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
 
     override fun onStop(){
         super.onStop()
-        //invalidateOptionsMenu()
         Log.i(TAG, "ACTIVITY SOPPED")
     }
 
     override fun onDestroy() {
         super.onDestroy()
-        //invalidateOptionsMenu()
         Log.i(TAG, "ACTIVITY DESTROYED")
     }
 
@@ -75,17 +72,15 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        Log.d(TAG,"ListeNoteView created")
+        Log.d(TAG,"ListNoteView created")
         super.onViewCreated(view, savedInstanceState)
-        Log.d("Note Creation", "Inside the createview of notes")
-        //go to activity create a note
+        Log.d("Note Creation", "Inside the CreateView of notes")
         binding?.addNoteButton?.setOnClickListener{
             Log.d("CLICK","Adding Note")
             val intentAddNote = Intent(context, AddNoteActivity::class.java)
             startActivity(intentAddNote)
         }
 
-        //écoute les ajouts/modifications/... de notes
         database = Firebase.database.reference.child("notes")
         val childEventListener = object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -93,7 +88,6 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
                 val map = snapshot.value as Map<String?, Any?>
                 val maNote = Note(map)
                 maNote.id = snapshot.key!!
-                //faire ce qu'on veut faire : afficher la note dans le recyclerView
                 maNote.name?.let { Log.d(TAG, it) }
                 if(Firebase.auth.uid == maNote.user_id){
                     notes.add(maNote)
@@ -121,7 +115,6 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
                     val map = snapshot.value as Map<String?, Any?>
                     notes.removeAt(index)
                     binding!!.recyclerView.adapter!!.notifyItemRemoved(index)
-                    Toast.makeText(binding!!.root.context, "Note supprimée", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -139,9 +132,9 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        val clikedItem = notes[position]
+        val clickedItem = notes[position]
         val intentVisualizeNote = Intent(context, VisualizeNoteActivity::class.java)
-        intentVisualizeNote.putExtra("noteClicked",clikedItem)
+        intentVisualizeNote.putExtra("noteClicked",clickedItem)
         startActivity(intentVisualizeNote)
     }
 }

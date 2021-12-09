@@ -1,11 +1,9 @@
 package com.example.taskyourtime.note
 
-import android.content.Intent
 import android.graphics.Paint
 import android.os.Bundle
 import android.text.SpannableStringBuilder
 import android.util.Log
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskyourtime.databinding.ActivityEditNoteBinding
 import com.example.taskyourtime.model.Note
@@ -91,8 +89,6 @@ class EditNoteActivity : AppCompatActivity() {
                 noteService.updateNote(note.id.toString(), name, content).observeForever{
                     success ->
                     if(success == true){
-                        //fermer l'activity
-                        Toast.makeText(this, "Note éditée", Toast.LENGTH_SHORT).show()
                         finish()
                     }
                 }

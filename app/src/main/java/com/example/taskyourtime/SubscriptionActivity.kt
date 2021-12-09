@@ -3,6 +3,7 @@ package com.example.taskyourtime
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.util.Patterns
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
@@ -35,8 +36,6 @@ class SubscriptionActivity : AppCompatActivity() {
                     ")+"
     )
 
-    //private var passwordPattern: Pattern = Pattern.compile("^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{4,}$")
-
     private val userService by inject<UserService>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -58,7 +57,6 @@ class SubscriptionActivity : AppCompatActivity() {
     private val listener = View.OnClickListener { view ->
         when(view.id) {
             R.id.btnSignUp -> {
-                //Get the data and store it in Firebase
                 val email = emailText.text.toString()
                 val password = passwordText.text.toString()
                 val firstName = firstnameText.text.toString()
@@ -75,10 +73,6 @@ class SubscriptionActivity : AppCompatActivity() {
                     errorText.visibility = View.VISIBLE
                     errorText.text = getString(R.string.short_password_error)
                 }
-                /*else if(!passwordPattern.matcher(password).matches()){
-                    errorText.visibility = View.VISIBLE
-                    errorText.text = getString(R.string.password_validation_error)
-                }*/
                 else {
                     Log.d("AUTH", "Email : " + email + "password : " + password)
 
@@ -98,7 +92,6 @@ class SubscriptionActivity : AppCompatActivity() {
 
     public override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
         val currentUser = auth.currentUser
         if(currentUser != null){
             Log.d("AUTH", "User is ever signed-in ")
@@ -109,5 +102,3 @@ class SubscriptionActivity : AppCompatActivity() {
 
 
 }
-
-//TODO : get user first and last name, and picture

@@ -96,8 +96,8 @@ class CalendarViewActivity : Fragment(), CalendarViewAdapter.OnItemClickListener
 
         val childEventListener = object : ChildEventListener {
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
-                val map = snapshot.value as Map<*, *>
-                val myEvent = CalendarEvent(map as Map<String?, Any?>)
+                val map = snapshot.value as Map<String?, Any?>
+                val myEvent = CalendarEvent(map)
                 myEvent.id = snapshot.key!!
                 if(myEvent.user_id == Firebase.auth.uid) {
                     if (checkDateValidity(myEvent.begin_date?.split(" ")?.get(0).toString(), myEvent.end_date?.split(" ")?.get(0).toString(), selectedDate)
@@ -113,8 +113,8 @@ class CalendarViewActivity : Fragment(), CalendarViewAdapter.OnItemClickListener
                 Log.d(TAG, "onChildChanged:" + snapshot.key!!)
                 val index = calendarEvents.indexOfFirst {it.id == snapshot.key!! } // -1 if not found
                 if (index >= 0 && calendarEvents[index].user_id == Firebase.auth.uid){
-                    val map = snapshot.value as Map<*, *>
-                    val myEvent = CalendarEvent(map as Map<String?, Any?>)
+                    val map = snapshot.value as Map<String?, Any?>
+                    val myEvent = CalendarEvent(map)
                     val eventId = calendarEvents[index].id
                     calendarEvents[index] = myEvent
                     calendarEvents[index] = myEvent
@@ -127,7 +127,7 @@ class CalendarViewActivity : Fragment(), CalendarViewAdapter.OnItemClickListener
                 Log.d(TAG, "onChildRemoved:" + snapshot.key!!)
                 val index = calendarEvents.indexOfFirst { it.id == snapshot.key!! } //-1 if not found
                 if(index >= 0 && Firebase.auth.uid == calendarEvents[index].user_id){
-                    val map = snapshot.value as Map<*, *>
+                    val map = snapshot.value as Map<String?, Any?>
                     calendarEvents.removeAt(index)
                     binding?.recyclerView?.adapter?.notifyItemRemoved(index)
                 }

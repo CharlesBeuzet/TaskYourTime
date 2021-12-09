@@ -119,6 +119,11 @@
     <string name="date_of_publication">date of publication</string>
     <string name="user_email_request">User email</string>
     <string name="add_user">Add user</string>
+    <string name="group_error_placeholder">Error</string>
+    <string name="no_user_error">Please add at least one user</string>
+    <string name="group_name_error">Please give a name to your group</string>
+    <string name="redundant_user">This user is already added in the group</string>
+    <string name="user_not_find_error">User not found</string>
     <string name="create_group">Create</string>
     <string name="cancel_group_creation">Cancel</string>
     <string name="publish_date_placeholder">On %1$s</string>

@@ -30,11 +30,11 @@ class CalendarServiceImpl(
         val owner = Firebase.auth.currentUser
         if(owner != null){
             create(name, description, beginDate, endDate, owner.uid)
-            Log.w(TAG, "Succès : '$name' postée")
+            Log.w(TAG, "SUCCESS : '$name' posted")
             success.postValue(true)
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la création de l'évennement")
+            Log.w(TAG, "Error while event creation")
         }
         return success
     }
@@ -44,11 +44,11 @@ class CalendarServiceImpl(
         var calendarEventToDelete = findCalendarEventById(id)
         if(calendarEventToDelete != null){
             delete(id)
-            Log.w(TAG, "Succès lors de la supression de l'évennement '$id'")
+            Log.w(TAG, "Delete processed with success '$id'")
             success.postValue(true)
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la suppression")
+            Log.w(TAG, "Error while event deleting")
         }
         return success
     }
@@ -75,10 +75,10 @@ class CalendarServiceImpl(
             if(newEndDate != null){
                 updateField(id, "end_date", newEndDate)
             }
-            Log.w(TAG, "Evennement mis à jour")
+            Log.w(TAG, "Event updated")
             success.postValue(true)
         }else{
-            Log.w(TAG, "Erreur lors de la mise à jour de l'évennement '$id'")
+            Log.w(TAG, "Error while updating event'$id'")
             success.postValue(false)
         }
         return success
@@ -90,10 +90,10 @@ class CalendarServiceImpl(
             val map = it.value as Map<String?, Any?>
             val calendarEvent = CalendarEvent("", "", "", "", "", "")
             calendarEvent.loadFromMap(map)
-            Log.d(TAG, "Evennement trouvée")
+            Log.d(TAG, "Event found")
             calendarEventResult.postValue(calendarEvent)
         }.addOnFailureListener{
-            Log.d(TAG, "Evennement non trouvé")
+            Log.d(TAG, "Event not found")
             calendarEventResult.postValue(null)
         }
         return calendarEventResult
@@ -112,7 +112,7 @@ class CalendarServiceImpl(
 
     private fun delete(id: String){
         database.child("calendarEvents").child(id).removeValue()
-        Log.d(TAG, "calendarEvent dont l'id est : $id a été supprimée")
+        Log.d(TAG, "calendarEvent with id : $id has been deleted")
     }
 
     private fun updateField(id: String, field: String, newValue: Any){

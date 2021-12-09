@@ -51,10 +51,6 @@ class ListGroupAdapter(
             }
         }
         val idGroup = grp.id.toString()
-        /*holder.deleteGroupButton.setOnClickListener{
-            Log.d("Asupprimer","Groupe dont l'id est id a été supprimée")
-            groupService.deleteGroup(idGroup)
-        }*/
 
         if(grp.userIdList[Firebase.auth.uid] == "no"){
             holder.buttonAccept.visibility = View.VISIBLE

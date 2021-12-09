@@ -40,7 +40,7 @@ class GroupServiceImpl(
             create(name, owner.uid, userList)
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la création du groupe.")
+            Log.w(TAG, "Error in group creation")
         }
         return success
     }
@@ -50,10 +50,10 @@ class GroupServiceImpl(
         var groupToDelete = findGroupById(groupId)
         if(groupToDelete != null){
             delete(groupId)
-            Log.w(TAG, "Succès lors de la suppression du groupe '$groupId'")
+            Log.w(TAG, "Success while deleting group '$groupId'")
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la suppression")
+            Log.w(TAG, "Error while deleting group")
         }
         return success
     }
@@ -64,24 +64,24 @@ class GroupServiceImpl(
         if(groupToUpdate != null){
             add(groupId, userId)
             success.postValue(true)
-            Log.w(TAG, "Succès lors de l'ajout de l'id utilisateur dans  le groupe")
+            Log.w(TAG, "Success while adding user $userId to the group")
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de l'ajout de l'utilisateur dans le groupe")
+            Log.w(TAG, "Error while adding user to the group")
         }
         return success
     }
 
     override fun removeUser(groupId:String, userId: String): LiveData<Boolean> {
-        var success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
-        var groupToUpdate = findGroupById(groupId)
+        val success : MutableLiveData<Boolean> = MutableLiveData<Boolean>()
+        val groupToUpdate = findGroupById(groupId)
         if(groupToUpdate != null){
             remove(groupId, userId)
             success.postValue(true)
-            Log.w(TAG, "Succès lors du retrait de l'id utilisateur du groupe")
+            Log.w(TAG, "Success while removing of the user $userId from the group")
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors du retrait de l'utilisateur du groupe")
+            Log.w(TAG, "Error while removing user from the group")
         }
         return success
     }
@@ -93,10 +93,10 @@ class GroupServiceImpl(
             val userIdList: List<String?> = listOf()
             val group = Group("", "", "", userIdList as HashMap<String?, Any?>)
             group.loadFromMap(map)
-            Log.d(TAG, "Groupe trouvé")
+            Log.d(TAG, "Group found")
             groupResult.postValue(group)
         }.addOnFailureListener{
-            Log.d(TAG, "Groupe non trouvé")
+            Log.d(TAG, "Group not found")
             groupResult.postValue(null)
         }
         return groupResult
@@ -121,8 +121,6 @@ class GroupServiceImpl(
             return
         }
         Log.d(TAG, "Success in getting the key: $key")
-        //on crée une liste vide d'id utilisateurs qui représenteront
-        //tous les utilisateurs du groupe, à la création cette liste est vide.
         val userIdList: List<String?> = listOf()
         val group: Group = Group(key, ownerId, name, userList)
         database.child("groups").child(key).setValue(group.toMAp())
@@ -130,7 +128,7 @@ class GroupServiceImpl(
 
     private fun delete(groupId: String){
         database.child("groups").child(groupId).removeValue()
-        Log.d(TAG, "Groupe dont l'id est : $groupId a été supprimé")
+        Log.d(TAG, "Group with id : $groupId has been deleted")
     }
 
     override fun createPublication(
@@ -157,7 +155,7 @@ class GroupServiceImpl(
                 datePublication)
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la création du groupe.")
+            Log.w(TAG, "Error while group creation")
         }
         return success
     }
@@ -191,7 +189,7 @@ class GroupServiceImpl(
 
     private fun removePublication(publicationId: String){
         database.child("publications").child(publicationId).removeValue()
-        Log.d(TAG, "Publication dont l'id est : $publicationId a été supprimé")
+        Log.d(TAG, "Publication with id : $publicationId has been deleted")
     }
 
     override fun deletePublication(publicationId: String): LiveData<Boolean> {
@@ -199,10 +197,10 @@ class GroupServiceImpl(
         var publicationToDelete = findPublicationById(publicationId)
         if(publicationToDelete != null){
             delete(publicationId)
-            Log.w(TAG, "Succès lors de la suppression de la publication '$publicationId'")
+            Log.w(TAG, "Success while deleting publication '$publicationId'")
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la suppression")
+            Log.w(TAG, "Error while deleting publication")
         }
         return success
     }
@@ -213,10 +211,10 @@ class GroupServiceImpl(
             val map = it.value as Map<String?, Any?>
             val p = Publication("", "", "", "", "", "", "", "", "")
             p.loadFromMap(map)
-            Log.d(TAG, "Publication trouvée")
+            Log.d(TAG, "Publication found")
             publicationResult.postValue(p)
         }.addOnFailureListener{
-            Log.d(TAG, "Publication non trouvée")
+            Log.d(TAG, "Publication not found")
             publicationResult.postValue(null)
         }
         return publicationResult
@@ -230,7 +228,7 @@ class GroupServiceImpl(
             p.loadFromMap(test)
             publications.value?.add(p)
         }.addOnFailureListener{
-            Log.d(TAG, "publications non trouvées")
+            Log.d(TAG, "Publications not found")
             publications.postValue(null)
         }
         return publications

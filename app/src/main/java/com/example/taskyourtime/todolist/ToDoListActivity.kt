@@ -26,7 +26,7 @@ import org.koin.android.ext.android.inject
 class ToDoListActivity : Fragment() {
 
     private var binding: ActivityToDoListBinding? = null
-    private val items : MutableList<ToDoItem> = mutableListOf<ToDoItem>()
+    private val items : MutableList<ToDoItem> = mutableListOf()
     private val itemService by inject<ToDoItemService>()
 
     private val _binding get() = binding!!
@@ -41,8 +41,7 @@ class ToDoListActivity : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = ActivityToDoListBinding.inflate(inflater, container, false)
-        val view = _binding.root
-        return view
+        return _binding.root
     }
 
     private fun displayItems(){
@@ -50,13 +49,12 @@ class ToDoListActivity : Fragment() {
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
         binding?.recyclerView?.adapter = ListItemAdapter(items, itemService, context)
         val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
-        itemTouchHelper.attachToRecyclerView(_binding?.recyclerView)
+        itemTouchHelper.attachToRecyclerView(_binding.recyclerView)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         Log.d(TAG, "ToDoListView created")
         super.onViewCreated(view, savedInstanceState)
-        //go to activity create an item
         binding?.addItemButton?.setOnClickListener {
             val intentAddItem =
                 Intent(context,AddItemActivity::class.java) //TODO : change activity
@@ -71,12 +69,10 @@ class ToDoListActivity : Fragment() {
                 val map = snapshot.value as Map<String?, Any?>
                 val myItem = ToDoItem(map)
                 myItem.id = snapshot.key!!
-                //faire ce qu'on veut faire : afficher la note dans le recyclerView
                 myItem.content?.let { Log.d(TAG, it) }
                 if (Firebase.auth.uid == myItem.user_id) {
                     items.add(myItem)
                 }
-                //Ordering items by their position
                 items.sortBy { it.position }
                 Log.d(TAG,"Number of items : " + items.size)
                 Log.d(TAG,"Checkbox : " + myItem.done)
@@ -89,9 +85,9 @@ class ToDoListActivity : Fragment() {
                 if (index >= 0 && items[index].user_id == Firebase.auth.uid) {
                     val map = snapshot.value as Map<String?, Any?>
                     val myItem = ToDoItem(map)
-                    val ItemId = items[index].id
+                    val itemId = items[index].id
                     items[index] = myItem
-                    items[index].id = ItemId
+                    items[index].id = itemId
                     binding?.recyclerView?.adapter?.notifyDataSetChanged()
                 }
             }
@@ -124,13 +120,11 @@ class ToDoListActivity : Fragment() {
         super.onStop()
         Log.d(TAG,"OnStop")
         if(itemsMoved) {
-            //get the new position of the items and updating their position in bdd
             for(item in items) {
                 Log.d(TAG,item.content.toString() + " "+ items.indexOf(item))
                 item.id?.let { itemService.updateItemPosition(it,items.indexOf(item)+1) }
             }
         }
-        //TODO : check a byte and if it is true, save the new order of the item
     }
 
     private val itemTouchHelperCallback = object: ItemTouchHelper.Callback() {
@@ -149,9 +143,7 @@ class ToDoListActivity : Fragment() {
                 viewHolder: RecyclerView.ViewHolder,
                 target: RecyclerView.ViewHolder
         ): Boolean {
-            // Notify your adapter that an item is moved from x position to y position
             binding?.recyclerView?.adapter?.notifyItemMoved(viewHolder.adapterPosition, target.adapterPosition)
-            //binding?.recyclerView?.getChildItemId()
             Log.d(TAG,"Item is beeing moved + position : "+ viewHolder.adapterPosition)
             moveItemInList(target.adapterPosition,viewHolder.adapterPosition)
             itemsMoved = true
@@ -159,8 +151,8 @@ class ToDoListActivity : Fragment() {
         }
 
         private fun moveItemInList(from : Int, to : Int) {
-            Log.d(TAG,"Updating list "+ to + " "+from)
-            Log.d(TAG,"Updtating the following list : ")
+            Log.d(TAG, "Updating list $to $from")
+            Log.d(TAG,"Updating the following list : ")
             val copyOfItems = items.toList()
             val localItems = items.toList()
 
@@ -179,12 +171,9 @@ class ToDoListActivity : Fragment() {
             for(item in items) {
                 Log.d(TAG,item.content.toString() + " "+ items.indexOf(item))
             }
-            //TODO : mettre index à jour BDD et check boolean si besoin réécriture ou non ?
         }
 
         override fun isLongPressDragEnabled(): Boolean {
-            // true: if you want to start dragging on long press
-            // false: if you want to handle it yourself
             return true
         }
 
@@ -194,7 +183,6 @@ class ToDoListActivity : Fragment() {
 
         override fun onSelectedChanged(viewHolder: RecyclerView.ViewHolder?, actionState: Int) {
             super.onSelectedChanged(viewHolder, actionState)
-            // Hanlde action state changes
             if (actionState == ACTION_STATE_DRAG) {
                 viewHolder?.itemView?.alpha = 0.5f
             }
@@ -202,16 +190,8 @@ class ToDoListActivity : Fragment() {
 
         override fun clearView(recyclerView: RecyclerView, viewHolder: RecyclerView.ViewHolder) {
             super.clearView(recyclerView, viewHolder)
-            // Called by the ItemTouchHelper when the user interaction with an element is over and it also completed its animation
-            // This is a good place to send update to your backend about changes
             Log.d("ItemTouchHelperCallback","Drag&Drop finished at position : "+ viewHolder.adapterPosition + "old_position : " )
             viewHolder.itemView.alpha = 1.0f
-            //TODO : update items list with new order
-
-            //viewHolder.oldPosition
-            //TODO : get old position, retrieve data with firebase request and write it if necessary
-            //TODO : get the item so we can update the data on FIrebase
-
         }   
 
     }

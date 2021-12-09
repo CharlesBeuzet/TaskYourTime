@@ -34,11 +34,11 @@ class ToDoItemServiceImpl(
         val owner = Firebase.auth.currentUser
         if(owner != null){
             create(content, owner.uid)
-            Log.w(TAG,"Succès : '$content' posté en tant qu'item de la ToDoList")
+            Log.w(TAG,"Success : '$content' posted")
             success.postValue(true)
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la création de la note")
+            Log.w(TAG, "Error while creating item")
         }
         return success
     }
@@ -46,7 +46,7 @@ class ToDoItemServiceImpl(
     private fun create(content: String, user_id: String){
         val key = database.child("ItemToDoList").push().key
         if(key == null){
-            Log.w(TAG, "Couldn't get push key for todolistItem")
+            Log.w(TAG, "Couldn't get push key for ToDoListItem")
             return
         }
         Log.d(TAG, "Success in getting the key: $key")
@@ -58,24 +58,24 @@ class ToDoItemServiceImpl(
         var itemToDelete = findItemById(id)
         if(itemToDelete != null){
             delete(id)
-            Log.w(TAG, "Succès lors de la suppression de l'item '$id'")
+            Log.w(TAG, "Success while item suppression '$id'")
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la suppression")
+            Log.w(TAG, "Error while item suppression")
         }
         return success
     }
 
     private fun delete(id: String){
         database.child("ItemToDoList").child(id).removeValue()
-        Log.d(TAG, "Item dont l'id est : $id a été supprimée")
+        Log.d(TAG, "Item with id : $id has been deleted")
     }
 
     private fun getPositionAndSetData(content: String, user_id: String, key: String){
         var number : Long =0
         database.child("ItemToDoList").orderByChild("user_id").equalTo(user_id).get().addOnSuccessListener {
             number = it.childrenCount
-            Log.d(TAG,"Number of items foe this user : "+number)
+            Log.d(TAG, "Number of items for this user : $number")
             val item : ToDoItem = ToDoItem(key, content, user_id,false,number+1)
             database.child("ItemToDoList").child(key).setValue(item.toMap())
         }.addOnFailureListener{
@@ -90,10 +90,10 @@ class ToDoItemServiceImpl(
             val map = it.value as Map<String?, Any?>
             val item = ToDoItem("", "", "",false,0)
             item.loadFromMap(map)
-            Log.d(TAG, "Item trouvé")
+            Log.d(TAG, "Item found")
             itemResult.postValue(item)
         }.addOnFailureListener{
-            Log.d(TAG, "Item non trouvée")
+            Log.d(TAG, "Item not found")
             itemResult.postValue(null)
         }
         return itemResult
@@ -115,10 +115,10 @@ class ToDoItemServiceImpl(
         var noteToUpdate = findItemById(id)
         if(noteToUpdate != null){
             updateField(id, "done", checkValue)
-            Log.w(TAG, "Item '$id' mis à jour")
+            Log.w(TAG, "Item '$id' updated")
             success.postValue(true)
         }else{
-            Log.w(TAG, "Erreur lors de la mise à jour de l'item' '$id'")
+            Log.w(TAG, "Error while item update '$id'")
             success.postValue(false)
         }
         return success

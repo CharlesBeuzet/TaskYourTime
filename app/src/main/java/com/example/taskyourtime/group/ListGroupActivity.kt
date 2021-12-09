@@ -32,7 +32,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
 
     private val TAG = "ListGroupActivity"
     private lateinit var database: DatabaseReference
-    private val groups: MutableList<Group> = mutableListOf<Group>()
+    private val groups: MutableList<Group> = mutableListOf()
     private val userService by inject<UserService>()
 
     override fun onCreateView(
@@ -90,7 +90,6 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                 val userIdList = map["userIdList"]
                 myGroup.userIdList = userIdList as HashMap<String?, Any?>
                 myGroup.id = snapshot.key!!
-                //faire ce qu'on veut faire : afficher le groupe dans le recyclerView
                 myGroup.name?.let { Log.d(TAG, it) }
                 if(Firebase.auth.uid == myGroup.ownerId || myGroup.userIdList.contains(Firebase.auth.uid)){
                     groups.add(myGroup)
@@ -110,7 +109,6 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                     val groupId = groups[index].id
                     groups[index] = myGroup
                     groups[index].id = groupId
-                    //binding?.recyclerView?.adapter?.notifyDataSetChanged()
                     binding!!.recyclerView.adapter!!.notifyItemChanged(index)
                 }
             }
@@ -122,7 +120,6 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                     val map = snapshot.value as Map<String?, Any?>
                     groups.removeAt(index)
                     binding!!.recyclerView.adapter!!.notifyItemRemoved(index)
-                    Toast.makeText(binding?.root?.context, "Groupe supprimé", Toast.LENGTH_SHORT).show()
                 }
             }
 
@@ -139,17 +136,12 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
     }
 
     override fun onItemClick(position: Int){
-        //binding?.recyclerView?.adapter?.notifyItemChanged(position)
-        //val clickedItem = groups[position]
-        //Log.d(TAG, "${clickedItem.userIdList.toString()} à la position $position")
         if(groups[position].userIdList[Firebase.auth.uid] == "yes" || groups[position].ownerId == Firebase.auth.uid){
-            //Log.d(TAG, "${clickedItem.userIdList.toString()} à la position $position")
             val intentVisualizeGroup = Intent(context, VisualizeGroupActivity::class.java)
             intentVisualizeGroup.putExtra("groupClicked",groups[position])
             startActivity(intentVisualizeGroup)
-            //Toast.makeText(context, "clicked", Toast.LENGTH_SHORT).show()
         }else{
-            Toast.makeText(context, "Acceptez l'invitation du groupe avant d'y accéder", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Please accept invitation before", Toast.LENGTH_SHORT).show()
         }
 
     }

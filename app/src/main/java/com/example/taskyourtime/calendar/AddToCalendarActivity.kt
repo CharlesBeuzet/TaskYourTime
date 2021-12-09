@@ -143,9 +143,9 @@ class AddToCalendarActivity: AppCompatActivity() {
     }
 
     private fun checkDateTimeValidity(beginDateTime: String, endDateTime: String): Boolean{
-        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
-        val beginDateTimeFormatted = LocalDateTime.parse(beginDateTime, formatter);
-        val endDateTimeFormatted = LocalDateTime.parse(endDateTime, formatter);
+        val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm")
+        val beginDateTimeFormatted = LocalDateTime.parse(beginDateTime, formatter)
+        val endDateTimeFormatted = LocalDateTime.parse(endDateTime, formatter)
         return beginDateTimeFormatted <= endDateTimeFormatted
     }
 }

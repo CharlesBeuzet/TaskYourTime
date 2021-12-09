@@ -28,11 +28,11 @@ class NoteServiceImpl(
         val owner = Firebase.auth.currentUser
         if(owner != null){
             create(name, content, owner.uid)
-            Log.w(TAG,"Succès : '$name' postée")
+            Log.w(TAG,"SUCCESS : '$name' posted")
             success.postValue(true)
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la création de la note")
+            Log.w(TAG, "Error while note creation")
         }
         return success
     }
@@ -42,10 +42,10 @@ class NoteServiceImpl(
         var noteToDelete = findNoteById(id)
         if(noteToDelete != null){
             delete(id)
-            Log.w(TAG, "Succès lors de la suppression de la note '$id'")
+            Log.w(TAG, "Success while deleting note '$id'")
         }else{
             success.postValue(false)
-            Log.w(TAG, "Erreur lors de la suppression")
+            Log.w(TAG, "Error while deleting note")
         }
         return success
     }
@@ -60,10 +60,10 @@ class NoteServiceImpl(
             if(newContent != null){
                 updateField(id, "content", newContent)
             }
-            Log.w(TAG, "Note '$id' mise à jour")
+            Log.w(TAG, "Note '$id' updated")
             success.postValue(true)
         }else{
-            Log.w(TAG, "Erreur lors de la mise à jour de la note '$id'")
+            Log.w(TAG, "Error while note updating '$id'")
             success.postValue(false)
         }
         return success
@@ -75,10 +75,10 @@ class NoteServiceImpl(
             val map = it.value as Map<String?, Any?>
             val note = Note("", "", "", "")
             note.loadFromMap(map)
-            Log.d(TAG, "Note trouvée")
+            Log.d(TAG, "Note found")
             noteResult.postValue(note)
         }.addOnFailureListener{
-            Log.d(TAG, "Note non trouvée")
+            Log.d(TAG, "Note not found")
             noteResult.postValue(null)
         }
         return noteResult
@@ -97,7 +97,7 @@ class NoteServiceImpl(
 
     private fun delete(id: String){
         database.child("notes").child(id).removeValue()
-        Log.d(TAG, "Note dont l'id est : $id a été supprimée")
+        Log.d(TAG, "Note with id : $id has been deleted")
     }
 
     private fun updateField(id: String, field: String, newValue: String){

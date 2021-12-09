@@ -56,7 +56,7 @@ class AddPublicationActivity : AppCompatActivity() {
             }
             val sdf = SimpleDateFormat("dd/M/yyyy hh:mm:ss")
             val currentDate = sdf.format(Date())
-            var onlyOne: Boolean = true
+            var onlyOne = true
             choices.forEach {
                 if(it.checked == true && it.id != theChoice?.id){
                     onlyOne = false
@@ -74,20 +74,19 @@ class AddPublicationActivity : AppCompatActivity() {
                         theChoice?.id.toString(),
                         currentDate.toString(),
                     )
-                    Log.d(TAG, "le choix : ${theChoice.toString()}")
-                    Toast.makeText(applicationContext, "${theChoice?.type.toString()} publié(e)", Toast.LENGTH_SHORT).show()
+                    Log.d(TAG, "Choice : ${theChoice.toString()}")
+                    Toast.makeText(applicationContext, "${theChoice?.type.toString()} published", Toast.LENGTH_SHORT).show()
                     finish()
                 }else{
-                    Toast.makeText(applicationContext, "Veuillez sélectionner un seul élement", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, "Please select only one element", Toast.LENGTH_SHORT).show()
                 }
             }else{
-                Toast.makeText(applicationContext, "Veuillez renseigner le titre de la publication", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, "Please give a title to your publication", Toast.LENGTH_SHORT).show()
             }
         }
 
         displayChoices()
 
-        //chargement des notes dans la liste de choix possibles
         database = Firebase.database.reference.child("notes")
         val noteChildEventListener = object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -134,7 +133,7 @@ class AddPublicationActivity : AppCompatActivity() {
                     val itemChoice = Choice(myItem.id.toString(), null, myItem.content, null, null, false, "TODO")
                     choices.add(itemChoice)
                 }
-                binding?.recyclerView?.adapter?.notifyDataSetChanged()
+                binding.recyclerView.adapter?.notifyDataSetChanged()
             }
 
             override fun onChildChanged(snapshot: DataSnapshot, previousChildName: String?) {
@@ -155,7 +154,6 @@ class AddPublicationActivity : AppCompatActivity() {
         }
         database2.addChildEventListener(toDoListChildEventListener)
 
-        //chargement de la liste d'events calendar dans la liste de choix possibles
         database3 = Firebase.database.reference.child("calendarEvents")
         val calendarEventChildEventListener = object: ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -165,7 +163,7 @@ class AddPublicationActivity : AppCompatActivity() {
                 if(myEvent.user_id == Firebase.auth.uid) {
                     val eventChoice = Choice(myEvent.id.toString(), myEvent.name, myEvent.description, myEvent.begin_date, myEvent.end_date, false, "CALENDAR")
                     choices.add(eventChoice)
-                    binding?.recyclerView?.adapter?.notifyDataSetChanged()
+                    binding.recyclerView.adapter?.notifyDataSetChanged()
                 }
             }
 

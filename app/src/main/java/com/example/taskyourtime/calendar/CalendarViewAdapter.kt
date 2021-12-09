@@ -43,7 +43,7 @@ class CalendarViewAdapter(
             holder.imageDescription.visibility = View.VISIBLE
         }
         holder.deleteEventButton.setOnClickListener{
-            Log.d("DELETE", "Evennement dont l'id est $id_event supprimé")
+            Log.d("DELETE", "Event with id $id_event has been deleted")
             calendarService.deleteCalendarEvent(id_event)
         }
     }

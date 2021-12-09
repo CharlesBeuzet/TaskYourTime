@@ -65,7 +65,7 @@
         android:background="@color/grayLight"
         android:ems="10"
         android:gravity="start"
-        android:maxHeight="600dp"
+        android:maxHeight="400dp"
         android:padding="10dp"
         android:text="@string/note_content"
         android:textAlignment="textStart"

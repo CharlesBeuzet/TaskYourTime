@@ -44,7 +44,6 @@ class ProductivityActivity : Fragment() {
         binding?.seconds?.minValue = 0
         binding?.seconds?.maxValue = 59
         binding?.chronometer?.format ="%s:%s"
-        //binding?.chronometer?.isCountDown = true
         return view
     }
 
@@ -60,7 +59,7 @@ class ProductivityActivity : Fragment() {
             binding?.seconds?.value = 0
             if (checkNotificationPolicyAccess(notificationManager)){
                 notificationManager.offDOD()
-                Toast.makeText(activity, "Do Not Disturb turned off.", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "Do Not Disturb mode turned off.", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -82,7 +81,7 @@ class ProductivityActivity : Fragment() {
             binding?.chronometer?.start()
             if (checkNotificationPolicyAccess(notificationManager)){
                 notificationManager.onDOD()
-                Toast.makeText(activity, "Do Not Disturb turned on.", Toast.LENGTH_LONG).show()
+                Toast.makeText(activity, "Do Not Disturb mode turned on.", Toast.LENGTH_LONG).show()
             }
         }
 
@@ -125,7 +124,6 @@ class ProductivityActivity : Fragment() {
         }
     }
 
-    // Method to check notification policy access status
     private fun checkNotificationPolicyAccess(notificationManager:NotificationManager):Boolean{
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (notificationManager.isNotificationPolicyAccessGranted){
@@ -133,7 +131,6 @@ class ProductivityActivity : Fragment() {
                 return true
             }else{
                 Toast.makeText(activity, "You need to grant notification policy access.", Toast.LENGTH_LONG).show()
-                // If notification policy access not granted for this package
                 val intent = Intent(Settings.ACTION_NOTIFICATION_POLICY_ACCESS_SETTINGS)
                 startActivity(intent)
             }
@@ -145,14 +142,12 @@ class ProductivityActivity : Fragment() {
     }
 }
 
-// Extension function to turn on do not disturb
 fun NotificationManager.onDOD(){
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         this.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_NONE)
     }
 }
 
-// Extension function to turn off do not disturb
 fun NotificationManager.offDOD(){
     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
         this.setInterruptionFilter(NotificationManager.INTERRUPTION_FILTER_ALL)

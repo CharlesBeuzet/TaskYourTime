@@ -40,7 +40,7 @@ class VisualizeNoteActivity : AppCompatActivity() {
             }
 
             override fun onCancelled(error: DatabaseError) {
-                Log.d(TAG, "Erreur inconnue.")
+                Log.d(TAG, "Unknown error.")
             }
 
         }
@@ -56,7 +56,7 @@ class VisualizeNoteActivity : AppCompatActivity() {
 
         binding.buttonEditNote.setOnClickListener{
             val intentEditNote = Intent(this, EditNoteActivity::class.java)
-            intentEditNote.putExtra("noteClicked",note)
+            intentEditNote.putExtra("noteClicked", note)
             startActivity(intentEditNote)
         }
     }

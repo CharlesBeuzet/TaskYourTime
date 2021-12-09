@@ -35,7 +35,7 @@ class ListNoteAdapter(
         holder.contentNote.text = Html.fromHtml(data.content,Html.FROM_HTML_MODE_LEGACY)
         val idNote = data.id.toString()
         holder.deleteNoteButton.setOnClickListener{
-            Log.d("Asupprimer","Note dont l'id est $idNote a été supprimée")
+            Log.d("DELETE","Note with id $idNote has been deleted")
             noteService.deleteNote(idNote)
         }
     }

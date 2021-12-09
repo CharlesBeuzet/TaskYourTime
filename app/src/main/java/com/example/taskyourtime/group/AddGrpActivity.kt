@@ -1,10 +1,10 @@
 package com.example.taskyourtime.group
 
 import android.os.Bundle
-import android.util.JsonWriter
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.taskyourtime.R
 import com.example.taskyourtime.databinding.AddGrpBinding
 import com.example.taskyourtime.model.User
 import com.example.taskyourtime.services.GroupService
@@ -12,7 +12,6 @@ import com.example.taskyourtime.services.UserService
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
-import com.google.firebase.database.ktx.getValue
 import com.google.firebase.ktx.Firebase
 import org.koin.android.ext.android.inject
 
@@ -31,7 +30,7 @@ class AddGrpActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         binding.buttonAddUser.setOnClickListener{
-            if(binding.userId.text.isNotEmpty()){//le champs d'edit text n'est pas vide
+            if(binding.userId.text.isNotEmpty()){
                 database.child("users").orderByChild("email").equalTo(binding.userId.text.toString()).get().addOnSuccessListener {
                     Log.d("firebase", "Got value ${it.value} from email ${binding.userId.text}")
                     val u = it.value as Map<String?, Any?>
@@ -42,35 +41,32 @@ class AddGrpActivity : AppCompatActivity() {
                     val us = User(firstName.toString(), lastName.toString(), email.toString(),profilePicture.toString())
                     val id = u.keys.first()
                     if(!hashMap.containsKey(id) && it.value != null){
-                        Log.d("un", "${hashMap.toString()}")
+                        Log.d("un", hashMap.toString())
                         hashMap[id.toString()] = "no"
-                        Toast.makeText(this.applicationContext, "utilisateur ajouté", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(this.applicationContext, "User added", Toast.LENGTH_SHORT).show()
                         if(binding.added.text.isEmpty()){
                             Log.d("le prénom", "${us.firstName}")
                             binding.added.text = us.firstName
                         }else{
                             Log.d("le prénom", "${us.firstName}")
-                            var newAdding = binding.added.text.toString() + "\n" + us.firstName
+                            val newAdding = binding.added.text.toString() + "\n" + us.firstName
                             binding.added.text = newAdding
                         }
                         binding.userId.text.clear()
                     }
                     if(hashMap.containsKey(id)){
-                        Log.d("deux", "${hashMap.toString()}")
-                        Toast.makeText(binding.root.context, "Vous avez déjà ajouté cet utilisateur", Toast.LENGTH_SHORT).show()
+                        binding.tvError.text = getString(R.string.redundant_user)
                         binding.userId.text.clear()
                     }
                     if(it.value == null){
-                        Toast.makeText(this.applicationContext, "utilisateur non trouvé", Toast.LENGTH_SHORT).show()
+                        binding.tvError.text = getString(R.string.user_not_find_error)
                         binding.userId.text.clear()
                     }
                 }.addOnFailureListener{
-                    Toast.makeText(this.applicationContext, "utilisateur non trouvé", Toast.LENGTH_SHORT).show()
+                    binding.tvError.text = getString(R.string.user_not_find_error)
                     binding.userId.text.clear()
                     Log.d("firebase", "Error getting data", it)
                 }
-            }else{
-                Toast.makeText(binding.root.context, "Le champs est vide", Toast.LENGTH_SHORT).show()
             }
         }
 
@@ -79,20 +75,19 @@ class AddGrpActivity : AppCompatActivity() {
         }
 
         binding.buttonAddGroup.setOnClickListener{
-            var empty: Boolean = false
+            var empty = false
             if(hashMap.size == 0){
                 empty = true
             }
 
             if(binding.groupName.text.isNotEmpty() && hashMap.size > 0){
                 groupService.createGroup(binding.groupName.text.toString(),Firebase.auth.uid.toString(),hashMap)
-                Toast.makeText(binding.root.context, "Groupe créé", Toast.LENGTH_SHORT).show()
                 finish()
             }else{
                 if(empty){
-                    Toast.makeText(binding.root.context, "Veuillez ajouter des utilisateurs", Toast.LENGTH_SHORT).show()
+                    binding.tvError.text = getString(R.string.no_user_error)
                 }else{
-                    Toast.makeText(binding.root.context, "champs nom du groupe vide.", Toast.LENGTH_SHORT).show()
+                    binding.tvError.text = getString(R.string.group_name_error)
                 }
             }
         }
