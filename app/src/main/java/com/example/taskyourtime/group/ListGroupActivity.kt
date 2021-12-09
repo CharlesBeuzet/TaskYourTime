@@ -121,7 +121,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                 if(index >= 0 && (groups[index].ownerId == Firebase.auth.uid || groups[index].userIdList.contains(Firebase.auth.uid))){
                     val map = snapshot.value as Map<String?, Any?>
                     groups.removeAt(index)
-                    binding?.recyclerView?.adapter?.notifyItemRemoved(index)
+                    binding!!.recyclerView.adapter!!.notifyItemRemoved(index)
                     Toast.makeText(binding?.root?.context, "Groupe supprimé", Toast.LENGTH_SHORT).show()
                 }
             }
