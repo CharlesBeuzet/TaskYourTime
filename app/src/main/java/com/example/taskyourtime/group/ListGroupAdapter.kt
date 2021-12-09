@@ -1,10 +1,14 @@
 package com.example.taskyourtime.group
 
+import android.content.Context
+import android.graphics.Paint
+import android.graphics.drawable.ColorDrawable
 import android.text.Html
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.taskyourtime.R
 import com.example.taskyourtime.databinding.GroupItemCellBinding
 import com.example.taskyourtime.model.Group
 import com.example.taskyourtime.services.GroupService
@@ -23,6 +27,7 @@ class ListGroupAdapter(
     private val groupService: GroupService,
     private val userService: UserService,
     private val listener: OnItemClickListener,
+    private val context: Context?,
 ): RecyclerView.Adapter<ListGroupAdapter.ListGroupHolder>() {
 
     private val database : DatabaseReference = Firebase.database.reference
@@ -53,7 +58,13 @@ class ListGroupAdapter(
 
         if(grp.userIdList[Firebase.auth.uid] == "no"){
             holder.buttonAccept.visibility = View.VISIBLE
+            holder.buttonAccept.paintFlags = Paint.UNDERLINE_TEXT_FLAG
             holder.buttonRefuse.visibility = View.VISIBLE
+            holder.buttonRefuse.paintFlags = Paint.UNDERLINE_TEXT_FLAG
+
+            if (context != null) {
+                holder.sidebarView.background = ColorDrawable(context.getColor(R.color.orange))
+            }
 
             holder.buttonAccept.setOnClickListener{
                 database.child("groups").child(grp.id.toString()).child("userIdList").child(Firebase.auth.uid.toString()).setValue("yes")
@@ -76,6 +87,11 @@ class ListGroupAdapter(
             }
 
         }
+        else {
+            if (context != null) {
+                holder.sidebarView.background = ColorDrawable(context.getColor(R.color.colorPrimaryDark))
+            }
+        }
     }
 
     override fun getItemCount(): Int {
@@ -87,6 +103,7 @@ class ListGroupAdapter(
         val groupOwner = binding.groupOwner
         val buttonAccept = binding.buttonAccept
         val buttonRefuse = binding.buttonRefuse
+        val sidebarView = binding.sidebarView
         val layout = binding.root
 
         init{

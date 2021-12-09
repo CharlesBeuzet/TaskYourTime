@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayLight"
     tools:context=".note.VisualizeNoteActivity">
 
     <LinearLayout
@@ -34,10 +35,12 @@
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1"
-            android:background="@color/orange"
+            android:background="@drawable/ic_red_button"
+            android:textColor="@color/white"
             android:fontFamily="Time New Roman"
-            android:text="Retour" />
+            android:text="@string/back" />
 
         <Button
             android:id="@+id/buttonEditNote"
@@ -46,9 +49,11 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:background="@color/blue_green"
+            style="?android:attr/buttonBarButtonStyle"
+            android:background="@drawable/ic_blue_button"
+            android:textColor="@color/mainTextColor"
             android:fontFamily="Time New Roman"
-            android:text="Éditer la note" />
+            android:text="@string/edit_note" />
 
     </LinearLayout>
 
@@ -56,34 +61,45 @@
         android:id="@+id/visualNoteContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="184dp"
+        android:layout_marginTop="60dp"
         android:background="@color/grayLight"
         android:ems="10"
         android:gravity="start"
-        android:hint="Contenu de votre note"
-        android:inputType="textMultiLine"
+        android:maxHeight="600dp"
         android:padding="10dp"
+        android:text="@string/note_content"
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        tools:ignore="LabelFor,MissingConstraints"
-        tools:layout_editor_absoluteX="-16dp" />
+        android:scrollbars="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visualNoteName" />
 
     <TextView
         android:id="@+id/visualNoteName"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="448dp"
-        android:background="@color/grayLight"
-        android:fontFamily="sans-serif"
-        android:gravity="start"
-        android:hint="titre de la note"
-        android:inputType="text"
+        android:layout_marginTop="16dp"
         android:padding="10dp"
-        android:textAlignment="textStart"
-        android:textColor="@color/black"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        tools:layout_editor_absoluteX="16dp" />
+        android:text="@string/note_title"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:textStyle="italic|bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="0dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/visualNoteName" />
 </androidx.constraintlayout.widget.ConstraintLayout>

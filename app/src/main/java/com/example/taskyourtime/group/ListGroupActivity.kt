@@ -47,7 +47,7 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
     private fun displayGroups(){
         Log.d(TAG, "displayGroups")
         binding?.recyclerView?.layoutManager = LinearLayoutManager(context)
-        binding?.recyclerView?.adapter = ListGroupAdapter(groups, groupService,userService, this)
+        binding?.recyclerView?.adapter = ListGroupAdapter(groups, groupService,userService, this, context)
         binding?.loaderFeed?.isVisible = false
     }
 

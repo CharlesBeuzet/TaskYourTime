@@ -79,33 +79,52 @@
     <string name="item_name">Name</string>
     <string name="todo_name_placeholder">ToDo</string>
     <string name="error_description">Please give a name to your ToDo</string>
+    <string name="todo_image">ToDo Image</string>
 
     <!-- Notes related strings -->
     <string name="note_name_placeholder">Note name</string>
     <string name="note_description_placeholder">Note description</string>
     <string name="delete_note">Delete note</string>
     <string name="add_note">New Note</string>
+    <string name="edit_note">Edit Note</string>
     <string name="note_title">Title</string>
     <string name="note_content">Content of your note</string>
     <string name="bold_symbol">B</string>
     <string name="italic_symbol">I</string>
     <string name="underline_symbol">U</string>
     <string name="nf_symbol">NF</string>
+    <string name="back">Back</string>
 
-    <!--Groups related string -->
-    <string name="add_publication">Post publication</string>
-
-
+    <!--Productive mode related string -->
     <string name="productive_mode">Productive Mode</string>
     <string name="time_remaining">Time Remaining</string>
-    <string name="start">Start</string>
-    <string name="publication_title">publication title</string>
-    <string name="contenu_publication">contenu de la publication</string>
-    <string name="titre_du_contenu_de_la_publication">titre du contenu de la publication</string>
-    <string name="d_but_de_l_v_nement">début de l\'évènement</string>
-    <string name="fin_de_l_v_nement">Fin de l\'évènement</string>
+    <string name="productive_start">Start</string>
+    <string name="productive_cancel">Cancel</string>
+    <string name="time_picker_separator">:</string>
+
+    <!--Groups related string -->
+    <string name="accept">Accept</string>
+    <string name="decline">Decline</string>
+    <string name="group_name">Group Name</string>
+    <string name="group_owner">Group Owner</string>
+    <string name="new_group">New Group</string>
+    <string name="add_publication">Post publication</string>
+    <string name="publication_title">Publication title</string>
+    <string name="publication_content">Publication content</string>
+    <string name="publication_content_title">Publication content title</string>
+    <string name="event_begin">Event begin</string>
+    <string name="event_end">Event end</string>
     <string name="publisher">Publisher</string>
-    <string name="return_to_groups">return to groups</string>
+    <string name="return_to_groups">Back to groups list</string>
     <string name="date_of_publication">date of publication</string>
-    <string name="entrez_l_email_de_l_utilisateur">entrez l\'email de l\'utilisateur</string>
+    <string name="user_email_request">User email</string>
+    <string name="add_user">Add user</string>
+    <string name="create_group">Create</string>
+    <string name="cancel_group_creation">Cancel</string>
+    <string name="publish_date_placeholder">On %1$s</string>
+    <string name="publish_owner_placeholder">Publish by %1$s</string>
+    <string name="add_publication_title">Give a title to your publication</string>
+    <string name="publish">Publish</string>
+    <string name="cancel_publication">Cancel</string>
+    <string name="generic_choice_content">Choice content</string>
 </resources>
