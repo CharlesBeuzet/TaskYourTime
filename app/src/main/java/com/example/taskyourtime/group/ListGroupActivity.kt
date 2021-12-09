@@ -81,6 +81,8 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
             startActivity(intentAddGroup)
         }
 
+        displayGroups()
+
         database = Firebase.database.reference.child("groups")
         val childEventListener = object : ChildEventListener{
             override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -109,7 +111,8 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
                     val groupId = groups[index].id
                     groups[index] = myGroup
                     groups[index].id = groupId
-                    binding!!.recyclerView.adapter!!.notifyItemChanged(index)
+                    binding?.recyclerView?.adapter?.notifyDataSetChanged()
+                    //binding?.recyclerView?.adapter?.notifyItemChanged(index)
                 }
             }
 
@@ -132,7 +135,6 @@ class ListGroupActivity : Fragment(), ListGroupAdapter.OnItemClickListener{
             }
         }
         database.addChildEventListener(childEventListener)
-        displayGroups()
     }
 
     override fun onItemClick(position: Int){
