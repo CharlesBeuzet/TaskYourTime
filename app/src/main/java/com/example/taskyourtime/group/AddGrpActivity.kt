@@ -2,6 +2,7 @@ package com.example.taskyourtime.group
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.taskyourtime.R
@@ -56,14 +57,17 @@ class AddGrpActivity : AppCompatActivity() {
                     }
                     if(hashMap.containsKey(id)){
                         binding.tvError.text = getString(R.string.redundant_user)
+                        binding.tvError.visibility = View.VISIBLE
                         binding.userId.text.clear()
                     }
                     if(it.value == null){
                         binding.tvError.text = getString(R.string.user_not_find_error)
+                        binding.tvError.visibility = View.VISIBLE
                         binding.userId.text.clear()
                     }
                 }.addOnFailureListener{
                     binding.tvError.text = getString(R.string.user_not_find_error)
+                    binding.tvError.visibility = View.VISIBLE
                     binding.userId.text.clear()
                     Log.d("firebase", "Error getting data", it)
                 }
@@ -86,8 +90,12 @@ class AddGrpActivity : AppCompatActivity() {
             }else{
                 if(empty){
                     binding.tvError.text = getString(R.string.no_user_error)
+                    binding.tvError.visibility = View.VISIBLE
+
                 }else{
                     binding.tvError.text = getString(R.string.group_name_error)
+                    binding.tvError.visibility = View.VISIBLE
+
                 }
             }
         }
