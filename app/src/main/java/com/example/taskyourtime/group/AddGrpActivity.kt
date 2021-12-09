@@ -79,12 +79,21 @@ class AddGrpActivity : AppCompatActivity() {
         }
 
         binding.buttonAddGroup.setOnClickListener{
-            if(binding.groupName.text.isNotEmpty()){
+            var empty: Boolean = false
+            if(hashMap.size == 0){
+                empty = true
+            }
+
+            if(binding.groupName.text.isNotEmpty() && hashMap.size > 0){
                 groupService.createGroup(binding.groupName.text.toString(),Firebase.auth.uid.toString(),hashMap)
                 Toast.makeText(binding.root.context, "Groupe créé", Toast.LENGTH_SHORT).show()
                 finish()
             }else{
-                Toast.makeText(binding.root.context, "champs nom du groupe vide.", Toast.LENGTH_SHORT).show()
+                if(empty){
+                    Toast.makeText(binding.root.context, "Veuillez ajouter des utilisateurs", Toast.LENGTH_SHORT).show()
+                }else{
+                    Toast.makeText(binding.root.context, "champs nom du groupe vide.", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
