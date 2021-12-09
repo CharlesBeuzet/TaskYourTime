@@ -85,7 +85,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=":"
+            android:text="@string/time_picker_separator"
             android:textColor="@color/black"
             android:textIsSelectable="true"
             android:textSize="40sp" />
@@ -99,7 +99,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text=":"
+            android:text="@string/time_picker_separator"
             android:textColor="@color/black"
             android:textIsSelectable="true"
             android:textSize="40sp" />
@@ -130,7 +130,7 @@
             android:textColor="@color/red"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/cancel" />
+            android:text="@string/productive_cancel" />
 
         <Button
             android:id="@+id/set_timer"
@@ -140,7 +140,7 @@
             android:layout_marginEnd="20dp"
             android:layout_height="wrap_content"
             style="?android:attr/buttonBarButtonStyle"
-            android:text="@string/start" />
+            android:text="@string/productive_start" />
 
 
     </LinearLayout>

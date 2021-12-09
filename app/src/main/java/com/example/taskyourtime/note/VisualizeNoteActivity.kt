@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Html
+import android.text.method.ScrollingMovementMethod
 import android.util.Log
 import com.example.taskyourtime.databinding.ActivityVisualizeNoteBinding
 import com.example.taskyourtime.model.Note
@@ -34,6 +35,7 @@ class VisualizeNoteActivity : AppCompatActivity() {
                     note.id = snapshot.key!!
                     binding.visualNoteName.text = Html.fromHtml(note.name, Html.FROM_HTML_MODE_LEGACY)
                     binding.visualNoteContent.text = Html.fromHtml(note.content, Html.FROM_HTML_MODE_LEGACY)
+                    binding.visualNoteContent.movementMethod = ScrollingMovementMethod()
                 }
             }
 

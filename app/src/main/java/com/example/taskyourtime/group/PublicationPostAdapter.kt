@@ -1,11 +1,14 @@
 package com.example.taskyourtime.group
 
+import android.content.Context
+import android.graphics.drawable.ColorDrawable
 import android.text.Html
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.example.taskyourtime.R
 import com.example.taskyourtime.databinding.PublicationItemCellBinding
 import com.example.taskyourtime.model.*
 import com.example.taskyourtime.services.GroupService
@@ -17,6 +20,7 @@ private lateinit var binding: PublicationItemCellBinding
 class PublicationPostAdapter(
     private val data: MutableList<Publication>,
     private val groupService: GroupService,
+    private val context: Context?,
     ) : RecyclerView.Adapter<PublicationPostAdapter.PublicationPostHolder>() {
 
     override fun onCreateViewHolder(
@@ -37,6 +41,7 @@ class PublicationPostAdapter(
         val publisher = binding.publisher
         val datePublication = binding.datePublication
         val layout = binding.root
+        val sidebarView = binding.sidebarView
     }
 
     override fun onBindViewHolder(holder: PublicationPostHolder, position: Int) {
@@ -44,8 +49,13 @@ class PublicationPostAdapter(
         val database = Firebase.database.reference
 
         holder.title.text = data.title
-        holder.datePublication.text = "le " + data.datePublication
+        if (context != null) {
+            holder.datePublication.text = String.format(context.getString(R.string.publish_date_placeholder), data.datePublication)
+        }
         if(data.type == "NOTE"){
+            if (context != null) {
+                holder.sidebarView.background = ColorDrawable(context.getColor(R.color.orange))
+            }
             database.child("notes").child(data.noteId.toString()).get().addOnSuccessListener {
                 val map = it.value as Map<String?, Any?>
                 val maNote = Note(map)
@@ -57,6 +67,9 @@ class PublicationPostAdapter(
         }
 
         if(data.type == "CALENDAR"){
+            if (context != null) {
+                holder.sidebarView.background = ColorDrawable(context.getColor(R.color.colorPrimaryDark))
+            }
             database.child("calendarEvents").child(data.calendarEventId.toString()).get().addOnSuccessListener {
                 val map = it.value as Map<String?, Any?>
                 val monEvent = CalendarEvent(map)
@@ -72,6 +85,9 @@ class PublicationPostAdapter(
         }
 
         if(data.type == "TODO"){
+            if (context != null) {
+                holder.sidebarView.background = ColorDrawable(context.getColor(R.color.honey_yellow))
+            }
             database.child("ItemToDoList").child(data.toDoListId.toString()).get().addOnSuccessListener {
                 val map = it.value as Map<String?, Any?>
                 val monItem = ToDoItem(map)
@@ -86,7 +102,9 @@ class PublicationPostAdapter(
             Log.i("firebase", "Got value ${it.value}")
             val uMap = it.value as Map<String?, Any?>
             val user = User(uMap)
-            holder.publisher.text = "publié par : " + user.firstName
+            if (context != null) {
+                holder.publisher.text = String.format(context.getString(R.string.publish_owner_placeholder), user.firstName)
+            }
         }.addOnFailureListener{
             Log.e("firebase", "Error getting data", it)
         }

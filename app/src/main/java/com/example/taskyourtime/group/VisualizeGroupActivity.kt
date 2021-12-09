@@ -1,5 +1,6 @@
 package com.example.taskyourtime.group
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -91,7 +92,7 @@ class VisualizeGroupActivity : AppCompatActivity() {
 
     private fun displayPublications(){
         binding!!.recyclerView.layoutManager = LinearLayoutManager(this)
-        binding!!.recyclerView.adapter = PublicationPostAdapter(publications, groupService)
+        binding!!.recyclerView.adapter = PublicationPostAdapter(publications, groupService, this)
         binding!!.loaderFeed.isVisible = false
     }
 

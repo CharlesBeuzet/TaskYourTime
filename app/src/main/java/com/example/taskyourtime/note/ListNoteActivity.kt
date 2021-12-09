@@ -120,7 +120,7 @@ class ListNoteActivity : Fragment(), ListNoteAdapter.OnItemClickListener {
                 if(index >= 0 && Firebase.auth.uid == notes[index].user_id){
                     val map = snapshot.value as Map<String?, Any?>
                     notes.removeAt(index)
-                    binding?.recyclerView?.adapter?.notifyItemRemoved(index)
+                    binding!!.recyclerView.adapter!!.notifyItemRemoved(index)
                     Toast.makeText(binding!!.root.context, "Note supprimée", Toast.LENGTH_SHORT).show()
                 }
             }

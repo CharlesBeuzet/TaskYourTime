@@ -4,29 +4,50 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/grayLight"
     tools:context=".note.EditNoteActivity">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+    <TextView
+        android:id="@+id/task"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:gravity="center_vertical"
-        android:orientation="vertical"
+        android:layout_marginTop="16dp"
+        android:padding="10dp"
+        android:text="@string/edit_note"
+        android:textAlignment="center"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="25sp"
+        android:textStyle="italic|bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toTopOf="parent" />
 
-    </LinearLayout>
+    <View
+        android:id="@+id/divider"
+        android:layout_width="100dp"
+        android:layout_height="1dp"
+        android:layout_marginTop="0dp"
+        android:background="?android:attr/listDivider"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task" />
+
 
     <LinearLayout
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginTop="50dp"
         android:orientation="horizontal"
+        style="?android:attr/buttonBarButtonStyle"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNoteContent"
+        app:layout_constraintVertical_bias="0.8">
 
         <Button
             android:id="@+id/buttonEditCancel"
@@ -34,10 +55,12 @@
             android:layout_height="35dp"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
+            style="?android:attr/buttonBarButtonStyle"
             android:layout_weight="1"
-            android:background="@color/orange"
+            android:background="@drawable/ic_red_button"
+            android:textColor="@color/white"
             android:fontFamily="Time New Roman"
-            android:text="Annuler l'édition" />
+            android:text="@string/cancel" />
 
         <Button
             android:id="@+id/buttonEditNote"
@@ -46,74 +69,97 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:background="@color/blue_green"
+            style="?android:attr/buttonBarButtonStyle"
+            android:background="@drawable/ic_blue_button"
+            android:textColor="@color/mainTextColor"
             android:fontFamily="Time New Roman"
-            android:text="Confirmer l'édition" />
+            android:text="@string/confirm" />
 
     </LinearLayout>
 
     <EditText
         android:id="@+id/editNoteContent"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
-        android:layout_marginBottom="148dp"
-        android:background="@color/grayLight"
+        android:layout_height="wrap_content"
+        android:height="300dp"
+        android:autofillHints="@string/note_title"
+        android:background="@color/white"
+        android:backgroundTint="@color/white"
         android:ems="10"
         android:gravity="start"
-        android:hint="Écrivez le contenu de votre note"
-        android:inputType="textMultiLine"
+        android:layout_marginTop="5dp"
+        android:hint="@string/note_content"
+        android:textColorHint="@color/gray"
         android:padding="10dp"
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
         tools:ignore="LabelFor,MissingConstraints"
-        tools:layout_editor_absoluteX="-1dp" />
+        tools:layout_editor_absoluteX="0dp"
+        android:inputType="textMultiLine" />
 
     <EditText
         android:id="@+id/editNoteName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="448dp"
-        android:background="@color/grayLight"
-        android:fontFamily="sans-serif"
+        android:layout_marginTop="60dp"
+        android:autofillHints="@string/note_title"
+        android:background="@drawable/rounded_border"
+        android:backgroundTint="@color/white"
+        android:ems="18"
         android:gravity="start"
-        android:hint="titre de la note"
-        android:inputType="text"
+        android:hint="@string/note_title"
+        android:inputType="textMultiLine"
         android:padding="10dp"
         android:textAlignment="textStart"
         android:textColor="@color/black"
+        android:textColorHint="@color/gray"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/linearLayout"
-        tools:layout_editor_absoluteX="16dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/task" />
 
     <LinearLayout
+        android:id="@+id/linearLayout2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginTop="100dp"
+        android:background="@drawable/ic_white_button"
         android:orientation="horizontal"
-        app:layout_constraintBottom_toTopOf="@+id/editNoteContent"
+        style="?android:attr/buttonBarButtonStyle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent">
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/editNoteName">
 
         <Button
             android:id="@+id/boldButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:background="@drawable/ic_white_button"
+            android:textColor="@color/orange"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="B" />
+            android:textSize="19sp"
+            android:textStyle="bold"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/bold_symbol" />
 
         <Button
             android:id="@+id/italicButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:background="@color/white"
+            android:textColor="@color/orange"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="I" />
+            android:textStyle="italic"
+            android:textSize="19sp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/italic_symbol" />
 
         <Button
             android:id="@+id/underlinedButton"
@@ -122,16 +168,24 @@
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="U" />
+            android:background="@color/white"
+            android:textColor="@color/orange"
+            android:textSize="19sp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/underline_symbol" />
 
         <Button
             android:id="@+id/noFormatButton"
             android:layout_width="wrap_content"
             android:layout_height="50dp"
+            android:background="@color/white"
+            android:textColor="@color/orange"
             android:layout_marginStart="20dp"
             android:layout_marginEnd="20dp"
             android:layout_weight="1"
-            android:text="NF" />
+            android:textSize="19sp"
+            style="?android:attr/buttonBarButtonStyle"
+            android:text="@string/nf_symbol" />
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -23,7 +22,7 @@
             android:id="@+id/sidebarView"
             android:layout_width="10dp"
             android:layout_height="match_parent"
-            android:background="@color/honey_yellow"
+            android:background="@color/green"
             />
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -65,7 +64,7 @@
                 android:background="@color/grayLight"
                 android:gravity="start"
                 android:padding="2dp"
-                android:text="@string/titre_du_contenu_de_la_publication"
+                android:text="@string/publication_content_title"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -83,7 +82,7 @@
                 android:background="@color/grayLight"
                 android:gravity="start"
                 android:padding="2dp"
-                android:text="@string/contenu_publication"
+                android:text="@string/publication_content"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -101,7 +100,7 @@
                 android:background="@color/grayLight"
                 android:gravity="start"
                 android:padding="2dp"
-                android:text="@string/d_but_de_l_v_nement"
+                android:text="@string/event_begin"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="18sp"
@@ -120,7 +119,7 @@
                 android:background="@color/grayLight"
                 android:gravity="start"
                 android:padding="2dp"
-                android:text="@string/fin_de_l_v_nement"
+                android:text="@string/event_end"
                 android:textAlignment="textStart"
                 android:textColor="@color/black"
                 android:textSize="18sp"

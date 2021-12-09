@@ -28,17 +28,17 @@ class ChoiceAdapter(
         val c: Choice = choices[position]
         if(c.type == "NOTE"){
             holder.genericContent.text = c.name
-            holder.sidebarView.background = ColorDrawable(context!!.getColor(R.color.blue_green))
+            holder.sidebarView.background = ColorDrawable(context!!.getColor(R.color.orange))
         }
 
         if(c.type == "CALENDAR"){
             holder.genericContent.text = c.name
-            holder.sidebarView.background = ColorDrawable(context!!.getColor(R.color.honey_yellow))
+            holder.sidebarView.background = ColorDrawable(context!!.getColor(R.color.colorPrimaryDark))
         }
 
         if(c.type == "TODO"){
             holder.genericContent.text = c.content
-            holder.sidebarView.background = ColorDrawable(context!!.getColor(R.color.purple_200))
+            holder.sidebarView.background = ColorDrawable(context!!.getColor(R.color.honey_yellow))
         }
 
         holder.checkbox.setOnClickListener{
